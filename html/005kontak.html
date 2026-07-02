@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rukrea</title>
+	<style>
+		.bg {
+			max-width: 840px; /* Lebar maksimal halaman */
+			margin: 0 auto;
+			width: 100%;
+			height: 472px;
+			position: absolute;
+			background-color: #222222;
+			background-size: 100%;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.btn {
+			position: absolute;
+			cursor: pointer;
+			touch-action: none;
+			outline = none;
+			width: 120px; 
+			height: 35px; 
+			background-color: #ff0000;
+			opacity: 0;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.myimg {
+			position: absolute;
+			cursor: pointer;
+			touch-action: none;
+			outline = none;
+			width: 10px; 
+			height: 10px; 
+			/*background-color: #ff0000;*/
+			/*opacity : 0.5;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+	</style>
+</head>
+<body>
+	
+	<div class ="bg" id="bg">
+		<div class="btn" id="btn1"></div>
+		<div class="btn" id="btn2"></div>
+		<div class="btn" id="btn3"></div>
+		<div class="btn" id="btn4"></div>
+		<div class="btn" id="btn5"></div>
+	</div>
+	<script>
+		const myBG = document.getElementById('bg');
+		const btn1 = document.getElementById('btn1');
+		const btn2 = document.getElementById('btn2');
+		const btn3 = document.getElementById('btn3');
+		const btn4 = document.getElementById('btn4');
+		const btn5 = document.getElementById('btn5');
+		bg.style.backgroundImage = "url(../img/hal5.png)";
+		let lebarJendela = window.innerWidth;
+		let tinggiJendela = window.innerHeight;
+		var scl = 1;
+		function XYbenda(){
+			lebarJendela = window.innerWidth;
+			tinggiJendela = window.innerHeight;
+			myBG.x = window.scrollX+(lebarJendela-840*scl)/2;
+			myBG.y = window.scrollY+(tinggiJendela-472*scl)/2;
+			myBG.style.left = ''+(myBG.x)+'px';
+			myBG.style.top = ''+(myBG.y)+'px';
+			btn1.style.left = ''+(140)+'px';
+			btn1.style.top = ''+(20)+'px';
+			btn2.style.left = ''+(280)+'px';
+			btn2.style.top = ''+(20)+'px';
+			btn3.style.left = ''+(420)+'px';
+			btn3.style.top = ''+(20)+'px';
+			btn4.style.left = ''+(560)+'px';
+			btn4.style.top = ''+(20)+'px';
+			btn5.style.left = ''+(700)+'px';
+			btn5.style.top = ''+(20)+'px';
+		}
+		
+		XYbenda(); // mengatur posisi x dan y
+		btn1.addEventListener('click', () => {location.href = "001beranda.html";});
+		btn2.addEventListener('click', () => {location.href = "002interaktif.html";});
+		btn3.addEventListener('click', () => {location.href = "003game.html";});
+		btn4.addEventListener('click', () => {location.href = "004ilustrasi.html";});
+		btn5.addEventListener('click', () => {location.href = "005kontak.html";});
+		
+	</script>
+	
+	<script>
+	</script>
+	<script>
+		
+		var fixzoom,fixscale;
+		document.body.style.backgroundColor = "black";
+		window.addEventListener('resize', () => {
+			ZoomAll();
+		});
+		function ZoomAll(){
+			let lebarJendela = window.innerWidth;
+			let tinggiJendela = window.innerHeight;
+			var xscale = lebarJendela/840;
+			var yscale = tinggiJendela/472;
+			scl = 0.95*Math.min(xscale,yscale);
+			fixscale = scl;
+			fixzoom = scl*100;
+			document.body.style.zoom = ""+fixzoom+"%";
+			XYbenda();
+		}
+		
+		ZoomAll();
+		function handleClick(event) {
+			console.log("handleClick");
+		}
+		myBG.addEventListener('click', handleClick);
+		setTimeout(() => {
+			console.log("handleClick")
+			ZoomAll();
+			myBG.removeEventListener('click', handleClick);
+		}, 100);
+		
+	</script>
+</body>
+</html>

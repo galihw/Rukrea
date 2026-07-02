@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rukrea</title>
+	<style>
+		.bg {
+			max-width: 840px; /* Lebar maksimal halaman */
+			margin: 0 auto;
+			width: 100%;
+			height: 472px;
+			position: absolute;
+			background-color: #222222;
+			background-size: 100%;
+			user-select: none;
+			-webkit-user-select: none;
+            overflow: hidden;
+		}
+		.btn {
+			position: absolute;
+			cursor: pointer;
+			touch-action: none;
+			outline = none;
+			width: 120px; 
+			height: 35px; 
+			background-color: #ff0000;
+			opacity: 0;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.btnLR {
+			position: absolute;
+			cursor: pointer;
+			touch-action: none;
+			outline = none;
+			width: 37px; 
+			height: 37px; 
+			background-color: #ffffff;
+			/*opacity: 0;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.mcimg {
+			position: absolute;
+			cursor: default;
+			touch-action: none;
+			outline = none;
+			width: 550px; 
+			height: 309.38px; 
+			background-size: 100%;
+			/*background-color: #ff0000;*/
+			/*opacity : 0.5;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.mclink {
+			position: absolute;
+			cursor: pointer;
+			touch-action: none;
+			outline = none;
+			width: 170px; 
+			height: 20px; 
+			color: blue;
+			background-color: #ffffff;
+			/*opacity : 0.5;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.crop{
+			position: absolute;
+			width: 550px; 
+			height: 309.38px;
+			background-color: teal;
+			/* Membuat bentuk segi enam menggunakan persentase koordinat polygon */
+			clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+		}
+	</style>
+</head>
+<body>
+	
+	<div class ="bg" id="bg">
+		<div class="btn" id="btn1"></div>
+		<div class="btn" id="btn2"></div>
+		<div class="btn" id="btn3"></div>
+		<div class="btn" id="btn4"></div>
+		<div class="btn" id="btn5"></div>
+		<div class="crop" id="crop">
+			<div class="mcimg" id="mcimgA"></div>
+			<div class="mcimg" id="mcimgB"></div>
+		</div>
+		<div class="mclink" id="mclink"></div>
+		<div class="btnLR" id="btnki"></div>
+		<div class="btnLR" id="btnka"></div>
+	</div>
+	<script>
+		const myBG = document.getElementById('bg');
+		const btn1 = document.getElementById('btn1');
+		const btn2 = document.getElementById('btn2');
+		const btn3 = document.getElementById('btn3');
+		const btn4 = document.getElementById('btn4');
+		const btn5 = document.getElementById('btn5');
+		const mcimgA = document.getElementById('mcimgA');
+		const mcimgB = document.getElementById('mcimgB');
+		const mclink = document.getElementById('mclink');
+		const crop = document.getElementById('crop');
+		const btnki = document.getElementById('btnki');
+		const btnka = document.getElementById('btnka');
+		bg.style.backgroundImage = "url(../img/hal2.png)";
+		btnki.style.backgroundImage = "url(../img/btnkiri.png)";
+		btnka.style.backgroundImage = "url(../img/btnkanan.png)";
+		let lebarJendela = window.innerWidth;
+		let tinggiJendela = window.innerHeight;
+		var scl = 1;
+		function XYbenda(){
+			lebarJendela = window.innerWidth;
+			tinggiJendela = window.innerHeight;
+			myBG.x = window.scrollX+(lebarJendela-840*scl)/2;
+			myBG.y = window.scrollY+(tinggiJendela-472*scl)/2;
+			myBG.style.left = ''+(myBG.x)+'px';
+			myBG.style.top = ''+(myBG.y)+'px';
+			btn1.style.left = ''+(140)+'px';
+			btn1.style.top = ''+(20)+'px';
+			btn2.style.left = ''+(280)+'px';
+			btn2.style.top = ''+(20)+'px';
+			btn3.style.left = ''+(420)+'px';
+			btn3.style.top = ''+(20)+'px';
+			btn4.style.left = ''+(560)+'px';
+			btn4.style.top = ''+(20)+'px';
+			btn5.style.left = ''+(700)+'px';
+			btn5.style.top = ''+(20)+'px';
+			crop.style.left = ''+(20)+'px';
+			crop.style.top = ''+(140)+'px';
+			mcimgA.style.left = ''+(0)+'px';
+			mcimgA.style.top = ''+(0)+'px';
+			mcimgB.style.left = ''+(0)+'px';
+			mcimgB.style.top = ''+(0)+'px';
+			mclink.style.left = ''+(610)+'px';
+			mclink.style.top = ''+(380)+'px';
+			btnki.style.left = ''+(245)+'px';
+			btnki.style.top = ''+(380)+'px';
+			btnka.style.left = ''+(310)+'px';
+			btnka.style.top = ''+(380)+'px';
+		}
+		var arimg = [
+					 ["../img/thumbnailBTP.png","http://galihw.github.io/BTP/index.html"],
+					 ["../img/thumbnailKendaliRobot.png","http://galihw.github.io/KendaliRobot/index.html"],
+					 ["../img/thumbnailShapeWordArt.png","http://galihw.github.io/ShapeWordArt/index.html"],
+					 ["../img/thumbnailKenaliSampah.png","http://galihw.github.io/KenaliSampah/index.html"]
+					]
+
+	</script>
+	<script>
+		//animasi in out
+		var n1 = 0;
+		var n2 = 0;
+		mcimgA.style.backgroundImage = "url("+arimg[n1][0]+")";
+		mcimgB.style.backgroundImage = "url("+arimg[n2][0]+")";
+		mclink.innerHTML = "Link"
+		mclink.addEventListener('click', () => {window.open(arimg[n2][1], "WindowBaru")});
+		let startTime = null;
+		const duration = 500; // Durasi 0.5 detik dalam milidetik
+		function placemc(mc,xx,yy){
+			mc.x = xx;
+			mc.y = yy;
+			mc.style.left = ''+(mc.x)+'px';
+			mc.style.top = ''+(mc.y)+'px';
+		}
+		function mcAnimate(mc,x0,y0,xmax,ymax){
+			function animate(timestamp) {
+				if (!startTime) startTime = timestamp;
+				const elapsed = timestamp - startTime;
+				//const progress = Math.min(elapsed / duration, 1); // aslinya begini
+				var sdt = Math.min(elapsed / duration * 90 , 90); 	// 90 derajat; 
+				const progress = Math.sin(sdt*Math.PI/180);			// pakai melambat
+				
+				const element = mc;
+				var xfix = progress * xmax;
+				var yfix = progress * ymax;
+				element.style.transform = `translateX(${xfix}px) translateY(${yfix}px)`;
+				if (elapsed < duration) {
+					requestAnimationFrame(animate);
+				} else {
+					//console.log('Animasi selesai.');
+				}
+			}
+			mc.style.left = x0+'px';
+			mc.style.top = y0+'px';
+			startTime = null; // perlu di null kan lagi setiap mau di animasi kan
+			requestAnimationFrame(animate);
+		}
+		
+	</script>
+	<script>
+		function KlikKi(){ //tombol kiri // animasi masuk dari kiri // berarti yang masuk adalah n2
+			//mcAnimate(mc,x0,y0,xmax,ymax);
+			mcAnimate(mcimgA,0,0,550,0);//
+			mcAnimate(mcimgB,-550,0,550,0);
+			n1=n2;
+			n2--;if(n2<0) n2=3;
+			mcimgA.style.backgroundImage = "url(../img/"+arimg[n1][0]+")";
+			mcimgB.style.backgroundImage = "url(../img/"+arimg[n2][0]+")";
+			mclink.innerHTML = "Link"
+			mclink.addEventListener('click', () => {window.open(arimg[n2][1], "WindowBaru")});
+		}
+		function KlikKa(){//tombol kanan // animasi masuk dari kanan // berarti yang masuk adalah n2
+			//mcAnimate(mc,x0,y0,xmax,ymax);
+			mcAnimate(mcimgA,0,0,-550,0);
+			mcAnimate(mcimgB,550,0,-550,0);
+			n1=n2;
+			n2++;if(n2>3) n2=0;
+			mcimgA.style.backgroundImage = "url(../img/"+arimg[n1][0]+")";
+			mcimgB.style.backgroundImage = "url(../img/"+arimg[n2][0]+")";
+			mclink.innerHTML = "Link"
+			mclink.addEventListener('click', () => {window.open(arimg[n2][1], "WindowBaru")});
+		}
+		
+		btnki.addEventListener('click', KlikKi);
+		btnka.addEventListener('click', KlikKa);
+		
+	</script>		
+	<script>
+		XYbenda(); // mengatur posisi x dan y
+		btn1.addEventListener('click', () => {location.href = "001beranda.html";});
+		btn2.addEventListener('click', () => {location.href = "002interaktif.html";});
+		btn3.addEventListener('click', () => {location.href = "003game.html";});
+		btn4.addEventListener('click', () => {location.href = "004ilustrasi.html";});
+		btn5.addEventListener('click', () => {location.href = "005kontak.html";});
+		
+	</script>
+	
+	<script>
+	</script>
+	<script>
+		
+		var fixzoom,fixscale;
+		document.body.style.backgroundColor = "black";
+		window.addEventListener('resize', () => {
+			ZoomAll();
+		});
+		function ZoomAll(){
+			let lebarJendela = window.innerWidth;
+			let tinggiJendela = window.innerHeight;
+			var xscale = lebarJendela/840;
+			var yscale = tinggiJendela/472;
+			scl = 0.95*Math.min(xscale,yscale);
+			fixscale = scl;
+			fixzoom = scl*100;
+			document.body.style.zoom = ""+fixzoom+"%";
+			XYbenda();
+		}
+		
+		ZoomAll();
+		function handleClick(event) {
+			console.log("handleClick");
+		}
+		myBG.addEventListener('click', handleClick);
+		setTimeout(() => {
+			console.log("handleClick")
+			ZoomAll();
+			myBG.removeEventListener('click', handleClick);
+		}, 100);
+		
+	</script>
+</body>
+</html>

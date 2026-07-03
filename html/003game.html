@@ -15,30 +15,94 @@
 			background-size: 100%;
 			user-select: none;
 			-webkit-user-select: none;
+            overflow: hidden;
 		}
 		.btn {
 			position: absolute;
 			cursor: pointer;
 			touch-action: none;
-			outline = none;
-			width: 120px; 
-			height: 35px; 
+			outline: none;
+			width: 120px;
+			height: 35px;
 			background-color: #ff0000;
 			opacity: 0;
 			user-select: none;
 			-webkit-user-select: none;
 		}
-		.myimg {
+		.btnLR {
 			position: absolute;
 			cursor: pointer;
 			touch-action: none;
-			outline = none;
-			width: 10px; 
-			height: 10px; 
+			outline: none;
+			width: 37px;
+			height: 37px;
+			background-color: #ffffff;
+			/*opacity: 0;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.mcimg {
+			position: absolute;
+			cursor: default;
+			touch-action: none;
+			outline: none;
+			width: 550px;
+			height: 309.38px;
+			background-size: 100%;
 			/*background-color: #ff0000;*/
 			/*opacity : 0.5;*/
 			user-select: none;
 			-webkit-user-select: none;
+		}
+		.mclink {
+			position: absolute;
+			cursor: pointer;
+			touch-action: none;
+			outline: none;
+			width: 170px;
+			height: 20px;
+			color: blue;
+			background-color: #ffffff;
+			/*opacity : 0.5;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.crop{
+			position: absolute;
+			width: 550px;
+			height: 309.38px;
+			background-color: teal;
+			/* Membuat bentuk segi enam menggunakan persentase koordinat polygon */
+			clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+		}
+		/* Mengatur kotak hitam agar menutupi seluruh layar */
+		.overlay-hitam {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100vw;
+			height: 100vh;
+			background-color: #000000;
+			z-index: 9999; /* Pastikan berada di lapisan paling depan */
+			
+			/* Memanggil animasi */
+			animation: fadeOut 0.5s ease forwards;
+		}
+
+		/* Konfigurasi animasi menghilang */
+		@keyframes fadeOut {
+			0% {
+				opacity: 1;
+				visibility: visible;
+			}
+			99% {
+				opacity: 0;
+				visibility: visible;
+			}
+			100% {
+				opacity: 0;
+				visibility: hidden; /* Hilang total dari halaman */
+			}
 		}
 	</style>
 </head>
@@ -50,6 +114,14 @@
 		<div class="btn" id="btn3"></div>
 		<div class="btn" id="btn4"></div>
 		<div class="btn" id="btn5"></div>
+		<div class="crop" id="crop">
+			<div class="mcimg" id="mcimgA"></div>
+			<div class="mcimg" id="mcimgB"></div>
+		</div>
+		<div class="mclink" id="mclink"></div>
+		<div class="btnLR" id="btnki"></div>
+		<div class="btnLR" id="btnka"></div>
+		<div class="overlay-hitam" id="fadeblack"></div>
 	</div>
 	<script>
 		const myBG = document.getElementById('bg');
@@ -58,7 +130,15 @@
 		const btn3 = document.getElementById('btn3');
 		const btn4 = document.getElementById('btn4');
 		const btn5 = document.getElementById('btn5');
+		const mcimgA = document.getElementById('mcimgA');
+		const mcimgB = document.getElementById('mcimgB');
+		const mclink = document.getElementById('mclink');
+		const crop = document.getElementById('crop');
+		const btnki = document.getElementById('btnki');
+		const btnka = document.getElementById('btnka');
 		bg.style.backgroundImage = "url(../img/hal3.png)";
+		btnki.style.backgroundImage = "url(../img/btnkiri.png)";
+		btnka.style.backgroundImage = "url(../img/btnkanan.png)";
 		let lebarJendela = window.innerWidth;
 		let tinggiJendela = window.innerHeight;
 		var scl = 1;
@@ -79,8 +159,96 @@
 			btn4.style.top = ''+(20)+'px';
 			btn5.style.left = ''+(700)+'px';
 			btn5.style.top = ''+(20)+'px';
+			crop.style.left = ''+(20)+'px';
+			crop.style.top = ''+(140)+'px';
+			mcimgA.style.left = ''+(0)+'px';
+			mcimgA.style.top = ''+(0)+'px';
+			mcimgB.style.left = ''+(0)+'px';
+			mcimgB.style.top = ''+(0)+'px';
+			mclink.style.left = ''+(610)+'px';
+			mclink.style.top = ''+(380)+'px';
+			btnki.style.left = ''+(245)+'px';
+			btnki.style.top = ''+(380)+'px';
+			btnka.style.left = ''+(310)+'px';
+			btnka.style.top = ''+(380)+'px';
+		}
+		var arimg = [
+					 ["../img/game01.png","https://wallobor.github.io/JuraganIkan/"],
+					 ["../img/game02.png","https://wallobor.github.io/JuraganIkan/"]
+					]
+
+	</script>
+	<script>
+		//animasi in out
+		var n1 = 0;
+		var n2 = 0;
+		for(var i=0;i<2;i++){
+			mcimgB.style.backgroundImage = "url("+arimg[1-i][0]+")";
+		}
+		mclink.innerHTML = "Link"
+		mclink.addEventListener('click', () => {window.open(arimg[n2][1], "WindowBaru")});
+		let startTime = null;
+		const duration = 500; // Durasi 0.5 detik dalam milidetik
+		function placemc(mc,xx,yy){
+			mc.x = xx;
+			mc.y = yy;
+			mc.style.left = ''+(mc.x)+'px';
+			mc.style.top = ''+(mc.y)+'px';
+		}
+		function mcAnimate(mc,x0,y0,xmax,ymax){
+			function animate(timestamp) {
+				if (!startTime) startTime = timestamp;
+				const elapsed = timestamp - startTime;
+				//const progress = Math.min(elapsed / duration, 1); // aslinya begini
+				var sdt = Math.min(elapsed / duration * 90 , 90); 	// 90 derajat; 
+				const progress = Math.sin(sdt*Math.PI/180);			// pakai melambat
+				
+				const element = mc;
+				var xfix = progress * xmax;
+				var yfix = progress * ymax;
+				element.style.transform = `translateX(${xfix}px) translateY(${yfix}px)`;
+				if (elapsed < duration) {
+					requestAnimationFrame(animate);
+				} else {
+					//console.log('Animasi selesai.');
+				}
+			}
+			mc.style.left = x0+'px';
+			mc.style.top = y0+'px';
+			startTime = null; // perlu di null kan lagi setiap mau di animasi kan
+			requestAnimationFrame(animate);
 		}
 		
+	</script>
+	<script>
+		function KlikKi(){ //tombol kiri // animasi masuk dari kiri // berarti yang masuk adalah n2
+			//mcAnimate(mc,x0,y0,xmax,ymax);
+			mcAnimate(mcimgA,0,0,550,0);//
+			mcAnimate(mcimgB,-550,0,550,0);
+			n1=n2;
+			n2--;if(n2<0) n2=1;
+			mcimgA.style.backgroundImage = "url(../img/"+arimg[n1][0]+")";
+			mcimgB.style.backgroundImage = "url(../img/"+arimg[n2][0]+")";
+			mclink.innerHTML = "Link"
+			mclink.addEventListener('click', () => {window.open(arimg[n2][1], "WindowBaru")});
+		}
+		function KlikKa(){//tombol kanan // animasi masuk dari kanan // berarti yang masuk adalah n2
+			//mcAnimate(mc,x0,y0,xmax,ymax);
+			mcAnimate(mcimgA,0,0,-550,0);
+			mcAnimate(mcimgB,550,0,-550,0);
+			n1=n2;
+			n2++;if(n2>1) n2=0;
+			mcimgA.style.backgroundImage = "url(../img/"+arimg[n1][0]+")";
+			mcimgB.style.backgroundImage = "url(../img/"+arimg[n2][0]+")";
+			mclink.innerHTML = "Link"
+			mclink.addEventListener('click', () => {window.open(arimg[n2][1], "WindowBaru")});
+		}
+		
+		btnki.addEventListener('click', KlikKi);
+		btnka.addEventListener('click', KlikKa);
+		
+	</script>		
+	<script>
 		XYbenda(); // mengatur posisi x dan y
 		btn1.addEventListener('click', () => {location.href = "001beranda.html";});
 		btn2.addEventListener('click', () => {location.href = "002interaktif.html";});

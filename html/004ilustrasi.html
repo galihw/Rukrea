@@ -75,6 +75,35 @@
 			/* Membuat bentuk segi enam menggunakan persentase koordinat polygon */
 			clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 		}
+		/* Mengatur kotak hitam agar menutupi seluruh layar */
+		.overlay-hitam {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100vw;
+			height: 100vh;
+			background-color: #000000;
+			z-index: 9999; /* Pastikan berada di lapisan paling depan */
+			
+			/* Memanggil animasi */
+			animation: fadeOut 0.5s ease forwards;
+		}
+
+		/* Konfigurasi animasi menghilang */
+		@keyframes fadeOut {
+			0% {
+				opacity: 1;
+				visibility: visible;
+			}
+			99% {
+				opacity: 0;
+				visibility: visible;
+			}
+			100% {
+				opacity: 0;
+				visibility: hidden; /* Hilang total dari halaman */
+			}
+		}
 	</style>
 </head>
 <body>
@@ -92,6 +121,7 @@
 		<div class="mclink" id="mclink"></div>
 		<div class="btnLR" id="btnki"></div>
 		<div class="btnLR" id="btnka"></div>
+		<div class="overlay-hitam" id="fadeblack"></div>
 	</div>
 	<script>
 		const myBG = document.getElementById('bg');
@@ -164,8 +194,8 @@
 		//animasi in out
 		var n1 = 0;
 		var n2 = 0;
-		for(var i=0;i<4;i++){
-			mcimgB.style.backgroundImage = "url("+arimg[3-i][0]+")";
+		for(var i=0;i<14;i++){
+			mcimgB.style.backgroundImage = "url("+arimg[13-i][0]+")";
 		}
 		mclink.innerHTML = arimg[n2][1];
 		let startTime = null;

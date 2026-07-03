@@ -61,7 +61,22 @@
 			outline: none;
 			width: 170px;
 			height: 20px;
-			color: blue;
+			color: #A7C7E7;
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			background-color: #ffffff;
+			/*opacity : 0.5;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.mcinfo {
+			position: absolute;
+			cursor: default;
+			touch-action: none;
+			outline: none;
+			width: 170px;
+			height: 145px;
+			color: #A7C7E7;
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 			background-color: #ffffff;
 			/*opacity : 0.5;*/
 			user-select: none;
@@ -119,6 +134,7 @@
 			<div class="mcimg" id="mcimgB"></div>
 		</div>
 		<div class="mclink" id="mclink"></div>
+		<div class="mcinfo" id="mcinfo"></div>
 		<div class="btnLR" id="btnki"></div>
 		<div class="btnLR" id="btnka"></div>
 		<div class="overlay-hitam" id="fadeblack"></div>
@@ -133,6 +149,7 @@
 		const mcimgA = document.getElementById('mcimgA');
 		const mcimgB = document.getElementById('mcimgB');
 		const mclink = document.getElementById('mclink');
+		const mcinfo = document.getElementById('mcinfo');
 		const crop = document.getElementById('crop');
 		const btnki = document.getElementById('btnki');
 		const btnka = document.getElementById('btnka');
@@ -167,14 +184,16 @@
 			mcimgB.style.top = ''+(0)+'px';
 			mclink.style.left = ''+(610)+'px';
 			mclink.style.top = ''+(380)+'px';
+			mcinfo.style.left = ''+(610)+'px';
+			mcinfo.style.top = ''+(185)+'px';
 			btnki.style.left = ''+(245)+'px';
 			btnki.style.top = ''+(380)+'px';
 			btnka.style.left = ''+(310)+'px';
 			btnka.style.top = ''+(380)+'px';
 		}
 		var arimg = [
-					 ["../img/game01.png","https://wallobor.github.io/JuraganIkan/"],
-					 ["../img/game02.png","https://wallobor.github.io/JuraganIkan/"]
+					 ["../img/game01.png","https://wallobor.github.io/JuraganIkan/","Permainan memancing ikan dan menjualnya. Jadilah Jutawan dengan memancing."],
+					 ["../img/game02.png","https://wallobor.github.io/JuraganIkan/","Permainan memancing ikan dan menjualnya. Jadilah Jutawan dengan memancing."]
 					]
 
 	</script>
@@ -187,6 +206,8 @@
 		}
 		mclink.innerHTML = "Link"
 		mclink.addEventListener('click', () => {window.open(arimg[n2][1], "WindowBaru")});
+		mcinfo.innerHTML = arimg[n2][2];
+		
 		let startTime = null;
 		const duration = 500; // Durasi 0.5 detik dalam milidetik
 		function placemc(mc,xx,yy){
@@ -231,6 +252,7 @@
 			mcimgB.style.backgroundImage = "url(../img/"+arimg[n2][0]+")";
 			mclink.innerHTML = "Link"
 			mclink.addEventListener('click', () => {window.open(arimg[n2][1], "WindowBaru")});
+			mcinfo.innerHTML = arimg[n2][2];
 		}
 		function KlikKa(){//tombol kanan // animasi masuk dari kanan // berarti yang masuk adalah n2
 			//mcAnimate(mc,x0,y0,xmax,ymax);
@@ -242,6 +264,7 @@
 			mcimgB.style.backgroundImage = "url(../img/"+arimg[n2][0]+")";
 			mclink.innerHTML = "Link"
 			mclink.addEventListener('click', () => {window.open(arimg[n2][1], "WindowBaru")});
+			mcinfo.innerHTML = arimg[n2][2];
 		}
 		
 		btnki.addEventListener('click', KlikKi);

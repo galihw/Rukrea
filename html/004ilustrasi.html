@@ -54,14 +54,15 @@
 			user-select: none;
 			-webkit-user-select: none;
 		}
-		.mclink {
+		.mcinfo {
 			position: absolute;
-			cursor: pointer;
+			cursor: default;
 			touch-action: none;
 			outline: none;
 			width: 170px;
-			height: 20px;
-			color: blue;
+			height: 145px;
+			color: #A7C7E7;
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 			background-color: #ffffff;
 			/*opacity : 0.5;*/
 			user-select: none;
@@ -118,7 +119,7 @@
 			<div class="mcimg" id="mcimgA"></div>
 			<div class="mcimg" id="mcimgB"></div>
 		</div>
-		<div class="mclink" id="mclink"></div>
+		<div class="mcinfo" id="mcinfo"></div>
 		<div class="btnLR" id="btnki"></div>
 		<div class="btnLR" id="btnka"></div>
 		<div class="overlay-hitam" id="fadeblack"></div>
@@ -132,7 +133,7 @@
 		const btn5 = document.getElementById('btn5');
 		const mcimgA = document.getElementById('mcimgA');
 		const mcimgB = document.getElementById('mcimgB');
-		const mclink = document.getElementById('mclink');
+		const mcinfo = document.getElementById('mcinfo');
 		const crop = document.getElementById('crop');
 		const btnki = document.getElementById('btnki');
 		const btnka = document.getElementById('btnka');
@@ -165,15 +166,15 @@
 			mcimgA.style.top = ''+(0)+'px';
 			mcimgB.style.left = ''+(0)+'px';
 			mcimgB.style.top = ''+(0)+'px';
-			mclink.style.left = ''+(610)+'px';
-			mclink.style.top = ''+(380)+'px';
+			mcinfo.style.left = ''+(610)+'px';
+			mcinfo.style.top = ''+(185)+'px';
 			btnki.style.left = ''+(245)+'px';
 			btnki.style.top = ''+(380)+'px';
 			btnka.style.left = ''+(310)+'px';
 			btnka.style.top = ''+(380)+'px';
 		}
 		var arimg = [
-					 ["../img/ilustrasi01uyi.png","Uyi"],
+					 ["../img/ilustrasi01uyi.png","Uyi : Masalah kalau kita olah, bisa jadi pelajaran dan kekuatan."],
 					 ["../img/ilustrasi02agnesmonica.png","Agnes Monica"],
 					 ["../img/ilustrasi03Aldila.png","Aldila"],
 					 ["../img/ilustrasi04avi.png","Avi"],
@@ -184,8 +185,8 @@
 					 ["../img/ilustrasi09Endah.png","Endah"],
 					 ["../img/ilustrasi10Zidna.png","Zidna"],
 					 ["../img/ilustrasi11ShintaLemonilo.png","Shinta Lemonilo"],
-					 ["../img/ilustrasi12Dina.png","Dina"],
-					 ["../img/ilustrasi13Winda.png","Winda"],
+					 ["../img/ilustrasi12Dina.png","Dina : Happy Birthday ... Sukses Selalu Tante Dina"],
+					 ["../img/ilustrasi13Winda.png","Winda : Kadang aku tak butuh malam untuk tertidur dan tak butuh pagi untuk terbangun."],
 					 ["../img/ilustrasi14avi.png","Avi"]
 					]
 
@@ -197,7 +198,8 @@
 		for(var i=0;i<14;i++){
 			mcimgB.style.backgroundImage = "url("+arimg[13-i][0]+")";
 		}
-		mclink.innerHTML = arimg[n2][1];
+		mcinfo.innerHTML = arimg[n2][1];
+		
 		let startTime = null;
 		const duration = 500; // Durasi 0.5 detik dalam milidetik
 		function placemc(mc,xx,yy){
@@ -240,7 +242,7 @@
 			n2--;if(n2<0) n2=13;
 			mcimgA.style.backgroundImage = "url(../img/"+arimg[n1][0]+")";
 			mcimgB.style.backgroundImage = "url(../img/"+arimg[n2][0]+")";
-			mclink.innerHTML = arimg[n2][1];
+			mcinfo.innerHTML = arimg[n2][1];
 		}
 		function KlikKa(){//tombol kanan // animasi masuk dari kanan // berarti yang masuk adalah n2
 			//mcAnimate(mc,x0,y0,xmax,ymax);
@@ -250,7 +252,7 @@
 			n2++;if(n2>13) n2=0;
 			mcimgA.style.backgroundImage = "url(../img/"+arimg[n1][0]+")";
 			mcimgB.style.backgroundImage = "url(../img/"+arimg[n2][0]+")";
-			mclink.innerHTML = arimg[n2][1];
+			mcinfo.innerHTML = arimg[n2][1];
 		}
 		
 		btnki.addEventListener('click', KlikKi);

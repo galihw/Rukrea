@@ -21,9 +21,9 @@
 			position: absolute;
 			cursor: pointer;
 			touch-action: none;
-			outline = none;
-			width: 120px; 
-			height: 35px; 
+			outline: none;
+			width: 120px;
+			height: 35px;
 			background-color: #ff0000;
 			opacity: 0;
 			user-select: none;
@@ -33,9 +33,9 @@
 			position: absolute;
 			cursor: pointer;
 			touch-action: none;
-			outline = none;
-			width: 37px; 
-			height: 37px; 
+			outline: none;
+			width: 37px;
+			height: 37px;
 			background-color: #ffffff;
 			/*opacity: 0;*/
 			user-select: none;
@@ -45,9 +45,9 @@
 			position: absolute;
 			cursor: default;
 			touch-action: none;
-			outline = none;
-			width: 550px; 
-			height: 309.38px; 
+			outline: none;
+			width: 550px;
+			height: 309.38px;
 			background-size: 100%;
 			/*background-color: #ff0000;*/
 			/*opacity : 0.5;*/
@@ -56,11 +56,11 @@
 		}
 		.mclink {
 			position: absolute;
-			cursor: default;
+			cursor: pointer;
 			touch-action: none;
-			outline = none;
-			width: 170px; 
-			height: 20px; 
+			outline: none;
+			width: 170px;
+			height: 20px;
 			color: blue;
 			background-color: #ffffff;
 			/*opacity : 0.5;*/
@@ -69,7 +69,7 @@
 		}
 		.crop{
 			position: absolute;
-			width: 550px; 
+			width: 550px;
 			height: 309.38px;
 			background-color: teal;
 			/* Membuat bentuk segi enam menggunakan persentase koordinat polygon */
@@ -164,8 +164,9 @@
 		//animasi in out
 		var n1 = 0;
 		var n2 = 0;
-		mcimgA.style.backgroundImage = "url("+arimg[n1][0]+")";
-		mcimgB.style.backgroundImage = "url("+arimg[n2][0]+")";
+		for(var i=0;i<4;i++){
+			mcimgB.style.backgroundImage = "url("+arimg[3-i][0]+")";
+		}
 		mclink.innerHTML = arimg[n2][1];
 		let startTime = null;
 		const duration = 500; // Durasi 0.5 detik dalam milidetik

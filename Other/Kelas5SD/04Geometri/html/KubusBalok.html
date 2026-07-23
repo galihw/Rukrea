@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kubus dan Balok</title>
+	<style>
+		.bg {
+			position: absolute;
+			width: 840px;
+			height: 472px;
+			background-color: grey;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.terseleksi {
+			box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.myCanvas {
+			position: absolute;
+			cursor: default;
+		}
+		.myCanvasArea {
+			position: absolute;
+			cursor: default;
+			width: 100px; 
+			height: 100px;
+			/*transform: translate(-50%, -50%);*/
+		}
+		.myDiv {
+			position: absolute;
+			cursor: default;
+			width: 100px; 
+			height: 100px;
+			transform: translate(-50%, -50%);
+		}
+		.textbox {
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #ffffff;
+			background-color: #000000;
+			width: 140px;
+			height: 120px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.textAB {
+			cursor: pointer;
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #ffffff;
+			/*background-color: #000000;*/
+			width: 140px;
+			height: 40px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
+		
+		.isibtn {
+			position: absolute;
+			width: 600px;
+			height: 420px;
+			overflow: clip;/* Options: visible, hidden, scroll, auto, clip */
+		}
+		.isiks {
+			position: absolute;
+			width: 75px;
+			height: 65px;
+			/*transform: translate(-50%, -50%);*/
+			user-select: none;
+			-webkit-user-select: none;
+			
+		}
+		.mcbalok {
+			position: absolute;
+			width: 0px;
+			height: 0px;
+			transform: translate(-50%, -50%);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.garisV {
+			position: absolute;
+			height: 300px;
+			width: 0;
+			border-left: 2px solid yellow;
+		}
+		.garisH {
+			position: absolute;
+			height: 0;
+			width: 300px;
+			border-top: 2px solid yellow;
+		}
+	</style>
+</head>
+<body>
+	<div class ="bg" id="bg">
+		<div class='mcbalok' id="mcbalok"></div>
+		<div class="textAB" id="acak" style="background-color:black"></div>
+		<div class="textAB" id="pjg" style="background-color:red"></div>
+		<div class="textAB" id="lbr" style="background-color:green"></div>
+		<div class="textAB" id="tgg" style="background-color:blue"></div>
+		<div class="textAB" id="volume" style="background-color:brown"></div>
+		<div class="textAB" id="luas" style="background-color:purple"></div>
+		<div class="textAB" id="nama" style="background-color:magenta"></div>
+		<div class="garisV" id="V1"></div>
+		<div class="garisV" id="V2"></div>
+		<div class="garisH" id="H1"></div>
+		<div class="garisH" id="H2"></div>
+	</div>
+	<script>
+		function RandomAngkaAtoB(a,b){ 
+			var r = a+Math.ceil(Math.random() * b);
+			return r;
+		}
+		function RandomMyArray(Arr){
+			for (var i=0; i<Arr.length; i++){
+				var r = Math.floor(Math.random() * Arr.length);
+				var a = Arr[i];
+				Arr[i] = Arr[r];
+				Arr[r] = a;
+			}
+			return Arr
+		}
+		function StringDesimal(ff){
+			var strff = ""+ff;
+			const gg = strff.split(".");
+			if(gg.length==2)	return gg[0]+","+gg[1];
+			else 				return ff
+		}
+	</script>
+	<script>
+		const cX = window.scrollX;
+		const cY = window.scrollY;
+		const myBG = document.getElementById("bg");
+		const mcbalok = document.getElementById("mcbalok");
+		const acak = document.getElementById("acak");
+		const pjg = document.getElementById("pjg");
+		const lbr = document.getElementById("lbr");
+		const tgg = document.getElementById("tgg");
+		const luas = document.getElementById("luas");
+		const volume = document.getElementById("volume");
+		const nama = document.getElementById("nama");
+		
+		const H1 = document.getElementById("H1");
+		const H2 = document.getElementById("H2");
+		const V1 = document.getElementById("V1");
+		const V2 = document.getElementById("V2");
+		
+		
+		myBG.style.backgroundImage = "url(../img/bg1.png)";
+		let lebarJendela = window.innerWidth;
+		let tinggiJendela = window.innerHeight;
+		var scl = 1;
+		myBG.x = window.scrollX+(lebarJendela-840*scl)/2;
+		myBG.y = window.scrollY+(tinggiJendela-472*scl)/2;
+		myBG.style.left = ''+(myBG.x)+'px';
+		myBG.style.top = ''+(myBG.y)+'px';
+		myBG.w = 840;
+		myBG.h = 472;
+		
+		
+		acak.style.left = 730+'px';
+		acak.style.top = 50+'px';
+		
+		pjg.style.left = 730+'px';
+		pjg.style.top = 150+'px';
+		lbr.style.left = 730+'px';
+		lbr.style.top = 200+'px';
+		tgg.style.left = 730+'px';
+		tgg.style.top = 250+'px';
+		nama.style.left = 730+'px';
+		nama.style.top = 300+'px';
+		volume.style.left = 730+'px';
+		volume.style.top = 350+'px';
+		luas.style.left = 730+'px';
+		luas.style.top = 400+'px';
+		
+		V1.style.display = "none";
+		V2.style.display = "none";
+		H1.style.display = "none";
+		H2.style.display = "none";
+		
+		
+	</script>
+	<script>
+	
+		var fixscale = 1;
+		var fixzoom
+		document.body.style.backgroundColor = "black";
+		window.addEventListener('resize', () => {
+			ZoomAll();
+		});
+		function XYbenda(){
+			lebarJendela = window.innerWidth;
+			tinggiJendela = window.innerHeight;
+			myBG.x = window.scrollX+(lebarJendela-840*scl)/2;
+			myBG.y = window.scrollY+(tinggiJendela-472*scl)/2;
+			myBG.style.left = ''+(myBG.x)+'px';
+			myBG.style.top = ''+(myBG.y)+'px';
+		}
+		function ZoomAll(){
+			let lebarJendela = window.innerWidth;
+			let tinggiJendela = window.innerHeight;
+			var xscale = lebarJendela/840;
+			var yscale = tinggiJendela/472;
+			scl = 0.95*Math.min(xscale,yscale);
+			fixscale = scl;
+			fixzoom = scl*100;
+			document.body.style.zoom = ""+fixzoom+"%";
+			XYbenda();
+		}
+		
+		ZoomAll();
+		function handleClick(event) {
+			console.log("handleClick");
+		}
+		myBG.addEventListener('click', handleClick);
+		setTimeout(() => {
+			console.log("handleClick")
+			ZoomAll();
+			myBG.removeEventListener('click', handleClick);
+		}, 100);
+		
+	</script>
+	<script>
+		//random plt
+		function Balok(){
+			acak.innerHTML = 'Soal Baru';	
+			pjg.innerHTML = 'p = ?';
+			lbr.innerHTML = 'l = ?';
+			tgg.innerHTML = 't = ?';
+			volume.innerHTML = 'vol = ?';
+			luas.innerHTML = 'luas = ?';
+			nama.innerHTML = 'nama = ?';
+			pjg.klik=false;
+			lbr.klik=false;
+			tgg.klik=false;
+			volume.klik=false;
+			luas.klik=false;
+			nama.klik=false;
+			
+			var mode = RandomAngkaAtoB(-1,2);
+			
+			var pp = RandomAngkaAtoB(0,6);
+			var ll = RandomAngkaAtoB(0,6);
+			var tt = RandomAngkaAtoB(0,6);
+			mcbalok.nama = "Balok";
+			if(mode==1){
+				ll=pp;
+				tt=pp;
+				mcbalok.nama = "Kubus";
+			}
+			mcbalok.pp = pp;
+			mcbalok.ll = ll;
+			mcbalok.tt = tt;
+			mcbalok.luas = 2*(pp*ll + pp*tt + ll*tt);
+			mcbalok.vol = pp*ll*tt;
+			
+			mcbalok.replaceChildren()
+			var xb = 320;
+			var yb = 230;
+			mcbalok.style.left = xb+'px';
+			mcbalok.style.top = yb+'px';
+			var x0 = 0;
+			var y0 = 0;
+			var armc = [];
+			var wid=0,hei=0,widA,widB,heiA,heiB;
+			for(var i=0;i<tt;i++){
+				for(var j=0;j<pp;j++){
+					for(var k=0;k<ll;k++){
+						var mc = document.createElement("div");
+						armc.push(mc);
+						mcbalok.appendChild(mc);
+						mc.classList.add("isiks");
+						mc.style.backgroundImage = "url(../img/KS.png)";
+						var xx = x0 - 25*k + 50*j;
+						var yy = y0 + 15*k - 50*i;
+						mc.style.left = xx+'px';
+						mc.style.top = yy+'px';
+					}			
+				}	
+			}
+			// menghitung kiri dan kanan
+			widA = 0;
+			if(ll>1) widA = 25*(ll-1) 
+			widB = 25+50*pp;
+			wid = widA+widB;
+			//menghitung atas dan bawah
+			heiA = 0
+			if(tt>1) heiA = (-15+65)*(tt-1);
+			heiB = 65+15*(ll-1);
+			hei=heiA+heiB;
+			//console.log(wid,hei);
+			mcbalok.style.left = (xb+widA-wid+wid/2)+'px';
+			mcbalok.style.top = (yb+heiA-hei+hei/2)+'px';
+			// untuk mengecek wid dan hei A dan B
+			/*
+			V1.style.left = (300-widA)+'px';
+			V1.style.top = (330)+'px';
+			V2.style.left = (300+widB)+'px';
+			V2.style.top = (330)+'px';
+			H1.style.left = (300)+'px';
+			H1.style.top = (330-heiA)+'px';
+			H2.style.left = (300)+'px';
+			H2.style.top = (330+heiB)+'px';
+			*/
+		}
+		
+		Balok();
+	</script>
+    <script>
+		pjg.addEventListener('click', ()=>{
+			pjg.klik = !pjg.klik;
+			if(pjg.klik)	pjg.innerHTML = 'p = '+mcbalok.pp;
+			else			pjg.innerHTML = 'p = ?';
+		});
+		lbr.addEventListener('click', ()=>{
+			lbr.klik = !lbr.klik;
+			if(lbr.klik)	lbr.innerHTML = 'l = '+mcbalok.ll;
+			else			lbr.innerHTML = 'l = ?';
+		});
+		tgg.addEventListener('click', ()=>{
+			tgg.klik = !tgg.klik;
+			if(tgg.klik)	tgg.innerHTML = 't = '+mcbalok.tt;
+			else			tgg.innerHTML = 't = ?';
+		});
+		volume.addEventListener('click', ()=>{
+			volume.klik = !volume.klik;
+			if(volume.klik)	volume.innerHTML = 'vol = '+mcbalok.vol;
+			else			volume.innerHTML = 'vol = ?';
+		});
+		luas.addEventListener('click', ()=>{
+			luas.klik = !luas.klik;
+			if(luas.klik)	luas.innerHTML = 'luas = '+mcbalok.luas;
+			else			luas.innerHTML = 'luas = ?';
+		});
+		nama.addEventListener('click', ()=>{
+			nama.klik = !nama.klik;
+			if(nama.klik)	nama.innerHTML = 'nama = '+mcbalok.nama;
+			else			nama.innerHTML = 'nama = ?';
+		});
+		
+		acak.addEventListener('click', ()=>{
+			Balok();
+		});
+		
+		
+    </script>
+	<script>
+	</script>
+</body>
+</html>

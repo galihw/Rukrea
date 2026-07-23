@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unsur Lingkaran</title>
+	<style>
+		.bg {
+			width: 840px;
+			height: 472px;
+			position: absolute;
+			background-color: grey;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.klikbtn {
+			width: 20px;
+			height: 20px;
+			background-color: #3498db;
+			border-radius: 50%;
+			transform: translate(-50%, -50%);
+			position: absolute;
+			cursor: grab;
+			touch-action: none;
+			outline: 3px solid black;
+
+			
+			/*opacity : 0.5;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.titikpusat {
+			width: 20px;
+			height: 20px;
+			background-color: #3498db;
+			border-radius: 50%;
+			transform: translate(-50%, -50%);
+			position: absolute;
+			cursor: default;
+			touch-action: none;
+			outline: 3px solid black;
+			
+			/*opacity : 0.5;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.btnGabung {
+			position: absolute;
+			cursor: pointer;
+			/*touch-action: none;*/
+			width: 140px; 
+			height: 50px;
+			transform: translate(-50%, -50%);
+			background-color: #ff0000;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.terseleksi {
+			box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.myCanvas {
+			position: absolute;
+			cursor: default;
+		}
+		.myCanvasArea {
+			position: absolute;
+			cursor: default;
+			width: 840px;
+			height: 472px;
+			/*transform: translate(-50%, -50%);*/
+		}
+		.myDiv {
+			position: absolute;
+			cursor: default;
+			width: 100px; 
+			height: 100px;
+			transform: translate(-50%, -50%);
+		}
+		.textbox {
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #ffffff;
+			background-color: #000000;
+			width: 140px;
+			height: 120px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
+		.textAB {
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #ffffff;
+			background-color: #000000;
+			width: 140px;
+			height: 40px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
+		.textABbtn {
+			position: absolute;
+			cursor: pointer;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #ffffff;
+			background-color: #000000;
+			width: 140px;
+			height: 40px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div class ="bg" id="bg">
+		<div id="mcUnsur" width="600" height="420">
+			
+			<div class ="myDiv" id="isijuring" width="840" height="420">
+				<canvas class="myCanvasArea" id="juringA" width="840" height="472"></canvas>
+				<canvas class="myCanvasArea" id="juringB" width="840" height="472"></canvas>
+			</div>
+			
+			<canvas class="myCanvas" id="lingkaran" width="600" height="420" ></canvas>
+			
+			<div class ="myDiv" id="isitembereng" width="840" height="472">
+				<canvas class="myCanvasArea" id="temberengA" width="840" height="472"></canvas>
+				<canvas class="myCanvasArea" id="temberengB" width="840" height="472"></canvas>
+			</div>
+			
+			<div class ="myDiv" id="isibusur" width="840" height="472">
+				<canvas class="myCanvas" id="busurA" width="600" height="420" ></canvas>
+				<canvas class="myCanvas" id="busurB" width="600" height="420" ></canvas>
+			</div>
+			<div class ="myDiv" id="isitalibusur" width="840" height="472">
+				<canvas class="myCanvas" id="talibusurA" width="600" height="420" ></canvas>
+				<canvas class="myCanvas" id="talibusurB" width="600" height="420" ></canvas>
+			</div>
+			<div class ="myDiv" id="isiapotema" width="840" height="472">
+				<canvas class="myCanvas" id="apotemaA" width="600" height="420" ></canvas>
+				<canvas class="myCanvas" id="apotemaB" width="600" height="420" ></canvas>
+			</div>
+			<canvas class="myCanvas" id="diameter" width="600" height="420" ></canvas>
+			<canvas class="myCanvas" id="jarijari" width="600" height="420" ></canvas>
+			
+			<div class="klikbtn" id="tombol1" style="background-color:red"></div>
+			<div class="klikbtn" id="tombol2" style="background-color:red"></div>
+			<div class="klikbtn" id="tombol3" style="background-color:green"></div>
+			<div class="klikbtn" id="tombol4" style="background-color:#FFA500"></div>
+			<div class="klikbtn" id="tombol5" style="background-color:#FFA500"></div>
+			<div class="klikbtn" id="tombol6" style="background-color:blue"></div>
+			<div class="klikbtn" id="tombol7" style="background-color:blue"></div>
+			<div class="klikbtn" id="tombol8" style="background-color:brown"></div>
+			<div class="titikpusat" id="titikpusat" style="background-color:purple"></div>
+		</div>
+		<div class="textABbtn" id="btntitikpusat" style="background-color:purple"></div>
+		<div class="textABbtn" id="btndiameter" style="background-color:red"></div>
+		<div class="textABbtn" id="btnjarijari" style="background-color:green"></div>
+		<div class="textABbtn" id="btnjuring" style="background-color:#FFA500"></div>
+		<div class="textABbtn" id="btnbusur" style="background-color:blue"></div>
+		<div class="textABbtn" id="btnapotema" style="background-color:brown"></div>
+		<div class="textABbtn" id="btntembereng" style="background-color:yellow"></div>
+		<div class="textABbtn" id="btntalibusur" style="background-color:#B3B3B3"></div>
+		<div class="btnGabung" id="btnGabung"></div>
+	</div>
+	<script>
+		function RandomAngkaAtoB(a,b){ 
+			var r = a+Math.ceil(Math.random() * b);
+			return r;
+		}
+		function RandomMyArray(Arr){
+			for (var i=0; i<Arr.length; i++){
+				var r = Math.floor(Math.random() * Arr.length);
+				var a = Arr[i];
+				Arr[i] = Arr[r];
+				Arr[r] = a;
+			}
+			return Arr
+		}
+		function StringDesimal(ff){
+			var strff = ""+ff;
+			const gg = strff.split(".");
+			if(gg.length==2)	return gg[0]+","+gg[1];
+			else 				return ff
+		}
+	</script>
+	<script>
+		const cX = window.scrollX;
+		const cY = window.scrollY;
+		const myBG = document.getElementById("bg");
+		const mcUnsur = document.getElementById("mcUnsur");
+		const lingkaran = document.getElementById("lingkaran");
+		const btnGabung = document.getElementById("btnGabung");
+		const titikpusat = document.getElementById("titikpusat");
+		const juringA = document.getElementById("juringA");
+		const juringB = document.getElementById("juringB");
+		const temberengA = document.getElementById("temberengA");
+		const temberengB = document.getElementById("temberengB");
+		const diameter = document.getElementById("diameter");
+		const jarijari = document.getElementById("jarijari");
+		const busurA = document.getElementById("busurA");
+		const busurB = document.getElementById("busurB");
+		const talibusurA = document.getElementById("talibusurA");
+		const talibusurB = document.getElementById("talibusurB");
+		const apotemaA = document.getElementById("apotemaA");
+		const apotemaB = document.getElementById("apotemaB");
+		const btntitikpusat = document.getElementById("btntitikpusat");
+		const btndiameter = document.getElementById("btndiameter");
+		const btnjarijari = document.getElementById("btnjarijari");
+		const btnjuring = document.getElementById("btnjuring");
+		const btnbusur = document.getElementById("btnbusur");
+		const btnapotema = document.getElementById("btnapotema");
+		const btntembereng = document.getElementById("btntembereng");
+		const btntalibusur = document.getElementById("btntalibusur");
+		myBG.style.backgroundImage = "url(../img/bg0.png)";
+		let lebarJendela = window.innerWidth;
+		let tinggiJendela = window.innerHeight;
+		var scl = 1;
+		myBG.x = window.scrollX+(lebarJendela-840*scl)/2;
+		myBG.y = window.scrollY+(tinggiJendela-472*scl)/2;
+		myBG.style.left = ''+(myBG.x)+'px';
+		myBG.style.top = ''+(myBG.y)+'px';
+		myBG.w = 840;
+		myBG.h = 472;
+		var xybtn = [[0,220],[1,220],[2,220],[3,220],[4,220],[5,220],[6,220],[7,220],[8,220]];
+		var xykembali = [715,420];
+		var mcbtn = [];
+		var sdt0 = [180,0,-90,30,60,120,210,300,330];
+		var xx0=0;
+		var yy0=0;
+		for(var i=1;i<=8;i++){
+			mcbtn[i] = document.getElementById('tombol'+i);
+			xx0 = 320+100*Math.cos(sdt0[i-1]*Math.PI/180);
+			yy0 = 220+100*Math.sin(sdt0[i-1]*Math.PI/180);
+			if(i==8){
+				xx0 = (xybtn[5][0]+xybtn[6][0])/2;
+				yy0 = (xybtn[5][1]+xybtn[6][1])/2;
+				mcbtn[i].style.cursor = "default";
+			}
+			xybtn[i-1] = [xx0,yy0];
+			mcbtn[i].w = mcbtn[i].offsetWidth;
+			mcbtn[i].h = mcbtn[i].offsetHeight;
+			mcbtn[i].style.left = ''+xx0+'px';//''+xybtn[i-1][1]+'px';
+			mcbtn[i].style.top = ''+yy0+'px';//''+xybtn[i-1][1]+'px';
+			mcbtn[i].x0 = xx0+'px';//''+xybtn[i-1][0]+'px';
+			mcbtn[i].y0 = yy0+'px';//''+xybtn[i-1][1]+'px';
+			mcbtn[i].ct = 0;
+			mcbtn[i].sudah = false;
+		}
+		
+		mcUnsur.style.left = ''+0+'px';
+		mcUnsur.style.top = ''+0+'px';
+		mcUnsur.w = 600;
+		mcUnsur.h = 420;
+		mcUnsur.x = 0;
+		mcUnsur.y = 0;
+		lingkaran.style.left = ''+0+'px';
+		lingkaran.style.top = ''+0+'px';
+		btnGabung.style.left = ''+730+'px';
+		btnGabung.style.top = ''+100+'px';
+		
+		btntitikpusat.style.left = ''+730+'px';
+		btntitikpusat.style.top = ''+50+'px';
+		btndiameter.style.left = ''+730+'px';
+		btndiameter.style.top = ''+100+'px';
+		btnjarijari.style.left = ''+730+'px';
+		btnjarijari.style.top = ''+150+'px';
+		btnjuring.style.left = ''+730+'px';
+		btnjuring.style.top = ''+200+'px';
+		btnbusur.style.left = ''+730+'px';
+		btnbusur.style.top = ''+250+'px';
+		btnapotema.style.left = ''+730+'px';
+		btnapotema.style.top = ''+300+'px';
+		btntembereng.style.left = ''+730+'px';
+		btntembereng.style.top = ''+350+'px';
+		btntalibusur.style.left = ''+730+'px';
+		btntalibusur.style.top = ''+400+'px';
+		
+		
+		titikpusat.style.left = ''+320+'px';
+		titikpusat.style.top = ''+220+'px';
+		
+		juringA.style.left = ''+0+'px';
+		juringA.style.top = ''+0+'px';
+		juringB.style.left = ''+0+'px';
+		juringB.style.top = ''+0+'px';
+		
+		temberengA.style.left = ''+0+'px';
+		temberengA.style.top = ''+0+'px';
+		temberengB.style.left = ''+0+'px';
+		temberengB.style.top = ''+0+'px';
+		
+		busurA.style.left = ''+0+'px';
+		busurA.style.top = ''+0+'px';
+		busurB.style.left = ''+0+'px';
+		busurB.style.top = ''+0+'px';
+		
+		talibusurA.style.left = ''+0+'px';
+		talibusurA.style.top = ''+0+'px';
+		talibusurB.style.left = ''+0+'px';
+		talibusurB.style.top = ''+0+'px';
+		
+		apotemaA.style.left = ''+0+'px';
+		apotemaA.style.top = ''+0+'px';
+		apotemaB.style.left = ''+0+'px';
+		apotemaB.style.top = ''+0+'px';
+		
+		
+		
+		btntitikpusat.innerHTML = "Titik Pusat";
+		btndiameter.innerHTML = "Diameter";
+		btnjarijari.innerHTML = "Jari-Jari";
+		btnjuring.innerHTML = "Juring";
+		btnbusur.innerHTML = "Busur";
+		btnapotema.innerHTML = "Apotema";
+		btntembereng.innerHTML = "Tembereng";
+		btntalibusur.innerHTML = "Tali Busur";
+		
+	</script>
+    <script>
+		// tombol sembunyikan elemen
+		var ArMate = [
+					  [btntitikpusat,[titikpusat]],
+					  [btndiameter,[diameter,mcbtn[1],mcbtn[2]]],
+					  [btnjarijari,[jarijari,mcbtn[3]]],
+					  [btnjuring,[isijuring,mcbtn[4],mcbtn[5]]],
+					  [btnbusur,[isibusur]],
+					  [btnapotema,[isiapotema,mcbtn[8]]],
+					  [btntembereng,[isitembereng]],
+					  [btntalibusur,[isitalibusur]]
+					 ]
+		
+		for(var i=0;i<ArMate.length;i++){
+			ArMate[i][0].tf = true;
+			ArMate[i][0].mate = ArMate[i][1];
+			ArMate[i][0].addEventListener('click', (event) => {
+				//console.log(event.target)
+				var mc = event.target;
+				if(mc.tf){
+					for(var j=0;j<mc.mate.length;j++){
+						//mc.mate[j].style.display="none";
+						mc.mate[j].style.opacity="0";
+						mc.style.opacity="0.5";
+					}
+				}else{
+					for(var j=0;j<mc.mate.length;j++){
+						//mc.mate[j].style.display="";
+						mc.mate[j].style.opacity="1";
+						mc.style.opacity="1";
+					}
+				}
+				if(isiapotema.style.opacity=="0" && isitembereng.style.opacity=="0" && isibusur.style.opacity=="0" && isitalibusur.style.opacity=="0"){
+					mcbtn[6].style.opacity="0";
+					mcbtn[7].style.opacity="0";
+				}else{
+					mcbtn[6].style.opacity="1";
+					mcbtn[7].style.opacity="1";
+				}
+				mc.tf=!mc.tf;
+			});
+		}
+		
+	</script>
+    <script>
+		
+		function DrawAngle(n1,n2,n3){
+			const xo = arTetap[n1].offsetLeft;
+			const yo = arTetap[n1].offsetTop;
+			const xp = arTetap[n2].offsetLeft;
+			const yp = arTetap[n2].offsetTop;
+			const xq = arTetap[n3].offsetLeft;
+			const yq = arTetap[n3].offsetTop;
+			
+			// Sudut dalam derajat (0 derajat ada di posisi jam 3)
+            var angleA = Math.atan2(yp - yo, xp - xo);
+            var angleC = Math.atan2(yq - yo, xq - xo);
+			
+			degreeA = angleA*180/Math.PI;
+			degreeC = angleC*180/Math.PI;
+			var ddegree = Math.abs(degreeC-degreeA);
+			
+			var cvrtA = 0;
+			var cvrtC = 0;
+			if(degreeA>=-180 && degreeA<0)	cvrtA = degreeA+360; else cvrtA = degreeA;
+			if(degreeC>=-180 && degreeC<0)	cvrtC = degreeC+360; else cvrtC = degreeC;
+			var cvrtd = degreeC-degreeA;
+			
+			//console.log(cvrtd)
+			var ff1,ff2,ff3,ff;
+			ff1 = cvrtd<=0 && cvrtd>=-180;
+			ff2 = cvrtd>=180;
+			ff = ff1 || ff2;
+			return [xo,yo,angleA,angleC,ff];
+		}
+		function DrawAnglePusat(n2,n3){
+			const xo = titikpusat.offsetLeft;
+			const yo = titikpusat.offsetTop;
+			const xp = arTetap[n2].offsetLeft;
+			const yp = arTetap[n2].offsetTop;
+			const xq = arTetap[n3].offsetLeft;
+			const yq = arTetap[n3].offsetTop;
+			
+			// Sudut dalam derajat (0 derajat ada di posisi jam 3)
+            var angleA = Math.atan2(yp - yo, xp - xo);
+            var angleC = Math.atan2(yq - yo, xq - xo);
+			
+			degreeA = angleA*180/Math.PI;
+			degreeC = angleC*180/Math.PI;
+			//console.log(degreeC-degreeA)
+			var ddegree = Math.abs(degreeC-degreeA);
+			
+			var cvrtA = 0;
+			var cvrtC = 0;
+			if(degreeA>=-180 && degreeA<0)	cvrtA = degreeA+360; else cvrtA = degreeA;
+			if(degreeC>=-180 && degreeC<0)	cvrtC = degreeC+360; else cvrtC = degreeC;
+			var cvrtd = degreeC-degreeA;
+			
+			//console.log(cvrtd)
+			var ff1,ff2,ff3,ff;
+			ff1 = cvrtd<=0 && cvrtd>=-180;
+			ff2 = cvrtd>=180;
+			ff = ff1 || ff2;
+			return [xo,yo,angleA,angleC,ff];
+		}
+    </script>
+
+	<script>
+		var selectedEl = null;
+		const controller = new AbortController();
+        function selectElement(el) {
+            UnselectElement(el)
+            selectedEl = el;
+            //selectedEl.classList.add('terseleksi');
+        }
+        function UnselectElement(el) {
+            if (selectedEl) {
+                //selectedEl.classList.remove('terseleksi');
+                //selectedEl.classList.remove('dropbenar');
+				selectedEl = null;
+            }
+        }
+		function setupDraggable(el,mc) {
+			//var xmax = (mc.offsetWidth-el.offsetWidth);
+			//var ymax = (mc.offsetHeight-el.offsetHeight);
+			//var xmax = (myBG.w-el.offsetWidth/2);
+			//var ymax = (myBG.h-el.offsetHeight/2);
+			//var xmin = el.offsetWidth/2;
+			//var ymin = el.offsetHeight/2;
+			var xmax = (mc.w-el.offsetWidth/2);
+			var ymax = (mc.h-el.offsetHeight/2);
+			var xmin = mc.x+40;
+			var ymin = mc.y+40;
+			let startX=0, startY=0, initialX=0, initialY=0;
+			let newX=0, newY=0;
+            el.addEventListener('mousedown', dragMouseDown, { signal: controller.signal });
+            el.addEventListener('touchstart', dragMouseDown, { signal: controller.signal }, { passive: false });
+			
+			el.ff = false;
+            function dragMouseDown(e) {
+                e.preventDefault();
+                selectElement(el);
+				if(e.type==="touchstart"){
+					startX = e.touches[0].clientX;
+					startY = e.touches[0].clientY;
+					initialX = el.offsetLeft;
+					initialY = el.offsetTop;
+					document.addEventListener('touchend', dragMouseUp);
+					document.addEventListener('touchmove', dragMouseMove, { passive: false });
+				}else{
+					startX = e.clientX;
+					startY = e.clientY;
+					initialX = el.offsetLeft;
+					initialY = el.offsetTop;
+					document.addEventListener('mouseup', dragMouseUp);
+					document.addEventListener('mousemove', dragMouseMove);
+				}
+				swapzindex(el.no);
+				DrawElemen();
+            }
+
+            function dragMouseMove(e) {
+                e.preventDefault();
+				let deltaX=0;
+				let deltaY=0;
+				if(e.type==="touchmove"){
+					deltaX = (e.touches[0].clientX - startX) / scl;
+					deltaY = (e.touches[0].clientY - startY) / scl;
+				}else{
+					deltaX = (e.clientX - startX) / scl;
+					deltaY = (e.clientY - startY) / scl;
+				}
+				newX = initialX + deltaX;
+				newY = initialY + deltaY;
+				newX = Math.max(xmin,Math.min(xmax,newX));
+				newY = Math.max(ymin,Math.min(ymax,newY));
+				
+				var ddx = newX-320;
+				var ddy = newY-220;
+				var sdt0 = Math.atan2(ddy,ddx);
+				var sdt0_C = Math.round(sdt0*180/Math.PI)*Math.PI/180;
+				newX = 320+100*Math.cos(sdt0_C);
+				newY = 220+100*Math.sin(sdt0_C);
+				
+				if(el.i==0){
+					xybtn[1][0] = 320+100*Math.cos(sdt0_C+Math.PI);
+					xybtn[1][1] = 220+100*Math.sin(sdt0_C+Math.PI);
+					arTetap[1].style.left = xybtn[1][0]+'px';
+					arTetap[1].style.top = xybtn[1][1]+'px';
+				}else if(el.i==1){
+					xybtn[0][0] = 320+100*Math.cos(sdt0_C+Math.PI);
+					xybtn[0][1] = 220+100*Math.sin(sdt0_C+Math.PI);
+					arTetap[0].style.left = xybtn[0][0]+'px';
+					arTetap[0].style.top = xybtn[0][1]+'px';
+				}else if(el.i==5 || el.i==6){
+					xybtn[7][0] = (xybtn[5][0]+xybtn[6][0])/2;
+					xybtn[7][1] = (xybtn[5][1]+xybtn[6][1])/2;
+					arTetap[7].style.left = xybtn[7][0]+'px';
+					arTetap[7].style.top = xybtn[7][1]+'px';
+				}
+				
+				//el.x = newX;
+				//el.y = newY;
+				el.style.left = newX + "px";
+				el.style.top = newY + "px";
+				xybtn[el.i][0] = newX;
+				xybtn[el.i][1] = newY;
+				DrawElemen()
+            }
+			
+            function dragMouseUp() {
+                document.removeEventListener('mouseup', dragMouseUp);
+                document.removeEventListener('mousemove', dragMouseMove);
+                document.removeEventListener('touchend', dragMouseUp);
+                document.removeEventListener('touchmove', dragMouseMove);
+				CekDrop();
+				DrawElemen();
+            }
+			function CekDrop() {
+				//XYbenda();
+				UnselectElement(el);
+			}
+			
+			function swapzindex(no){
+				const potong = arFIFO.splice(no, 1)[0];
+				arFIFO.push(potong);
+				for (var i=1;i<=8;i++){
+					arFIFO[i-1].no = i-1;
+					arFIFO[i-1].style.zIndex = ""+(arFIFO[i-1].no+10)+"";
+				}
+			}
+        }
+		function DrawJuring(canv,b,c){
+			var Ar = DrawAnglePusat(b,c);
+			const canvas = document.getElementById(canv);
+			const ctx = canvas.getContext('2d');
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			
+			var rr = 100; // jari-jari lingkaran sudut
+			ctx.save(); // Simpan state awal kanvas
+			ctx.globalAlpha = 0.5; 
+			ctx.translate(rr/2, rr/2);
+			ctx.beginPath();
+			ctx.moveTo(320, 220);
+			ctx.arc(320, 220, rr, Ar[2], Ar[3], false);//ctx.arc(x, y, radius, startAngle, endAngle, counterclockwise);
+			ctx.lineTo(320, 220);
+			ctx.fillStyle = '#FFA500';//ctx.fillStyle = '#0096c7';
+			ctx.fill();
+			ctx.closePath();
+			ctx.restore(); // Kembalikan state kanvas seperti semula
+			
+			var sdtF = 0;
+			return (Ar[3]-Ar[2])*180/Math.PI;
+		}
+		function DrawTembereng(canv,canvB,canvT,canvA,b,c){//'tembereng','busur','talibusur','apotema';
+			var Ar = DrawAnglePusat(b,c);
+			
+			
+			//tembereng
+			const canvas = document.getElementById(canv);
+			const ctx = canvas.getContext('2d');
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			
+			var rr = 100; // jari-jari lingkaran sudut
+			ctx.save(); // Simpan state awal kanvas
+			ctx.translate(rr/2, rr/2);
+			
+			ctx.beginPath();
+			ctx.globalAlpha = 0.5; 
+			ctx.moveTo(xybtn[5][0],xybtn[5][1]);
+			ctx.arc(Ar[0], Ar[1], rr, Ar[2], Ar[3], false);//ctx.arc(x, y, radius, startAngle, endAngle, counterclockwise);
+			ctx.lineTo(xybtn[6][0],xybtn[6][1]);
+			ctx.lineTo(xybtn[5][0],xybtn[5][1]);
+			ctx.fillStyle = 'yellow';//ctx.fillStyle = '#0096c7';
+			ctx.fill();
+			ctx.closePath();
+			ctx.restore(); // Kembalikan state kanvas seperti semula
+			
+			
+			//busur
+			const canvasB = document.getElementById(canvB);
+			const ctxB = canvasB.getContext('2d');
+			ctxB.clearRect(0, 0, canvasB.width, canvasB.height);
+			
+			ctxB.save(); // Simpan state awal kanvas
+			ctxB.translate(rr/2, rr/2);
+			ctxB.beginPath();
+			ctxB.globalAlpha = 1; 
+			ctxB.arc(320, 220, rr, Ar[2], Ar[3], false);//ctx.arc(x, y, radius, startAngle, endAngle, counterclockwise);
+			ctxB.strokeStyle = 'blue';
+			ctxB.lineWidth = 5;
+			ctxB.stroke();
+			ctxB.restore(); // Kembalikan state kanvas seperti semula
+			
+			
+			
+			//tali busur
+			const canvasT = document.getElementById(canvT);
+			const ctxT = canvasT.getContext('2d');
+			ctxT.clearRect(0, 0, canvasT.width, canvasT.height);
+			
+			ctxT.save(); // Simpan state awal kanvas
+			ctxT.translate(rr/2, rr/2);
+			ctxT.beginPath();
+			ctxT.globalAlpha = 1; 
+			ctxT.moveTo(xybtn[5][0],xybtn[5][1]);
+			ctxT.lineTo(xybtn[6][0],xybtn[6][1]);
+			ctxT.strokeStyle = "grey";
+			ctxT.lineWidth = 5;
+			ctxT.stroke();
+			ctxT.restore(); // Kembalikan state kanvas seperti semula
+			
+			
+			
+			//apotema
+			const canvasA = document.getElementById(canvA);
+			const ctxA = canvasA.getContext('2d');
+			ctxA.clearRect(0, 0, canvasA.width, canvasA.height);
+			
+			ctxA.save(); // Simpan state awal kanvas
+			ctxA.translate(rr/2, rr/2);
+			ctxA.beginPath();
+			ctxA.moveTo(320,220);
+			ctxA.lineTo(xybtn[7][0],xybtn[7][1]);
+			ctxA.strokeStyle = "brown";
+			ctxA.lineWidth = 5;
+			ctxA.stroke();
+			ctxA.restore(); // Kembalikan state kanvas seperti semula
+			
+			var sdtF = 0;
+			return (Ar[3]-Ar[2])*180/Math.PI;
+		}
+		function DrawLingkaran(canv){
+			const canvas = document.getElementById(canv);
+			const ctx = canvas.getContext('2d');
+			
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			ctx.beginPath();
+			ctx.strokeStyle = '#000000'; // Warna merah
+			ctx.lineWidth = 2; // Ketebalan garis 5px
+			ctx.lineJoin = "round";
+			
+			ctx.arc(320, 220, 100, 0, 2 * Math.PI);
+			ctx.closePath();
+			ctx.stroke();
+			return 0;
+		}
+		function Drawdiameter(canv){
+			const canvas = document.getElementById(canv);
+			const ctx = canvas.getContext('2d');
+			
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			
+			//diameter
+			ctx.beginPath();
+			ctx.moveTo(xybtn[0][0],xybtn[0][1]);
+			ctx.lineTo(xybtn[1][0],xybtn[1][1]);
+			ctx.strokeStyle = "red";
+			ctx.lineWidth = 5;
+			ctx.stroke();
+			ctx.closePath();
+			
+			ctx.closePath();
+			ctx.stroke();
+			return 0;
+		}
+		function Drawjarijari(canv){
+			const canvas = document.getElementById(canv);
+			const ctx = canvas.getContext('2d');
+			
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			
+			//jari-jari
+			ctx.beginPath();
+			ctx.moveTo(320,220);
+			ctx.lineTo(xybtn[2][0],xybtn[2][1]);
+			ctx.strokeStyle = "green";
+			ctx.lineWidth = 5;
+			ctx.stroke();
+			
+			ctx.closePath();
+			ctx.stroke();
+			return 0;
+		}
+		function Koma2Angka(n){
+			return StringDesimal(Math.round(n*100)/100);
+		}
+		function Koma1Angka(n){
+			return StringDesimal(Math.round(n*10)/10);
+		}
+		function TanpaKoma(n){
+			return Math.round(n);
+		}
+		function DrawElemen(){
+			var sdtTA = DrawTembereng('temberengA','busurA','talibusurA','apotemaA',5,6);
+			var sdtTB = DrawTembereng('temberengB','busurB','talibusurB','apotemaB',6,5);
+			var sdtJA = DrawJuring('juringA',3,4);
+			var sdtJB = DrawJuring('juringB',4,3);
+			var lingkar = DrawLingkaran('lingkaran');
+			var dia = Drawdiameter('diameter');
+			var jari = Drawjarijari('jarijari');
+			
+			var ffA = (sdtTA>=-180 && sdtTA<=0) || sdtTA>180;
+			if(ffA){
+				temberengA.style.display = "none";
+				temberengB.style.display = "";
+				busurA.style.display = "none";
+				busurB.style.display = "";
+				talibusurA.style.display = "none";
+				talibusurB.style.display = "";
+				apotemaA.style.display = "none";
+				apotemaB.style.display = "";
+			}else{
+				temberengB.style.display = "none";
+				temberengA.style.display = "";
+				busurB.style.display = "none";
+				busurA.style.display = "";
+				talibusurB.style.display = "none";
+				talibusurA.style.display = "";
+				apotemaB.style.display = "none";
+				apotemaA.style.display = "";
+			}
+			
+			var ffB = (sdtJA>=-270 && sdtJA<=0) || sdtJA>180;
+			if(ffB){
+				juringA.style.display = "none";
+				juringB.style.display = "";
+			}else{
+				juringB.style.display = "none";
+				juringA.style.display = "";
+			}
+		}
+	</script>	
+	<script>
+		var arFIFO = []; // masuk dulu keluar dulu
+		var arTetap = []; // masuk dulu keluar dulu
+		for (var i=1;i<=8;i++){
+			arTetap[i-1] = document.getElementById('tombol'+i);
+			arTetap[i-1].i = i-1;
+			arFIFO[i-1] = document.getElementById('tombol'+i);
+			if(i!==8)setupDraggable(arFIFO[i-1], mcUnsur);
+			arFIFO[i-1].no=i-1;
+			arFIFO[i-1].style.zIndex = ""+(arFIFO[i-1].no+10)+"";
+		}
+		DrawElemen();
+	</script>
+	<script>
+		// untuk animasi
+		var ct = 0;
+		function mcAnimateStep(mc,x0,y0,dx,dy,tf){
+			function animate(timestamp) {
+				if (!startTime) startTime = timestamp;
+				const elapsed = timestamp - startTime;
+				var sdt = Math.min(elapsed / duration * 90 , 90);
+				const progress = Math.sin(sdt*Math.PI/180);
+				var xprog,yprog;
+				if(tf){
+					const progrot = 180*Math.sin(sdt*Math.PI/180);
+					xprog = x0+(dx)*progress;
+					yprog = y0+(dy)*progress;
+					mc.style.transform = "rotate("+progrot+"deg)";
+				}else{
+					xprog = x0+dx*progress;
+					yprog = y0+dy*progress;
+				}
+				
+				//mc.style.scale = ''+progress+'';
+				mc.style.left = ''+(xprog)+'px';
+				mc.style.top = ''+(yprog)+'px';
+				if (elapsed < duration) {
+					requestAnimationFrame(animate);
+				} else {
+					Remote();
+					//console.log('Animasi selesai.');
+				}
+			}
+			//var mc = document.getElementById(str);
+			let startTime = null;// perlu di null kan lagi setiap mau di animasi kan
+			const duration = 1000; // Durasi 0.5 detik dalam milidetik
+			requestAnimationFrame(animate);
+		}
+		function mcAnimateAlpha(mc){
+			function animate(timestamp) {
+				if (!startTime) startTime = timestamp;
+				const elapsed = timestamp - startTime;
+				var sdt = Math.min(elapsed / duration * 90 , 90);
+				const progress = 1-Math.sin(sdt*Math.PI/180);
+				
+				mc.style.opacity = ''+progress+'';
+				if (elapsed < duration) {
+					requestAnimationFrame(animate);
+				} else {
+					//Remote();
+					//console.log('Animasi selesai.');
+				}
+			}
+			//var mc = document.getElementById(str);
+			let startTime = null;// perlu di null kan lagi setiap mau di animasi kan
+			const duration = 1000; // Durasi 0.5 detik dalam milidetik
+			requestAnimationFrame(animate);
+		}
+		function mcAnimateRotate(mc){
+			function animate(timestamp) {
+				if (!startTime) startTime = timestamp;
+				const elapsed = timestamp - startTime;
+				var sdt = Math.min(elapsed / duration * 90 , 90);
+				const progress = 180*Math.sin(sdt*Math.PI/180);
+				const progx = -50*Math.sin(sdt*Math.PI/180);
+				const progy = -50*Math.sin(sdt*Math.PI/180);
+				mc.style.left = ''+(xybtn[0][0]+progx)+'px';
+				mc.style.top = ''+(xybtn[0][1]+progy)+'px';
+				
+				mc.style.transform = "rotate("+progress+"deg)";
+				if (elapsed < duration) {
+					requestAnimationFrame(animate);
+				} else {
+					//Remote();
+					//console.log('Animasi selesai.');
+				}
+			}
+			mc.style.transformOrigin = "50% 50%";
+			//var mc = document.getElementById(str);
+			let startTime = null;// perlu di null kan lagi setiap mau di animasi kan
+			const duration = 1000; // Durasi 0.5 detik dalam milidetik
+			requestAnimationFrame(animate);
+		}
+		function Remote(){
+			ct++;
+			if(ct==6)	console.log('selesai');
+		}
+		function fnGabung(e){
+			controller.abort();
+			btnGabung.style.display = "none";
+			//20 - 600+20 --> 300+20
+			//20 - 420+20 --> 210+20
+			var arTxy = [[0,0],[0,0],[0,0]];
+			var arCxy = [[0,0],[0,0],[0,0]];
+			for (var i=1;i<=3;i++){
+				//console.log(mcbtn[i]);
+				arTxy[i-1][0] = 320-xybtn[i-1][0];
+				arTxy[i-1][1] = 230-xybtn[i-1][1];
+				mcbtn[i].style.cursor = "default";
+				var fputar = false;
+				mcAnimateStep(mcbtn[i],xybtn[i-1][0],xybtn[i-1][1],arTxy[i-1][0],arTxy[i-1][1],fputar);
+				fputar = (i==1);
+				mcAnimateStep(mcisi[i],xybtn[i-1][0],xybtn[i-1][1],arTxy[i-1][0],arTxy[i-1][1],fputar);
+			}
+			mcAnimateAlpha(lingkaran);
+		}
+		
+		btnGabung.style.display = "none";
+		//btnGabung.addEventListener('click',fnGabung);
+	</script>
+	<script>
+		var fixscale = 1;
+		var fixzoom
+		document.body.style.backgroundColor = "black";
+		window.addEventListener('resize', () => {
+			ZoomAll();
+		});
+		function XYbenda(){
+			lebarJendela = window.innerWidth;
+			tinggiJendela = window.innerHeight;
+			myBG.x = window.scrollX+(lebarJendela-840*scl)/2;
+			myBG.y = window.scrollY+(tinggiJendela-472*scl)/2;
+			myBG.style.left = ''+(myBG.x)+'px';
+			myBG.style.top = ''+(myBG.y)+'px';
+			for(var i=1;i<=8;i++){
+			//	mcbtn[i].style.left = ''+xybtn[i-1][0]+'px';
+			//	mcbtn[i].style.top = ''+xybtn[i-1][1]+'px';
+				if(i!==8)setupDraggable(mcbtn[i], mcUnsur);
+			}
+		}
+		function ZoomAll(){
+			let lebarJendela = window.innerWidth;
+			let tinggiJendela = window.innerHeight;
+			var xscale = lebarJendela/840;
+			var yscale = tinggiJendela/472;
+			scl = 0.95*Math.min(xscale,yscale);
+			fixscale = scl;
+			fixzoom = scl*100;
+			document.body.style.zoom = ""+fixzoom+"%";
+			XYbenda();
+		}
+		
+		ZoomAll();
+		function handleClick(event) {
+			console.log("handleClick");
+		}
+		myBG.addEventListener('click', handleClick);
+		setTimeout(() => {
+			console.log("handleClick")
+			ZoomAll();
+			myBG.removeEventListener('click', handleClick);
+		}, 100);
+	</script>
+</body>
+</html>

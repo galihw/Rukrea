@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudut Pada Segitiga</title>
+	<style>
+		.bg {
+			max-width: 840px; /* Lebar maksimal halaman */
+			margin: 0 auto;
+			width: 100%;
+			height: 472px;
+			position: absolute;
+			background-color: grey;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.klikbtn {
+			outline: 2px solid black;
+			width: 20px;
+			height: 20px;
+			background-color: #3498db;
+			border-radius: 50%;
+			transform: translate(-50%, -50%);
+			position: absolute;
+			cursor: grab;
+			touch-action: none;
+			
+			/*opacity : 0.5;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.btnGabung {
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #ffffff;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			position: absolute;
+			cursor: pointer;
+			/*touch-action: none;*/
+			width: 140px; 
+			height: 50px;
+			transform: translate(-50%, -50%);
+			background-color: #ff0000;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.terseleksi {
+			box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.myCanvas {
+			position: absolute;
+			cursor: default;
+		}
+		.myCanvasArea {
+			position: absolute;
+			cursor: default;
+			width: 100px; 
+			height: 100px;
+			/*transform: translate(-50%, -50%);*/
+		}
+		.myDiv {
+			position: absolute;
+			cursor: default;
+			width: 100px; 
+			height: 100px;
+			transform: translate(-50%, -50%);
+		}
+		.textbox {
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #ffffff;
+			background-color: #000000;
+			width: 140px;
+			height: 120px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div class ="bg" id="bg">
+		<div id="isibtn" width="600" height="420">
+			<div class ="myDiv" id="isi1" width="100" height="100">
+				<canvas class="myCanvasArea" id="fix1" width="100" height="100" ></canvas>
+			</div>
+			<div class ="myDiv" id="isi2" width="100" height="100">
+				<canvas class="myCanvasArea" id="fix2" width="100" height="100" ></canvas>
+			</div>
+			<div class ="myDiv" id="isi3" width="100" height="100">
+				<canvas class="myCanvasArea" id="fix3" width="100" height="100" ></canvas>
+			</div>
+			<canvas class="myCanvas" id="myArea" width="600" height="420" ></canvas>
+			<div class="klikbtn" id="tombol1" style="background-color:red"></div>
+			<div class="klikbtn" id="tombol2" style="background-color:green"></div>
+			<div class="klikbtn" id="tombol3" style="background-color:blue"></div>
+		</div>
+		<div class="textbox" id="textbox"></div>
+		<div class="btnGabung" id="btnGabung"></div>
+	</div>
+	<script>
+		function RandomAngkaAtoB(a,b){ 
+			var r = a+Math.ceil(Math.random() * b);
+			return r;
+		}
+		function RandomMyArray(Arr){
+			for (var i=0; i<Arr.length; i++){
+				var r = Math.floor(Math.random() * Arr.length);
+				var a = Arr[i];
+				Arr[i] = Arr[r];
+				Arr[r] = a;
+			}
+			return Arr
+		}
+		function StringDesimal(ff){
+			var strff = ""+ff;
+			const gg = strff.split(".");
+			if(gg.length==2)	return gg[0]+","+gg[1];
+			else 				return ff
+		}
+	</script>
+	<script>
+		const cX = window.scrollX;
+		const cY = window.scrollY;
+		const myBG = document.getElementById("bg");
+		const isibtn = document.getElementById("isibtn");
+		const myArea = document.getElementById("myArea");
+		const btnGabung = document.getElementById("btnGabung");
+		myBG.style.backgroundImage = "url(../img/bg0.png)";
+		let lebarJendela = window.innerWidth;
+		let tinggiJendela = window.innerHeight;
+		var scl = 1;
+		myBG.x = window.scrollX+(lebarJendela-840*scl)/2;
+		myBG.y = window.scrollY+(tinggiJendela-472*scl)/2;
+		myBG.style.left = ''+(myBG.x)+'px';
+		myBG.style.top = ''+(myBG.y)+'px';
+		myBG.w = 840;
+		myBG.h = 472;
+		var xybtn = [[40,40],[160,80],[80,160]];
+		var xykembali = [715,420];
+		var mcbtn = [];
+		var mcfix = [];
+		var mcisi = [];
+		for(var i=1;i<=3;i++){
+			mcbtn[i] = document.getElementById('tombol'+i);
+			mcbtn[i].style.left = ''+xybtn[i-1][0]+'px';
+			mcbtn[i].style.top = ''+xybtn[i-1][1]+'px';
+			mcbtn[i].w = mcbtn[i].offsetWidth;
+			mcbtn[i].h = mcbtn[i].offsetHeight;
+			mcbtn[i].style.top = ''+xybtn[i-1][1]+'px';
+			mcbtn[i].x0 = ''+xybtn[i-1][0]+'px';
+			mcbtn[i].y0 = ''+xybtn[i-1][1]+'px';
+			mcbtn[i].ct = 0;
+			mcbtn[i].sudah = false;
+			
+			mcfix[i] = document.getElementById('fix'+i);
+			mcfix[i].style.left = xybtn[i-1][0]+'px';
+			mcfix[i].style.top = xybtn[i-1][1]+'px';
+			mcfix[i].canv = 'fix'+i+'';
+			
+			mcisi[i] = document.getElementById('fix'+i);
+			mcisi[i].style.left = xybtn[i-1][0]+'px';
+			mcisi[i].style.top = xybtn[i-1][1]+'px';
+			mcisi[i].canv = 'fix'+i+'';
+		}
+		isibtn.style.left = ''+0+'px';
+		isibtn.style.top = ''+0+'px';
+		isibtn.w = 600;
+		isibtn.h = 420;
+		isibtn.x = 0;
+		isibtn.y = 0;
+		myArea.style.left = ''+0+'px';
+		myArea.style.top = ''+0+'px';
+		btnGabung.style.left = ''+730+'px';
+		btnGabung.style.top = ''+100+'px';
+		textbox.style.left = ''+730+'px';
+		textbox.style.top = ''+300+'px';
+		
+		btnGabung.innerHTML = "Gabung Sudut";
+		
+	</script>
+    <script>
+	</script>
+    <script>
+		
+		function DrawAngle(n1,n2,n3){
+			const xo = arTetap[n1].offsetLeft;
+			const yo = arTetap[n1].offsetTop;
+			const xp = arTetap[n2].offsetLeft;
+			const yp = arTetap[n2].offsetTop;
+			const xq = arTetap[n3].offsetLeft;
+			const yq = arTetap[n3].offsetTop;
+			
+			// Sudut dalam derajat (0 derajat ada di posisi jam 3)
+            var angleA = Math.atan2(yp - yo, xp - xo);
+            var angleC = Math.atan2(yq - yo, xq - xo);
+			
+			degreeA = angleA*180/Math.PI;
+			degreeC = angleC*180/Math.PI;
+			var ddegree = Math.abs(degreeC-degreeA);
+			
+			var cvrtA = 0;
+			var cvrtC = 0;
+			if(degreeA>=-180 && degreeA<0)	cvrtA = degreeA+360; else cvrtA = degreeA;
+			if(degreeC>=-180 && degreeC<0)	cvrtC = degreeC+360; else cvrtC = degreeC;
+			var cvrtd = degreeC-degreeA;
+			
+			//console.log(cvrtd)
+			var ff1,ff2,ff3,ff;
+			ff1 = cvrtd<=0 && cvrtd>=-180;
+			ff2 = cvrtd>=180;
+			ff = ff1 || ff2;
+			return [xo,yo,angleA,angleC,ff];
+		}
+    </script>
+
+	<script>
+		var selectedEl = null;
+		const controller = new AbortController();
+        function selectElement(el) {
+            UnselectElement(el)
+            selectedEl = el;
+            //selectedEl.classList.add('terseleksi');
+        }
+        function UnselectElement(el) {
+            if (selectedEl) {
+                //selectedEl.classList.remove('terseleksi');
+                //selectedEl.classList.remove('dropbenar');
+				selectedEl = null;
+            }
+        }
+		function setupDraggable(el,mc) {
+			//var xmax = (mc.offsetWidth-el.offsetWidth);
+			//var ymax = (mc.offsetHeight-el.offsetHeight);
+			//var xmax = (myBG.w-el.offsetWidth/2);
+			//var ymax = (myBG.h-el.offsetHeight/2);
+			//var xmin = el.offsetWidth/2;
+			//var ymin = el.offsetHeight/2;
+			var xmax = (mc.w-el.offsetWidth/2);
+			var ymax = (mc.h-el.offsetHeight/2);
+			var xmin = mc.x+40;
+			var ymin = mc.y+40;
+			let startX=0, startY=0, initialX=0, initialY=0;
+			let newX=0, newY=0;
+            el.addEventListener('mousedown', dragMouseDown, { signal: controller.signal });
+            el.addEventListener('touchstart', dragMouseDown, { signal: controller.signal }, { passive: false });
+			
+			el.ff = false;
+            function dragMouseDown(e) {
+                e.preventDefault();
+                selectElement(el);
+				if(e.type==="touchstart"){
+					startX = e.touches[0].clientX;
+					startY = e.touches[0].clientY;
+					initialX = el.offsetLeft;
+					initialY = el.offsetTop;
+					document.addEventListener('touchend', dragMouseUp);
+					document.addEventListener('touchmove', dragMouseMove, { passive: false });
+				}else{
+					startX = e.clientX;
+					startY = e.clientY;
+					initialX = el.offsetLeft;
+					initialY = el.offsetTop;
+					document.addEventListener('mouseup', dragMouseUp);
+					document.addEventListener('mousemove', dragMouseMove);
+				}
+				swapzindex(el.no);
+				DrawSegitiga();
+            }
+
+            function dragMouseMove(e) {
+                e.preventDefault();
+				let deltaX=0;
+				let deltaY=0;
+				if(e.type==="touchmove"){
+					deltaX = (e.touches[0].clientX - startX) / scl;
+					deltaY = (e.touches[0].clientY - startY) / scl;
+				}else{
+					deltaX = (e.clientX - startX) / scl;
+					deltaY = (e.clientY - startY) / scl;
+				}
+				newX = initialX + deltaX;
+				newY = initialY + deltaY;
+				newX = Math.max(xmin,Math.min(xmax,newX));
+				newY = Math.max(ymin,Math.min(ymax,newY));
+				newX = Math.round(newX/20)*20;
+				newY = Math.round(newY/20)*20;
+				//el.x = newX;
+				//el.y = newY;
+				el.style.left = newX + "px";
+				el.style.top = newY + "px";
+				xybtn[el.i][0] = newX;
+				xybtn[el.i][1] = newY;
+				mcfix[el.i+1].style.left = (newX)+'px';
+				mcfix[el.i+1].style.top = (newY)+'px';
+				DrawSegitiga()
+            }
+			
+            function dragMouseUp() {
+                document.removeEventListener('mouseup', dragMouseUp);
+                document.removeEventListener('mousemove', dragMouseMove);
+                document.removeEventListener('touchend', dragMouseUp);
+                document.removeEventListener('touchmove', dragMouseMove);
+				CekDrop();
+				DrawSegitiga();
+            }
+			function CekDrop() {
+				//XYbenda();
+				UnselectElement(el);
+			}
+			
+			function swapzindex(no){
+				const potong = arFIFO.splice(no, 1)[0];
+				arFIFO.push(potong);
+				for (var i=1;i<=3;i++){
+					arFIFO[i-1].no = i-1;
+					arFIFO[i-1].style.zIndex = ""+(arFIFO[i-1].no+10)+"";
+				}
+			}
+        }
+		function DrawSudut(canv,a,b,c,warna){
+			var Ar = DrawAngle(a,b,c);
+			const canvas = document.getElementById(canv);
+			const ctx = canvas.getContext('2d');
+
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			
+			var rr = 50; // jari-jari lingkaran sudut
+			ctx.save(); // Simpan state awal kanvas
+			ctx.translate(rr, rr);
+			ctx.beginPath();
+			ctx.moveTo(0,0);
+			//ctx.arc(Ar[3],Ar[4], 30, Ar[0], Ar[4], Ar[2]);//ctx.arc(x, y, radius, startAngle, endAngle, counterclockwise);
+			ctx.arc(0,0, rr, Ar[2], Ar[3], Ar[4]);//ctx.arc(x, y, radius, startAngle, endAngle, counterclockwise);
+			ctx.lineTo(0,0);
+			ctx.fillStyle = warna;//'#0096c7';
+			ctx.globalAlpha  = 0.5;
+			ctx.fill();
+			ctx.closePath();
+			ctx.restore(); // Kembalikan state kanvas seperti semula
+			
+			var sdtF = 0;
+			if(!Ar[4]) 	sdtF = (Ar[3]-Ar[2])*180/Math.PI;
+			else 		sdtF = (Ar[2]-Ar[3])*180/Math.PI;
+			if(sdtF<0)	return 360+sdtF;
+			else		return sdtF;
+			//return sdtF;
+		}
+		function DrawGaris(canv){
+			const canvas = document.getElementById(canv);
+			const ctx = canvas.getContext('2d');
+			
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			ctx.beginPath();
+			ctx.strokeStyle = '#000000';//'#FF0000'; // Warna merah
+			ctx.lineWidth = 2; // Ketebalan garis 5px
+			ctx.lineJoin = "round";
+			ctx.moveTo(xybtn[0][0],xybtn[0][1]);
+			ctx.lineTo(xybtn[1][0],xybtn[1][1]);
+			ctx.lineTo(xybtn[2][0],xybtn[2][1]);
+			ctx.lineTo(xybtn[0][0],xybtn[0][1]);
+			ctx.closePath();
+			ctx.stroke();
+		}
+		function Koma2Angka(n){
+			return StringDesimal(Math.round(n*100)/100);
+		}
+		function DrawSegitiga(){
+			var sdt1 = DrawSudut('fix1',0,1,2,'red');
+			var sdt2 = DrawSudut('fix2',1,0,2,'green');
+			var sdt3 = DrawSudut('fix3',2,0,1,'blue');
+			var Total = sdt1+sdt2+sdt3
+			sdt1 = Koma2Angka(sdt1);
+			sdt2 = Koma2Angka(sdt2);
+			sdt3 = Koma2Angka(sdt3);
+			Total = Koma2Angka(Total);
+			textbox.innerHTML = "A = "+sdt1+"<br>B = "+sdt2+"<br>C = "+sdt3+"<br>Total = "+Total;
+			DrawGaris('myArea');
+		}
+	</script>	
+	<script>
+		var arFIFO = []; // masuk dulu keluar dulu
+		var arTetap = []; // masuk dulu keluar dulu
+		for (var i=1;i<=3;i++){
+			arTetap[i-1] = document.getElementById('tombol'+i);
+			arTetap[i-1].i = i-1;
+			arFIFO[i-1] = document.getElementById('tombol'+i);
+			setupDraggable(arFIFO[i-1], isibtn);
+			arFIFO[i-1].no=i-1;
+			arFIFO[i-1].style.zIndex = ""+(arFIFO[i-1].no+10)+"";
+		}
+		DrawSegitiga();
+	</script>
+	<script>
+		var ct = 0;
+		function mcAnimateStep(mc,x0,y0,dx,dy,tf){
+			function animate(timestamp) {
+				if (!startTime) startTime = timestamp;
+				const elapsed = timestamp - startTime;
+				var sdt = Math.min(elapsed / duration * 90 , 90);
+				const progress = Math.sin(sdt*Math.PI/180);
+				var xprog,yprog;
+				if(tf){
+					const progrot = 180*Math.sin(sdt*Math.PI/180);
+					xprog = x0+(dx)*progress;
+					yprog = y0+(dy)*progress;
+					mc.style.transform = "rotate("+progrot+"deg)";
+				}else{
+					xprog = x0+dx*progress;
+					yprog = y0+dy*progress;
+				}
+				
+				//mc.style.scale = ''+progress+'';
+				mc.style.left = ''+(xprog)+'px';
+				mc.style.top = ''+(yprog)+'px';
+				if (elapsed < duration) {
+					requestAnimationFrame(animate);
+				} else {
+					Remote();
+					//console.log('Animasi selesai.');
+				}
+			}
+			//var mc = document.getElementById(str);
+			let startTime = null;// perlu di null kan lagi setiap mau di animasi kan
+			const duration = 1000; // Durasi 0.5 detik dalam milidetik
+			requestAnimationFrame(animate);
+		}
+		function mcAnimateAlpha(mc){
+			function animate(timestamp) {
+				if (!startTime) startTime = timestamp;
+				const elapsed = timestamp - startTime;
+				var sdt = Math.min(elapsed / duration * 90 , 90);
+				const progress = 1-Math.sin(sdt*Math.PI/180);
+				
+				mc.style.opacity = ''+progress+'';
+				if (elapsed < duration) {
+					requestAnimationFrame(animate);
+				} else {
+					//Remote();
+					//console.log('Animasi selesai.');
+				}
+			}
+			//var mc = document.getElementById(str);
+			let startTime = null;// perlu di null kan lagi setiap mau di animasi kan
+			const duration = 1000; // Durasi 0.5 detik dalam milidetik
+			requestAnimationFrame(animate);
+		}
+		function mcAnimateRotate(mc){
+			function animate(timestamp) {
+				if (!startTime) startTime = timestamp;
+				const elapsed = timestamp - startTime;
+				var sdt = Math.min(elapsed / duration * 90 , 90);
+				const progress = 180*Math.sin(sdt*Math.PI/180);
+				const progx = -50*Math.sin(sdt*Math.PI/180);
+				const progy = -50*Math.sin(sdt*Math.PI/180);
+				mc.style.left = ''+(xybtn[0][0]+progx)+'px';
+				mc.style.top = ''+(xybtn[0][1]+progy)+'px';
+				
+				mc.style.transform = "rotate("+progress+"deg)";
+				if (elapsed < duration) {
+					requestAnimationFrame(animate);
+				} else {
+					//Remote();
+					//console.log('Animasi selesai.');
+				}
+			}
+			mc.style.transformOrigin = "50% 50%";
+			//var mc = document.getElementById(str);
+			let startTime = null;// perlu di null kan lagi setiap mau di animasi kan
+			const duration = 1000; // Durasi 0.5 detik dalam milidetik
+			requestAnimationFrame(animate);
+		}
+		function Remote(){
+			ct++;
+			if(ct==6)	console.log('selesai');
+		}
+		function fnGabung(e){
+			controller.abort();
+			btnGabung.style.display = "none";
+			//20 - 600+20 --> 300+20
+			//20 - 420+20 --> 210+20
+			var arTxy = [[0,0],[0,0],[0,0]];
+			var arCxy = [[0,0],[0,0],[0,0]];
+			for (var i=1;i<=3;i++){
+				//console.log(mcbtn[i]);
+				arTxy[i-1][0] = 320-xybtn[i-1][0];
+				arTxy[i-1][1] = 230-xybtn[i-1][1];
+				mcbtn[i].style.cursor = "default";
+				var fputar = false;
+				mcAnimateStep(mcbtn[i],xybtn[i-1][0],xybtn[i-1][1],arTxy[i-1][0],arTxy[i-1][1],fputar);
+				fputar = (i==1);
+				//mcAnimateStep(mcfix[i],xybtn[i-1][0],xybtn[i-1][1],arTxy[i-1][0],arTxy[i-1][1],fputar);
+				mcAnimateStep(mcisi[i],xybtn[i-1][0],xybtn[i-1][1],arTxy[i-1][0],arTxy[i-1][1],fputar);
+			}
+			mcAnimateAlpha(myArea);
+			//mcAnimateRotate(mcfix[1])
+		}
+		
+		btnGabung.addEventListener('click',fnGabung);
+	</script>
+	<script>
+		var fixscale = 1;
+		var fixzoom
+		document.body.style.backgroundColor = "black";
+		window.addEventListener('resize', () => {
+			ZoomAll();
+		});
+		function XYbenda(){
+			lebarJendela = window.innerWidth;
+			tinggiJendela = window.innerHeight;
+			myBG.x = window.scrollX+(lebarJendela-840*scl)/2;
+			myBG.y = window.scrollY+(tinggiJendela-472*scl)/2;
+			myBG.style.left = ''+(myBG.x)+'px';
+			myBG.style.top = ''+(myBG.y)+'px';
+			for(var i=1;i<=3;i++){
+				mcbtn[i].style.left = ''+xybtn[i-1][0]+'px';
+				mcbtn[i].style.top = ''+xybtn[i-1][1]+'px';
+				setupDraggable(mcbtn[i], isibtn);
+			}
+		}
+		function ZoomAll(){
+			let lebarJendela = window.innerWidth;
+			let tinggiJendela = window.innerHeight;
+			var xscale = lebarJendela/840;
+			var yscale = tinggiJendela/472;
+			scl = 0.95*Math.min(xscale,yscale);
+			fixscale = scl;
+			fixzoom = scl*100;
+			document.body.style.zoom = ""+fixzoom+"%";
+			XYbenda();
+		}
+		
+		ZoomAll();
+		function handleClick(event) {
+			console.log("handleClick");
+		}
+		myBG.addEventListener('click', handleClick);
+		setTimeout(() => {
+			console.log("handleClick")
+			ZoomAll();
+			myBG.removeEventListener('click', handleClick);
+		}, 100);
+	</script>
+</body>
+</html>

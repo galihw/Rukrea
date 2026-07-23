@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bilangan Positif</title>
+	<style>
+		.bg {
+			max-width: 840px; /* Lebar maksimal halaman */
+			margin: 0 auto;
+			width: 100%;
+			height: 472px;
+			position: absolute;
+			background-color: grey;
+			user-select: none;
+			-webkit-user-select: none;
+            overflow: hidden;
+		}
+		.tutup {
+			max-width: 840px; /* Lebar maksimal halaman */
+			margin: 0 auto;
+			width: 100%;
+			height: 472px;
+			position: absolute;
+			background-color: black;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.areabtn {
+			width: 70px;
+			height: 45px;
+			transform: translate(-50%, -50%);
+			position: absolute;
+			cursor: pointer;
+			touch-action: none;
+			/*background-color: black;*/
+			/*opacity : 0;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.titik {
+			width: 50px;
+			height: 30px;
+			transform: translate(-50%, -50%);
+			position: absolute;
+			cursor: default;
+			touch-action: none;
+			/*background-color: black;*/
+			/*opacity : 0;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.garis {
+			width: 840px;
+			height: 30px;
+			transform: translate(-50%, -50%);
+			position: absolute;
+			cursor: default;
+			touch-action: none;
+			/*background-color: black;*/
+			/*opacity : 0;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.orang {
+			width: 250px;
+			height: 100px;
+			transform: translate(-50%, -50%);
+			position: absolute;
+			cursor: default;
+			touch-action: none;
+			/*background-color: black;*/
+			/*opacity : 0;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.mcorang {
+			width: 250px;
+			height: 100px;
+			position: absolute;
+			cursor: default;
+			touch-action: none;
+			/*background-color: black;*/
+			/*opacity : 0;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.angka {
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 40px;
+			font-weight: bold;
+			color: #000000;
+			/*background-color: #ffffff;*/
+			width: 50px;
+			height: 50px;
+			/*transform: translate(-50%, -50%);*/
+			top: 40px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
+		.fadeout {
+			pointer-events: none;
+			/*animation: fadeInOut 1s ease-in-out infinite;*/
+			animation: fadeOut 1s ease-out forwards;
+		}
+		@keyframes fadeOut {
+			0% { opacity: 1; }
+			1% { opacity: 1; }
+			99% { opacity: 0; }
+			100% { opacity: 0; }
+		}
+	</style>
+</head>
+<body>
+	<div class ="bg" id="bg">
+		<div class="garis" id="garis"></div>
+		<div id="mctitik">
+			<div class="titik" id="titik0">
+				<div class="angka" id="angka"></div>
+			</div>
+			<div class="titik" id="titik1">
+				<div class="angka" id="angka"></div>
+			</div>
+			<div class="titik" id="titik2">
+				<div class="angka" id="angka"></div>
+			</div>
+			<div class="titik" id="titik3">
+				<div class="angka" id="angka"></div>
+			</div>
+			<div class="titik" id="titik4">
+				<div class="angka" id="angka"></div>
+			</div>
+			<div class="titik" id="titik5">
+				<div class="angka" id="angka"></div>
+			</div>
+			<div class="titik" id="titik6">
+				<div class="angka" id="angka"></div>
+			</div>
+		</div>
+		<div id="mcorang" class="mcorang">
+			<div class="orang" id="orang0"></div>
+			<div class="orang" id="orang1"></div>
+			<div class="orang" id="orang2"></div>
+			<div class="orang" id="orang3"></div>
+			<div class="orang" id="orang4"></div>
+		</div>
+		<div class="areabtn" id="btnmulai"></div>
+		<div class="tutup fadeout" id="tutup"></div>
+	</div>
+	<script>
+		function RandomAngkaAtoB(a,b){ 
+			var r = a+Math.ceil(Math.random() * b);
+			return r;
+		}
+		function RandomMyArray(Arr){
+			for (var i=0; i<Arr.length; i++){
+				var r = Math.floor(Math.random() * Arr.length);
+				var a = Arr[i];
+				Arr[i] = Arr[r];
+				Arr[r] = a;
+			}
+			return Arr
+		}
+	</script>
+	<script>
+		const myBG = document.getElementById("bg");
+		const btnmulai = document.getElementById("btnmulai");
+		const garis = document.getElementById("garis");
+		const tutup = document.getElementById("tutup");
+		const mcorang = document.getElementById("mcorang");
+		myBG.style.backgroundImage = "url(../img/bg1.png)";
+		btnmulai.style.backgroundImage = "url(../img/btnmulai.png)";
+		garis.style.backgroundImage = "url(../img/garis.png)";
+		let lebarJendela = window.innerWidth;
+		let tinggiJendela = window.innerHeight;
+		var scl = 1;
+		myBG.x = window.scrollX+(lebarJendela-840*scl)/2;
+		myBG.y = window.scrollY+(tinggiJendela-472*scl)/2;
+		myBG.style.left = ''+(myBG.x)+'px';
+		myBG.style.top = ''+(myBG.y)+'px';
+		myBG.w = 840;
+		myBG.h = 472;
+		var xybtn = [[120,320],[220,320],[320,320],[420,320],[520,320],[620,320],[720,320]];
+		var artitik = [];
+		var arorang = [];
+		for(var i=0;i<=6;i++){
+			artitik[i] = document.getElementById('titik'+i);
+			artitik[i].style.left = ''+xybtn[i][0]+'px';
+			artitik[i].style.top = ''+xybtn[i][1]+'px';
+			artitik[i].no = i;
+			artitik[i].style.backgroundImage = "url(../img/titik.png)";
+			artitik[i].style.display = "none";
+			
+			const angkaDiv = artitik[i].querySelector('.angka');
+			angkaDiv.innerHTML = i;
+		}
+		for(var i=0;i<=4;i++){
+			arorang[i] = document.getElementById('orang'+i);
+			arorang[i].style.left = ''+0+'px';
+			arorang[i].style.top = ''+0+'px';
+			arorang[i].no = i;
+			arorang[i].style.backgroundImage = "url(../img/orang"+i+".png)";
+			arorang[i].style.display = "none";
+		}
+		mcorang.x = 120;
+		mcorang.style.left = ''+mcorang.x+'px';
+		mcorang.style.top = ''+255+'px';
+		btnmulai.style.left = ''+120+'px';
+		btnmulai.style.top = ''+170+'px';
+		garis.style.left = ''+420+'px';
+		garis.style.top = ''+320+'px';
+		
+	</script>
+	<script>
+	</script>
+	<script>
+		//animasi in out
+		var dxx = 100;// jarak titik titik
+		arorang[0].style.display = "";
+		artitik[0].style.display = "";
+		var ntitik = 0;
+		var nmax = 6;
+		let startTime = null;
+		const duration = 500; // Durasi 0.5 detik dalam milidetik
+		function mcAnimate(){
+			function animate(timestamp) {
+				if (!startTime) startTime = timestamp;
+				const elapsed = timestamp - startTime;
+				//const progress = Math.min(elapsed / duration, 1); // aslinya begini
+				var ct = Math.round(Math.min(elapsed / duration * 4 , 4)); 	// 90 derajat; 
+				//const progress = Math.sin(sdt*Math.PI/180);			// pakai melambat
+				
+				for(var i=0;i<=4;i++){
+					arorang[i].style.display = "none";
+				}
+				arorang[ct].style.display = "";
+				//const element = mc;
+				//var xfix = progress * xmax;
+				//var yfix = progress * ymax;
+				//element.style.transform = `translateX(${xfix}px) translateY(${yfix}px)`;
+				if (elapsed < duration) {
+					requestAnimationFrame(animate);
+				} else {
+					ntitik++;
+					if(ntitik<nmax){
+						startTime = null;
+						mcorang.x += dxx;
+						mcorang.style.left = ''+mcorang.x+'px';
+						arorang[4].style.display = "none";
+						arorang[0].style.display = "";
+						requestAnimationFrame(animate);
+					}else{
+						//console.log('Animasi selesai.');
+					}
+					artitik[ntitik].style.display = "";
+					
+				}
+			}
+			//mc.style.left = x0+'px';
+			//mc.style.top = y0+'px';
+			startTime = null; // perlu di null kan lagi setiap mau di animasi kan
+			requestAnimationFrame(animate);
+		}
+		
+	</script>
+	<script>
+		var arhtml = ["AngkaRatusRibuan","TeksRatusRibuan"];
+		function Klik(e){
+			//mulai animasi
+			mcAnimate();
+			btnmulai.style.display = "none";
+			btnmulai.removeEventListener('click', Klik);
+		}
+		btnmulai.addEventListener('click', Klik);
+		
+	</script>
+	<script>
+		var fixzoom = 100;
+		document.body.style.backgroundColor = "black";
+		window.addEventListener('resize', () => {
+			ZoomAll();
+		});
+		function XYbenda(){
+			myBG.x = window.scrollX+(lebarJendela-840*scl)/2;
+			myBG.y = window.scrollY+(tinggiJendela-472*scl)/2;
+			myBG.style.left = ''+(myBG.x)+'px';
+			myBG.style.top = ''+(myBG.y)+'px';
+			for(var i=0;i<=6;i++){
+				artitik[i].style.left = ''+xybtn[i][0]+'px';
+				artitik[i].style.top = ''+xybtn[i][1]+'px';
+			}
+		}
+		function ZoomAll(){
+			lebarJendela = window.innerWidth;
+			tinggiJendela = window.innerHeight;
+			var xscale = lebarJendela/840;
+			var yscale = tinggiJendela/472;
+			scl = 0.95*Math.min(xscale,yscale);
+			fixzoom = scl*100;
+			document.body.style.zoom = ""+fixzoom+"%";
+			XYbenda();
+		}
+		
+		ZoomAll();
+		function handleClick(event) {
+			console.log("handleClick");
+		}
+		myBG.addEventListener('click', handleClick);
+		setTimeout(() => {
+			console.log("handleClick")
+			ZoomAll();
+			myBG.removeEventListener('click', handleClick);
+		}, 100);
+	</script>
+</body>
+</html>

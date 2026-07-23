@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matematika Interaktif</title>
+	<style>
+		.bg {
+			max-width: 840px; /* Lebar maksimal halaman */
+			margin: 0 auto;
+			width: 100%;
+			height: 472px;
+			position: absolute;
+			background-color: grey;
+			user-select: none;
+			-webkit-user-select: none;
+            overflow: hidden;
+		}
+		.tutup {
+			max-width: 840px; /* Lebar maksimal halaman */
+			margin: 0 auto;
+			width: 100%;
+			height: 472px;
+			position: absolute;
+			background-color: black;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.areabtn {
+			width: 170px;
+			height: 45px;
+			transform: translate(-50%, -50%);
+			position: absolute;
+			cursor: pointer;
+			touch-action: none;
+			background-color: black;
+			opacity : 0;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.fadeout {
+			pointer-events: none;
+			/*animation: fadeInOut 1s ease-in-out infinite;*/
+			animation: fadeOut 1s ease-out forwards;
+		}
+		@keyframes fadeOut {
+			0% { opacity: 1; }
+			1% { opacity: 1; }
+			99% { opacity: 0; }
+			100% { opacity: 0; }
+		}
+	</style>
+</head>
+<body>
+	<div class ="bg" id="bg">
+		<div id="isibtn">
+			<div class="areabtn" id="tombol0"></div>
+			<div class="areabtn" id="tombol1"></div>
+		</div>
+		<div class="tutup fadeout" id="tutup"></div>
+	</div>
+	<script>
+		function RandomAngkaAtoB(a,b){ 
+			var r = a+Math.ceil(Math.random() * b);
+			return r;
+		}
+		function RandomMyArray(Arr){
+			for (var i=0; i<Arr.length; i++){
+				var r = Math.floor(Math.random() * Arr.length);
+				var a = Arr[i];
+				Arr[i] = Arr[r];
+				Arr[r] = a;
+			}
+			return Arr
+		}
+	</script>
+	<script>
+		const myBG = document.getElementById("bg");
+		const tombol0 = document.getElementById("tombol0");
+		const tombol1 = document.getElementById("tombol1");
+		const tutup = document.getElementById("tutup");
+		myBG.style.backgroundImage = "url(../img/DaftarIsi.png)";
+		let lebarJendela = window.innerWidth;
+		let tinggiJendela = window.innerHeight;
+		var scl = 1;
+		myBG.x = window.scrollX+(lebarJendela-840*scl)/2;
+		myBG.y = window.scrollY+(tinggiJendela-472*scl)/2;
+		myBG.style.left = ''+(myBG.x)+'px';
+		myBG.style.top = ''+(myBG.y)+'px';
+		myBG.w = 840;
+		myBG.h = 472;
+		var xybtn = [[140,175],[140,230]];
+		var arTombol = [];
+		for(var i=0;i<2;i++){
+			arTombol[i] = document.getElementById('tombol'+i);
+			arTombol[i].style.left = ''+xybtn[i][0]+'px';
+			arTombol[i].style.top = ''+xybtn[i][1]+'px';
+			arTombol[i].no = i;
+		}
+		
+		
+	</script>
+	<script>
+		var arhtml = ["AngkaRatusRibuan","TeksRatusRibuan"];
+		function Klik(e){
+			var el = e.currentTarget;
+			location.href = "../html/"+arhtml[el.no]+".html";
+		}
+		for(var i=0;i<2;i++){
+			arTombol[i].addEventListener('click', Klik);
+		}
+	</script>
+	<script>
+		var fixzoom = 100;
+		document.body.style.backgroundColor = "black";
+		window.addEventListener('resize', () => {
+			ZoomAll();
+		});
+		function XYbenda(){
+			myBG.x = window.scrollX+(lebarJendela-840*scl)/2;
+			myBG.y = window.scrollY+(tinggiJendela-472*scl)/2;
+			myBG.style.left = ''+(myBG.x)+'px';
+			myBG.style.top = ''+(myBG.y)+'px';
+			for(var i=0;i<2;i++){
+				arTombol[i].style.left = ''+xybtn[i][0]+'px';
+				arTombol[i].style.top = ''+xybtn[i][1]+'px';
+			}
+		}
+		function ZoomAll(){
+			lebarJendela = window.innerWidth;
+			tinggiJendela = window.innerHeight;
+			var xscale = lebarJendela/840;
+			var yscale = tinggiJendela/472;
+			scl = 0.95*Math.min(xscale,yscale);
+			fixzoom = scl*100;
+			document.body.style.zoom = ""+fixzoom+"%";
+			XYbenda();
+		}
+		
+		ZoomAll();
+		function handleClick(event) {
+			console.log("handleClick");
+		}
+		myBG.addEventListener('click', handleClick);
+		setTimeout(() => {
+			console.log("handleClick")
+			ZoomAll();
+			myBG.removeEventListener('click', handleClick);
+		}, 100);
+	</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+Perkenalan
+4 = lompat maju 4 ke kanan
+-4 = lompat maju 4 ke kiri
+
+2 + 3 = 5	(lompat maju 2 ke kanan, lompat maju ke kanan 3 satuan)
+2 - 3 = -1	(lompat maju 2 ke kanan, berbalik menghadap kiri, lompat maju ke kiri 3 satuan)
+
+-1 + 4 = 3	(lompat maju 1 ke kiri, berbalik menghadap kanan, lompat maju ke kanan 4 satuan)
+-1 - 4 = -5	(lompat maju 1 ke kiri, lompat maju ke kiri 4 satuan)
+
+2 + (-3) = -1 (lompat maju 2 ke kanan, lompat mundur ke kiri 3 satuan)
+2 - (-3) = 5  (lompat maju 2 ke kanan, berbalik arah menghadap kiri, lompat mundur ke kanan 3 satuan)
+
+-1 + (-4) = -5 (lompat maju 2 ke kiri, lompat mundur ke kiri 3 satuan)
+-1 - (-4) = 3  (lompat maju 2 ke kiri, berbalik arah menghadap kiri, lompat mundur ke kanan 3 satuan)

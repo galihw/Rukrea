@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bilangan Negatif</title>
+	<style>
+		.bg {
+			max-width: 840px; /* Lebar maksimal halaman */
+			margin: 0 auto;
+			width: 100%;
+			height: 472px;
+			position: absolute;
+			background-color: grey;
+			user-select: none;
+			-webkit-user-select: none;
+            overflow: hidden;
+		}
+		.tutup {
+			max-width: 840px; /* Lebar maksimal halaman */
+			margin: 0 auto;
+			width: 100%;
+			height: 472px;
+			position: absolute;
+			background-color: black;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.btn {
+			width: 70px;
+			height: 45px;
+			transform: translate(-50%, -50%);
+			position: absolute;
+			cursor: pointer;
+			touch-action: none;
+			/*background-color: black;*/
+			/*opacity : 0;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.titik {
+			width: 25px;
+			height: 15px;
+			transform: translate(-50%, -50%);
+			position: absolute;
+			cursor: default;
+			touch-action: none;
+			/*background-color: black;*/
+			/*opacity : 0;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.garis {
+			width: 840px;
+			height: 30px;
+			transform: translate(-50%, -50%);
+			position: absolute;
+			cursor: default;
+			touch-action: none;
+			/*background-color: black;*/
+			/*opacity : 0;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.orang {
+			width: 170px;
+			height: 100px;
+			transform: translate(-50%, -50%);
+			position: absolute;
+			cursor: default;
+			touch-action: none;
+			/*background-color: black;*/
+			/*opacity : 0;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.mcorang {
+			width: 840px;
+			height: 100px;
+			position: absolute;
+			cursor: default;
+			touch-action: none;
+			/*background-color: black;*/
+			/*opacity : 0;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.mcnull {
+			position: absolute;
+			/*background-color: #ffffff;*/
+			width: 0px;
+			height: 0px;
+			/*transform: translate(-50%, -50%);*/
+		}
+		.fadeout {
+			pointer-events: none;
+			/*animation: fadeInOut 1s ease-in-out infinite;*/
+			animation: fadeOut 1s ease-out forwards;
+		}
+		@keyframes fadeOut {
+			0% { opacity: 1; }
+			1% { opacity: 1; }
+			99% { opacity: 0; }
+			100% { opacity: 0; }
+		}
+	</style>
+</head>
+<body>
+	<div class ="bg" id="bg">
+		<div id="mctitik">
+		</div>
+		<div id="mcorang" class="mcorang">
+			<div class="orang" id="orang0"></div>
+			<div class="orang" id="orang1"></div>
+			<div class="orang" id="orang2"></div>
+			<div class="orang" id="orang3"></div>
+			<div class="orang" id="orang4"></div>
+		</div>
+		<div id="mcorangbalik" class="mcorang">
+			<div class="orang" id="orangbalik0"></div>
+			<div class="orang" id="orangbalik1"></div>
+			<div class="orang" id="orangbalik2"></div>
+			<div class="orang" id="orangbalik3"></div>
+			<div class="orang" id="orangbalik4"></div>
+		</div>
+		<div class="mcnull" id="p01" style="background-image:url('../img/p01.png');width:252.5px; height:45px; transform:translate(-50%, -50%);"></div>
+		<div class="mcnull" id="v0" style="background-image:url('../img/v0.png');width:3px; height:145px; transform:translate(-50%, -50%);"></div>
+		<div class="mcnull" id="v1" style="background-image:url('../img/v0.png');width:3px; height:145px; transform:translate(-50%, -50%);"></div>
+		<div class="mcnull" id="h01" style="background-image:url('../img/h01.png');width:80px; height:40px; transform:translate(-50%, -50%);"></div>
+		<div class="btn" id="btnmulai"></div>
+		<div class="tutup fadeout" id="tutup"></div>
+	</div>
+	<script>
+		function RandomAngkaAtoB(a,b){ 
+			var r = a+Math.ceil(Math.random() * b);
+			return r;
+		}
+		function RandomMyArray(Arr){
+			for (var i=0; i<Arr.length; i++){
+				var r = Math.floor(Math.random() * Arr.length);
+				var a = Arr[i];
+				Arr[i] = Arr[r];
+				Arr[r] = a;
+			}
+			return Arr
+		}
+	</script>
+	<script>
+		const myBG = document.getElementById("bg");
+		const btnmulai = document.getElementById("btnmulai");
+		const tutup = document.getElementById("tutup");
+		const mcorang = document.getElementById("mcorang");
+		const mcorangbalik = document.getElementById("mcorangbalik");
+		const mctitik = document.getElementById("mctitik");
+		const v0 = document.getElementById("v0");
+		const v1 = document.getElementById("v1");
+		const p00 = document.getElementById("p00");
+		const h00 = document.getElementById("h00");
+		myBG.style.backgroundImage = "url(../img/bg0.png)";
+		btnmulai.style.backgroundImage = "url(../img/btnmulai.png)";
+		let lebarJendela = window.innerWidth;
+		let tinggiJendela = window.innerHeight;
+		var scl = 1;
+		myBG.x = window.scrollX+(lebarJendela-840*scl)/2;
+		myBG.y = window.scrollY+(tinggiJendela-472*scl)/2;
+		myBG.style.left = ''+(myBG.x)+'px';
+		myBG.style.top = ''+(myBG.y)+'px';
+		myBG.w = 840;
+		myBG.h = 472;
+		var xytitik = [];
+		var artitik = [];
+		var arorang = [];
+		var arorangbalik = [];
+		for(var i=0;i<=12;i++){
+			xytitik[i] = [60+(60*i),380];
+			artitik[i] = document.createElement('div');
+			artitik[i].classList.add('titik');
+			artitik[i].id = "t"+i+"";
+			mctitik.appendChild(artitik[i]);
+			//artitik[i] = document.getElementById('titik'+i);
+			artitik[i].style.left = ''+xytitik[i][0]+'px';
+			artitik[i].style.top = ''+xytitik[i][1]+'px';
+			artitik[i].yy = xytitik[i][1];
+			artitik[i].no = i;
+			artitik[i].style.backgroundImage = "url(../img/titik0.png)";
+			artitik[i].style.transformOrigin = 'center center';
+			//artitik[i].style.display = "none";
+		}
+		for(var i=0;i<=4;i++){
+			arorang[i] = document.getElementById('orang'+i);
+			arorang[i].style.left = ''+0+'px';
+			arorang[i].style.top = ''+0+'px';
+			arorang[i].no = i;
+			arorang[i].style.backgroundImage = "url(../img/orB"+i+".png)";
+			arorang[i].style.display = "none";
+		}
+		for(var i=0;i<=4;i++){
+			arorangbalik[i] = document.getElementById('orangbalik'+i);
+			arorangbalik[i].style.left = ''+0+'px';
+			arorangbalik[i].style.top = ''+0+'px';
+			arorangbalik[i].no = i;
+			arorangbalik[i].style.backgroundImage = "url(../img/orAbalik"+i+".png)";
+			arorangbalik[i].style.display = "none";
+		}
+		mcorang.x = 60+(60*6);
+		mcorang.style.left = ''+mcorang.x+'px';
+		mcorang.style.top = ''+322.5+'px';
+		mcorangbalik.x = 60+(60*6);
+		mcorangbalik.style.left = ''+mcorangbalik.x+'px';
+		mcorangbalik.style.top = ''+322.5+'px';
+		btnmulai.style.left = ''+420+'px';
+		btnmulai.style.top = ''+170+'px';
+		v0.style.left = ''+420+'px';
+		v0.style.top = ''+300+'px';
+		v1.style.left = ''+180+'px';
+		v1.style.top = ''+300+'px';
+		p01.style.left = ''+306.25+'px';
+		p01.style.top = ''+227.5+'px';
+		h01.style.left = ''+300+'px';
+		h01.style.top = ''+182.5+'px';
+		v0.style.opacity = '0';
+		v1.style.opacity = '0';
+		p01.style.opacity = '0';
+		h01.style.opacity = '0';
+		
+	</script>
+	<script>
+	</script>
+	<script>
+		//animasi in out
+		var dxx = 60;// jarak titik titik
+		arorangbalik[0].style.display = "";
+		function mcAnimateOrang(a,b,ar){
+			function animate(timestamp) {
+				if (!startTime) startTime = timestamp;
+				const elapsed = timestamp - startTime;
+				var ct = Math.round(Math.min(elapsed / duration * 4 , 4)); 	// 90 derajat; 
+				for(var i=0;i<=4;i++){
+					arorang[i].style.display = "none";
+				}
+				arorang[ct].style.display = "";
+				if (elapsed < duration) {
+					requestAnimationFrame(animate);
+				} else {
+					ntitik++;
+					ii++;
+					mcAnimateStep(ar[ii]);
+					if(ntitik<nmax){
+						startTime = null;
+						mcorang.x += dxx;
+						mcorang.style.left = ''+mcorang.x+'px';
+						arorang[4].style.display = "none";
+						arorang[0].style.display = "";
+						requestAnimationFrame(animate);
+					}else{
+						Remote();
+						//console.log('Animasi selesai.');
+					}
+				}
+			}
+			const duration = 500; // Durasi 0.5 detik dalam milidetik
+			var ntitik = a;
+			var nmax = b;
+			var ii = -1;
+			let startTime = null; //perlu di null kan lagi setiap mau di animasi kan
+			requestAnimationFrame(animate);
+		}
+		function mcAnimateOrangB(a,b,ar){
+			function animate(timestamp) {
+			
+				
+				if (!startTime) startTime = timestamp;
+				const elapsed = timestamp - startTime;
+				var ct = Math.round(Math.min(elapsed / duration * 4 , 4)); 	// 90 derajat; 
+				for(var i=0;i<=4;i++){
+					arorang[i].style.display = "none";
+				}
+				arorang[ct].style.display = "";
+				if (elapsed < duration) {
+					requestAnimationFrame(animate);
+				} else {
+					ntitik++;
+					ii++;
+					mcAnimateStep(ar[ii]);
+					if(ntitik<nmax){
+						startTime = null;
+						mcorang.x -= dxx;
+						mcorang.style.left = ''+mcorang.x+'px';
+						arorang[4].style.display = "none";
+						arorang[0].style.display = "";
+						requestAnimationFrame(animate);
+					}else{
+						Remote();
+						//console.log('Animasi selesai.');
+					}
+				}
+			}
+			const duration = 500; // Durasi 0.5 detik dalam milidetik
+			var ntitik = a;
+			var nmax = b;
+			var ii = -1;
+			let startTime = null; //perlu di null kan lagi setiap mau di animasi kan
+			arorangbalik[4].style.display = "none"; // khusus untuk memunculkan balik terakhir
+			requestAnimationFrame(animate);
+		}
+		function mcAnimateOrangBalik(str){
+			function animate(timestamp) {
+				console.log("masuk");
+				
+				if (!startTime) startTime = timestamp;
+				const elapsed = timestamp - startTime;
+				var ct = Math.round(Math.min(elapsed / duration * 4 , 4)); 	// 90 derajat; 
+				for(var i=0;i<=4;i++){
+					arorangbalik[i].style.display = "none";
+				}
+				arorangbalik[ct].style.display = "";
+				if (elapsed < duration) {
+					requestAnimationFrame(animate);
+				} else {
+					mcAnimateStep(str);
+					Remote();
+					//console.log('Animasi selesai.');
+				}
+			}
+			const duration = 500; // Durasi 0.5 detik dalam milidetik
+			let startTime = null; //perlu di null kan lagi setiap mau di animasi kan
+			requestAnimationFrame(animate);
+		}
+		function mcAnimateStep(str){
+			function animate(timestamp) {
+				if (!startTime) startTime = timestamp;
+				const elapsed = timestamp - startTime;
+				var sdt = Math.min(elapsed / duration * 180 , 180);
+				const progress = 10*Math.sin(sdt*Math.PI/180);
+
+				//mc.style.scale = ''+progress+'';
+				mc.style.top = ''+(mc.yy+progress)+'px';
+				if (elapsed < duration) {
+					requestAnimationFrame(animate);
+				} else {
+					//Remote();
+					//console.log('Animasi selesai.');
+				}
+			}
+			var mc = document.getElementById(str);
+			let startTime = null;// perlu di null kan lagi setiap mau di animasi kan
+			const duration = 200; // Durasi 0.5 detik dalam milidetik
+			requestAnimationFrame(animate);
+		}
+		function mcAnimateAlpha(str){
+			function animate(timestamp) {
+				if (!startTime) startTime = timestamp;
+				const elapsed = timestamp - startTime;
+				var sdt = Math.min(elapsed / duration * 90 , 90);
+				const progress = Math.sin(sdt*Math.PI/180);
+				
+				mc.style.opacity = ''+progress+'';
+				if (elapsed < duration) {
+					requestAnimationFrame(animate);
+				} else {
+					Remote();
+					//console.log('Animasi selesai.');
+				}
+			}
+			var mc = document.getElementById(str);
+			let startTime = null;// perlu di null kan lagi setiap mau di animasi kan
+			const duration = 1500; // Durasi 0.5 detik dalam milidetik
+			requestAnimationFrame(animate);
+		}
+	</script>
+	<script>
+		var step=0;
+		function Klik(e){
+			//mulai animasi
+			Remote();
+			btnmulai.style.display = "none";
+			btnmulai.removeEventListener('click', Klik);
+		}
+		function Remote(){
+			step++;
+			if(step==1){
+				mcAnimateOrangBalik("t6");
+			}else if(step==2){
+				mcAnimateAlpha('v0');
+			}else if(step==3){
+				mcAnimateOrangB(0,4,["t5","t4","t3","t2"]);
+			}else if(step==4){
+				mcAnimateAlpha('p01');
+			}else if(step==5){
+				mcAnimateAlpha('v1');
+			}else if(step==6){
+				mcAnimateAlpha('h01');
+			}
+		}
+		btnmulai.addEventListener('click', Klik);
+		
+	</script>
+	<script>
+		var fixzoom = 100;
+		document.body.style.backgroundColor = "black";
+		window.addEventListener('resize', () => {
+			ZoomAll();
+		});
+		function XYbenda(){
+			myBG.x = window.scrollX+(lebarJendela-840*scl)/2;
+			myBG.y = window.scrollY+(tinggiJendela-472*scl)/2;
+			myBG.style.left = ''+(myBG.x)+'px';
+			myBG.style.top = ''+(myBG.y)+'px';
+			for(var i=0;i<=12;i++){
+				artitik[i].style.left = ''+xytitik[i][0]+'px';
+				artitik[i].style.top = ''+xytitik[i][1]+'px';
+			}
+		}
+		function ZoomAll(){
+			lebarJendela = window.innerWidth;
+			tinggiJendela = window.innerHeight;
+			var xscale = lebarJendela/840;
+			var yscale = tinggiJendela/472;
+			scl = 0.95*Math.min(xscale,yscale);
+			fixzoom = scl*100;
+			document.body.style.zoom = ""+fixzoom+"%";
+			XYbenda();
+		}
+		
+		ZoomAll();
+		function handleClick(event) {
+			console.log("handleClick");
+		}
+		myBG.addEventListener('click', handleClick);
+		setTimeout(() => {
+			console.log("handleClick")
+			ZoomAll();
+			myBG.removeEventListener('click', handleClick);
+		}, 100);
+	</script>
+</body>
+</html>

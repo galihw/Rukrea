@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angka Ratus Ribuan</title>
+	<style>
+		.bg {
+			max-width: 840px; /* Lebar maksimal halaman */
+			margin: 0 auto;
+			width: 100%;
+			height: 472px;
+			position: absolute;
+			background-color: grey;
+			user-select: none;
+			-webkit-user-select: none;
+            overflow: hidden;
+		}
+		.tutup {
+			max-width: 840px; /* Lebar maksimal halaman */
+			margin: 0 auto;
+			width: 100%;
+			height: 472px;
+			position: absolute;
+			background-color: black;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.areabtn {
+			width: 70px;
+			height: 70px;
+			transform: translate(-50%, -50%);
+			position: absolute;
+			cursor: grab;
+			touch-action: none;
+			/*opacity : 0.5;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.btncek {
+			width: 84px;
+			height: 45px;
+			transform: translate(-50%, -50%);
+			position: absolute;
+			cursor: pointer;
+			touch-action: none;
+			/*opacity : 0.5;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.btnsoallain {
+			width: 183.57px;
+			height: 45px;
+			transform: translate(-50%, -50%);
+			position: absolute;
+			cursor: pointer;
+			touch-action: none;
+			/*opacity : 0.5;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.areaDrop {
+			position: absolute;
+			touch-action: none;
+			width: 70px; 
+			height: 70px; 
+			transform: translate(-50%, -50%);
+			background-color: #ffff00;
+			opacity : 0;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.textbox {
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 40px;
+			color: #000000;
+			/*background-color: #ffffff;*/
+			width: 450px;
+			height: 160px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
+		.textboxkecil {
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #ffffff;
+			/*background-color: #ffffff;*/
+			width: 125px;
+			height: 40px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
+		.benarsalah {
+			position: absolute;
+			/*background-color: #ffffff;*/
+			width: 60px;
+			height: 60px;
+			transform: translate(-50%, -50%);
+		}
+		.fade {
+			/*animation: fadeInOut 1s ease-in-out infinite;*/
+			animation: fadeInOut 1s ease-in-out forwards;
+		}
+		@keyframes fadeInOut {
+			0%, 100% { opacity: 0; }
+			50% { opacity: 1; } 
+		}
+		.fadeout {
+			pointer-events: none;
+			/*animation: fadeInOut 1s ease-in-out infinite;*/
+			animation: fadeOut 1s ease-out forwards;
+		}
+		@keyframes fadeOut {
+			0% { opacity: 1; }
+			1% { opacity: 1; }
+			99% { opacity: 0; }
+			100% { opacity: 0; }
+		}
+	</style>
+</head>
+<body>
+	<div class ="bg" id="bg">
+		<div class="textbox" id="textbox"></div>
+		<div class="textboxkecil" id="textboxkecil"></div>
+		<div id="isidrop">
+			<div class="areaDrop" id="drop0"></div>
+			<div class="areaDrop" id="drop1"></div>
+			<div class="areaDrop" id="drop2"></div>
+			<div class="areaDrop" id="drop3"></div>
+			<div class="areaDrop" id="drop4"></div>
+			<div class="areaDrop" id="drop5"></div>
+			<div class="btncek" id="btncek"></div>
+			<div class="btnsoallain" id="btnsoallain"></div>
+		</div>
+		<div id="isibtn">
+			<div class="areabtn" id="tombol0"></div>
+			<div class="areabtn" id="tombol1"></div>
+			<div class="areabtn" id="tombol2"></div>
+			<div class="areabtn" id="tombol3"></div>
+			<div class="areabtn" id="tombol4"></div>
+			<div class="areabtn" id="tombol5"></div>
+			<div class="areabtn" id="tombol6"></div>
+			<div class="areabtn" id="tombol7"></div>
+			<div class="areabtn" id="tombol8"></div>
+			<div class="areabtn" id="tombol9"></div>
+			<div class="areabtn" id="atas"></div>
+		</div>
+		<div class="benarsalah" id="salah"></div>
+		<div class="benarsalah" id="benar"></div>
+		<div class="tutup fadeout" id="tutup"></div>
+	</div>
+	<script>
+		function RandomAngkaAtoB(a,b){ 
+			var r = a+Math.ceil(Math.random() * b);
+			return r;
+		}
+		function RandomMyArray(Arr){
+			for (var i=0; i<Arr.length; i++){
+				var r = Math.floor(Math.random() * Arr.length);
+				var a = Arr[i];
+				Arr[i] = Arr[r];
+				Arr[r] = a;
+			}
+			return Arr
+		}
+	</script>
+	<script>
+		const myBG = document.getElementById("bg");
+		const mcatas = document.getElementById("atas");
+		const btncek = document.getElementById("btncek");
+		const btnsoallain = document.getElementById("btnsoallain");
+		const textbox = document.getElementById("textbox");
+		const benar = document.getElementById("benar");
+		const salah = document.getElementById("salah");
+		const tutup = document.getElementById("tutup");
+		const textboxkecil = document.getElementById("textboxkecil");
+		myBG.style.backgroundImage = "url(../img/bg.png)";
+		btncek.style.backgroundImage = "url(../img/btncek.png)";
+		btnsoallain.style.backgroundImage = "url(../img/btnsoallain.png)";
+		benar.style.backgroundImage = "url(../img/isbenar.png)";
+		salah.style.backgroundImage = "url(../img/issalah.png)";
+		textboxkecil.style.backgroundImage = "url(../img/boxjawaban1.png)";
+		let lebarJendela = window.innerWidth;
+		let tinggiJendela = window.innerHeight;
+		var scl = 1;
+		myBG.x = window.scrollX+(lebarJendela-840*scl)/2;
+		myBG.y = window.scrollY+(tinggiJendela-472*scl)/2;
+		myBG.style.left = ''+(myBG.x)+'px';
+		myBG.style.top = ''+(myBG.y)+'px';
+		myBG.w = 840;
+		myBG.h = 472;
+		var xybtn = [[650,60],[650,145],[650,230],[650,315],[650,400],[750,60],[750,145],[750,230],[750,315],[750,400]];
+		var xydrop = [[105,360],[189,360],[273,360],[357,360],[441,360],[525,360]];
+		var arTombol = [];
+		var arDrop = [];
+		var arIsi = [];
+		for(var i=0;i<=9;i++){
+			arTombol[i] = document.getElementById('tombol'+i);
+			arTombol[i].style.left = ''+xybtn[i][0]+'px';
+			arTombol[i].style.top = ''+xybtn[i][1]+'px';
+			arTombol[i].w = arTombol[i].offsetWidth;
+			arTombol[i].h = arTombol[i].offsetHeight;
+			arTombol[i].x0 = xybtn[i][0];
+			arTombol[i].y0 = xybtn[i][1];
+			arTombol[i].ct = 0;
+			arTombol[i].i = i;
+			arTombol[i].j = -1;
+			arTombol[i].sudah = false;
+			arTombol[i].style.backgroundImage = "url(../img/h"+i+".png)";
+			arTombol[i].isi = "kosong";
+		}
+		for(var i=0;i<=5;i++){
+			arDrop[i] = document.getElementById('drop'+i);
+			arDrop[i].style.left = ''+xydrop[i][0]+'px';
+			arDrop[i].style.top = ''+xydrop[i][1]+'px';
+			arDrop[i].x = xydrop[i][0];
+			arDrop[i].y = xydrop[i][1];
+			arDrop[i].w = arDrop[i].offsetWidth;
+			arDrop[i].h = arDrop[i].offsetHeight;
+			arDrop[i].x0 = xydrop[i][0];
+			arDrop[i].y0 = xydrop[i][1];
+			arDrop[i].ct = 0;
+			arDrop[i].sudah = false;
+			arDrop[i].isi = "kosong";
+		}
+		mcatas.x0 = -70;
+		mcatas.y0 = -70;
+		mcatas.style.left = ''+mcatas.x0+'px';
+		mcatas.style.top = ''+mcatas.y0+'px';
+		btncek.style.left = ''+219+'px';
+		btncek.style.top = ''+435+'px';
+		btncek.style.display = "none";
+		btnsoallain.style.left = ''+360+'px';
+		btnsoallain.style.top = ''+435+'px';
+		btnsoallain.style.display = "none";
+		textbox.style.left = ''+315+'px';
+		textbox.style.top = ''+180+'px';
+		benar.style.left = ''+485+'px';
+		benar.style.top = ''+395+'px';
+		salah.style.left = ''+485+'px';
+		salah.style.top = ''+395+'px';
+		benar.style.display = "none";
+		salah.style.display = "none";
+		textboxkecil.style.left = ''+89+'px';
+		textboxkecil.style.top = ''+435+'px';
+		textboxkecil.style.display = "none";
+		
+		var arbox = [];
+		for(var i=0;i<=5;i++){
+			arbox.push([arDrop[i],xydrop[i][0],xydrop[i][1],[]]);
+		}
+		
+	</script>
+	<script>
+		function angkaketeks(isi){
+			var ar = isi.split("");
+			var lafal = ["","satu","dua","tiga","empat","lima","enam","tujuh","delapan","sembilan"];
+			var teks = "";
+			// ratus ribuan
+			if(ar[0]==1)	teks+="seratus ";
+			else			teks+=(lafal[ar[0]]+" ratus ");
+			//puluh ribuan dan satuan ribuan
+			if(ar[1]==0){
+				teks+=lafal[ar[2]]+" ribu ";
+			}else if(ar[1]==1){
+				if(ar[2]==0)	teks+="sepuluh ribu ";
+				else 			teks+=lafal[ar[2]]+" belas ribu ";
+			}else{
+				if(ar[2]==0)	teks+=(lafal[ar[1]]+" puluh ribu ");
+				else 			teks+=(lafal[ar[1]]+" puluh "+lafal[ar[2]]+" ribu ");
+			}
+			
+			// ratus
+			if(ar[3]==0)		teks+="";
+			else if(ar[3]==1)	teks+="seratus ";
+			else				teks+=(lafal[ar[3]]+" ratus ");
+			// puluh dan satuan
+			if(ar[4]==0){
+				teks+=lafal[ar[5]]+" ";
+			}else if(ar[4]==1){
+				if(ar[5]==0)	teks+="sepuluh";
+				else 			teks+=lafal[ar[5]]+" belas";
+			}else{
+				if(ar[5]==0)	teks+=(lafal[ar[4]]+" puluh");
+				else 			teks+=(lafal[ar[4]]+" puluh "+lafal[ar[5]]);
+			}
+			
+			return teks;
+		}
+		function AcakAngka(){
+			var angka = [0,1,2,3,4,5,6,7,8,9];
+			do{
+				angka=RandomMyArray(angka);
+			}while(angka[0]==0);
+			var isitrue = "";
+			for(var i=0;i<=5;i++){
+				isitrue+=(""+angka[i]);
+			}
+			return isitrue;
+		}
+		var isitrue = AcakAngka();
+		var isivalue = "";
+		textbox.innerHTML = angkaketeks(isitrue);
+		textboxkecil.innerHTML = isitrue;
+		console.log(isitrue);
+	</script>
+	<script>
+		var selectedEl = null;
+		const controller = new AbortController();
+        function selectElement(el) {
+            UnselectElement(el)
+            selectedEl = el;
+            //selectedEl.classList.add('terseleksi');
+        }
+        function UnselectElement(el) {
+            if (selectedEl) {
+                //selectedEl.classList.remove('terseleksi');
+                //selectedEl.classList.remove('dropbenar');
+				selectedEl = null;
+            }
+        }
+		function setupDraggable(el,mc) {
+			//var xmax = (mc.offsetWidth-el.offsetWidth);
+			//var ymax = (mc.offsetHeight-el.offsetHeight);
+			var xmax = (myBG.w-el.offsetWidth/2);
+			var ymax = (myBG.h-el.offsetHeight/2);
+			var xmin = el.offsetWidth/2;
+			var ymin = el.offsetHeight/2;
+			let startX=0, startY=0, initialX=0, initialY=0;
+			let newX=0, newY=0;
+            el.addEventListener('mousedown', dragMouseDown,{ signal: controller.signal });
+            el.addEventListener('touchstart', dragMouseDown, { signal: controller.signal } ,{ passive: false });
+			
+			el.ff = false;
+            function dragMouseDown(e) {
+                e.preventDefault();
+				if(!selectedEl){
+					selectElement(el);
+					if(e.type==="touchstart"){
+						startX = e.touches[0].clientX;
+						startY = e.touches[0].clientY;
+						initialX = el.offsetLeft;
+						initialY = el.offsetTop;
+						document.addEventListener('touchend', dragMouseUp);
+						document.addEventListener('touchmove', dragMouseMove, { passive: false });
+					}else{
+						startX = e.clientX;
+						startY = e.clientY;
+						initialX = el.offsetLeft;
+						initialY = el.offsetTop;
+						document.addEventListener('mouseup', dragMouseUp);
+						document.addEventListener('mousemove', dragMouseMove);
+					}
+					if(el.j!==-1)arbox[el.j][3].splice(0, 1);
+				}
+            }
+
+            function dragMouseMove(e) {
+				e.preventDefault();
+				if(selectedEl){
+					let deltaX=0;
+					let deltaY=0;
+					if(e.type==="touchmove"){
+						deltaX = (e.touches[0].clientX - startX) / scl;
+						deltaY = (e.touches[0].clientY - startY) / scl;
+					}else{
+						deltaX = (e.clientX - startX) / scl;
+						deltaY = (e.clientY - startY) / scl;
+					}
+					newX = initialX + deltaX;
+					newY = initialY + deltaY;
+					newX = Math.max(xmin,Math.min(xmax,newX));
+					newY = Math.max(ymin,Math.min(ymax,newY));
+					newX = Math.round(newX/20)*20;
+					newY = Math.round(newY/20)*20;
+					//el.x = newX;
+					//el.y = newY;
+					el.style.left = newX + "px";
+					el.style.top = newY + "px";
+					xybtn[el.i][0] = newX;
+					xybtn[el.i][1] = newY;
+					mcatas.style.left = newX + "px";
+					mcatas.style.top = newY + "px";
+					mcatas.style.backgroundImage = "url(../img/h"+el.i+".png)";
+				}
+            }
+			
+            function dragMouseUp() {
+				if(selectedEl){
+					el.ff = false;
+					for(var j=0;j<=5;j++){
+						var mcdrop = arDrop[j];
+						el.ff = newX >= mcdrop.x-el.w/2 &&	newX <= mcdrop.x+el.w/2 && newY >= mcdrop.y-el.h/2 && newY <= mcdrop.y+el.h/2;
+						if(el.ff){
+							el.j = j;
+							j=6;
+						}
+					}
+					if(el.ff){
+						arbox[el.j][3].push(el);
+						if(arbox[el.j][3].length==2){
+							var btnBack = arbox[el.j][3][0];
+							arbox[el.j][3].splice(0, 1);
+							btnBack.style.left = ""+ btnBack.x0 + "px";
+							btnBack.style.top = ""+ btnBack.y0 + "px";
+							btnBack.j = -1;
+						}
+						arbox[el.j][3][0].style.left = ""+arbox[el.j][1] + "px";
+						arbox[el.j][3][0].style.top = ""+arbox[el.j][2] + "px";
+						CekDrop();
+					}else{
+						el.style.left = ""+el.x0+"px";
+						el.style.top = ""+el.y0+"px";
+						el.j=-1;
+					}
+					// membalikkan ke posisi tak terlihat
+					mcatas.style.left = ''+mcatas.x0+'px';
+					mcatas.style.top = ''+mcatas.y0+'px';
+					//mematikan semua listener objek
+					document.removeEventListener('mouseup', dragMouseUp);
+					document.removeEventListener('mousemove', dragMouseMove);
+					document.removeEventListener('touchend', dragMouseUp);
+					document.removeEventListener('touchmove', dragMouseMove);
+					
+					isdrag = false;
+					UnselectElement(el);
+				}
+			}
+			function CekDrop() {
+				var ct = 0;
+				isivalue = "";
+				for(var i=0;i<=5;i++){
+					if(arbox[i][3].length==1){
+						ct++;
+						isivalue +=  (""+arbox[i][3][0].i);
+					}
+				}
+				if(ct==arbox.length){
+					btncek.style.display = "";
+					btncek.addEventListener('click', klikCek);
+				}
+			}
+			
+			var ctsalah = 0;
+			function klikCek(){
+				btncek.style.display = "none";
+				if(isivalue==isitrue){
+					//console.log("benar");
+					benar.style.display = "";
+					benar.classList.add("fade");
+					controller.abort();
+					benar.addEventListener('animationend', () => {
+						//console.log('Animasi CSS telah selesai!');
+						benar.classList.remove("fade");
+						benar.style.display = "none";
+						//btncek.style.display = "none";
+						btnsoallain.style.display = "";
+						btnsoallain.addEventListener('click', function() {
+						   location.href = "../html/AngkaRatusRibuan.html";
+						});
+					});
+				}else{
+					ctsalah++;
+					ctsalah = Math.min(ctsalah,3);
+					if(ctsalah==3){
+						controller.abort();
+						textboxkecil.style.display = "";
+						btnsoallain.style.display = "";
+						btnsoallain.addEventListener('click', function() {
+						   location.href = "../html/AngkaRatusRibuan.html";
+						});
+					}
+					//console.log("salah");
+					salah.style.display = "";
+					salah.classList.add("fade");
+					salah.addEventListener('animationend', () => {
+						//console.log('Animasi CSS telah selesai!');
+						salah.classList.remove("fade");
+						salah.style.display = "none";
+					});
+				}
+			}
+        }
+	</script>	
+	<script>
+		var fixzoom = 100;
+		document.body.style.backgroundColor = "black";
+		window.addEventListener('resize', () => {
+			ZoomAll();
+		});
+		function XYbenda(){
+			myBG.x = window.scrollX+(lebarJendela-840*scl)/2;
+			myBG.y = window.scrollY+(tinggiJendela-472*scl)/2;
+			myBG.style.left = ''+(myBG.x)+'px';
+			myBG.style.top = ''+(myBG.y)+'px';
+			for(var i=0;i<=9;i++){
+				arTombol[i].style.left = ''+xybtn[i][0]+'px';
+				arTombol[i].style.top = ''+xybtn[i][1]+'px';
+				setupDraggable(arTombol[i], myBG);
+			}
+		}
+		function ZoomAll(){
+			lebarJendela = window.innerWidth;
+			tinggiJendela = window.innerHeight;
+			var xscale = lebarJendela/840;
+			var yscale = tinggiJendela/472;
+			scl = 0.95*Math.min(xscale,yscale);
+			fixzoom = scl*100;
+			document.body.style.zoom = ""+fixzoom+"%";
+			XYbenda();
+		}
+		
+		ZoomAll();
+		function handleClick(event) {
+			console.log("handleClick");
+		}
+		myBG.addEventListener('click', handleClick);
+		setTimeout(() => {
+			console.log("handleClick")
+			ZoomAll();
+			myBG.removeEventListener('click', handleClick);
+		}, 100);
+	</script>
+</body>
+</html>

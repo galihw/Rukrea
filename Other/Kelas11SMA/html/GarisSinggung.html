@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudut Segitiga</title>
+	<style>
+		.bg {
+			width: 840px;
+			height: 472px;
+			position: absolute;
+			background-color: grey;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.klikbtn {
+			width: 20px;
+			height: 20px;
+			background-color: #3498db;
+			border-radius: 50%;
+			transform: translate(-50%, -50%);
+			position: absolute;
+			cursor: grab;
+			touch-action: none;
+			outline: 3px solid black;
+			
+			
+			/*opacity : 0.5;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.pusat {
+			width: 10px;
+			height: 10px;
+			background-color: #3498db;
+			border-radius: 50%;
+			transform: translate(-50%, -50%);
+			position: absolute;
+			cursor: default;
+			touch-action: none;
+			outline: 3px solid black;
+			
+			/*opacity : 0.5;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.btnGabung {
+			position: absolute;
+			cursor: pointer;
+			/*touch-action: none;*/
+			width: 140px; 
+			height: 50px;
+			transform: translate(-50%, -50%);
+			background-color: #ff0000;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.terseleksi {
+			box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.myCanvas {
+			position: absolute;
+			cursor: default;
+		}
+		.myCanvasArea {
+			position: absolute;
+			cursor: default;
+			width: 840px;
+			height: 472px;
+			/*transform: translate(-50%, -50%);*/
+		}
+		.myDiv {
+			position: absolute;
+			cursor: default;
+			width: 100px; 
+			height: 100px;
+			transform: translate(-50%, -50%);
+		}
+		.textbox {
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #ffffff;
+			background-color: #000000;
+			width: 140px;
+			height: 120px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
+		.textAB {
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #ffffff;
+			background-color: #000000;
+			width: 140px;
+			height: 40px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
+		.textABbtn {
+			position: absolute;
+			cursor: pointer;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #ffffff;
+			background-color: #000000;
+			width: 140px;
+			height: 40px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
+		.myImg {
+			position: absolute;
+			cursor: default;
+			width: 175px; 
+			height: 60px;
+			transform: translate(-50%, -50%);
+		}
+		.hurufT {
+			position: absolute;
+			cursor: pointer;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #000000;
+			/*background-color: #000000;*/
+			width: 20px;
+			height: 20px;
+			transform: translate(-50%, -150%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
+		.hurufB {
+			position: absolute;
+			cursor: pointer;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #000000;
+			/*background-color: #000000;*/
+			width: 20px;
+			height: 20px;
+			transform: translate(-50%, 50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
+		.glow {
+			box-shadow: 
+			inset 0 0 12px rgba(0, 243, 255, 0.8),
+			0 0 20px rgba(0, 243, 255, 1),
+			0 0 50px rgba(0, 243, 255, 0.6);
+		}
+	</style>
+</head>
+<body>
+	<div class ="bg" id="bg">
+		<div id="mcUnsur" width="600" height="420">
+			
+			
+			<canvas class="myCanvas" id="lingkaranP" width="600" height="420" ></canvas>
+			<canvas class="myCanvas" id="lingkaranQ" width="600" height="420" ></canvas>
+			
+			<div id='propL'>
+				<canvas class="myCanvas" id="garisLuar" width="600" height="420" ></canvas>
+				<div class="pusat" id="AL" style="background-color:#FF6600"></div>
+				<div class="pusat" id="BL" style="background-color:#FF6600"></div>
+				<div class="pusat" id="RrL" style="background-color:yellow"></div>
+				<div class="hurufT" id="tAL"></div>
+				<div class="hurufT" id="tBL"></div>
+				<div class="hurufB" id="tPL"></div>
+				<div class="hurufB" id="tQL"></div>
+			</div>
+			<div id='propD'>
+				<canvas class="myCanvas" id="garisDalam" width="600" height="420" ></canvas>
+				<div class="pusat" id="AD" style="background-color:#FF00FF"></div>
+				<div class="pusat" id="BD" style="background-color:#FF00FF"></div>
+				<div class="pusat" id="RrD" style="background-color:yellow"></div>
+				<div class="hurufT" id="tAD"></div>
+				<div class="hurufT" id="tBD"></div>
+				<div class="hurufB" id="tPD"></div>
+				<div class="hurufB" id="tQD"></div>
+			</div>
+			
+				
+			<div class="pusat" id="pusatP" style="background-color:black"></div>
+			<div class="pusat" id="pusatQ" style="background-color:black"></div>
+			<div class="klikbtn" id="skalaP" style="background-color:grey"></div>
+			<div class="klikbtn" id="skalaQ" style="background-color:grey"></div>
+		</div>
+		<div class="textABbtn" id="btnLuar" style="background-color:#FF6600"></div>
+		<div class="textABbtn" id="btnDalam" style="background-color:#FF00FF"></div>
+		<div class="myImg" id="rumusL"></div>
+		<div class="myImg" id="rumusD"></div>
+	</div>
+	<script>
+		function RandomAngkaAtoB(a,b){ 
+			var r = a+Math.ceil(Math.random() * b);
+			return r;
+		}
+		function RandomMyArray(Arr){
+			for (var i=0; i<Arr.length; i++){
+				var r = Math.floor(Math.random() * Arr.length);
+				var a = Arr[i];
+				Arr[i] = Arr[r];
+				Arr[r] = a;
+			}
+			return Arr
+		}
+		function StringDesimal(ff){
+			var strff = ""+ff;
+			const gg = strff.split(".");
+			if(gg.length==2)	return gg[0]+","+gg[1];
+			else 				return ff
+		}
+	</script>
+	<script>
+		const cX = window.scrollX;
+		const cY = window.scrollY;
+		const myBG = document.getElementById("bg");
+		const mcUnsur = document.getElementById("mcUnsur");
+		const lingkaranP = document.getElementById("lingkaranP");
+		const lingkaranQ = document.getElementById("lingkaranQ");
+		const pusatP = document.getElementById("pusatP");
+		const pusatQ = document.getElementById("pusatQ");
+		const skalaP = document.getElementById("skalaP");
+		const skalaQ = document.getElementById("skalaQ");
+		const garisLuar = document.getElementById("garisLuar");
+		const garisDalam = document.getElementById("garisDalam");
+		const propL = document.getElementById("propL");
+		const propD = document.getElementById("propD");
+		const AL = document.getElementById("AL");
+		const BL = document.getElementById("BL");
+		const RrL = document.getElementById("RrL");
+		const AD = document.getElementById("AD");
+		const BD = document.getElementById("BD");
+		const RrD = document.getElementById("RrD");
+		
+		const tAD = document.getElementById("tAD");
+		const tBD = document.getElementById("tBD");
+		const tPD = document.getElementById("tPD");
+		const tQD = document.getElementById("tQD");
+		
+		const tAL = document.getElementById("tAL");
+		const tBL = document.getElementById("tBL");
+		const tPL = document.getElementById("tPL");
+		const tQL = document.getElementById("tQL");
+		
+		
+		
+		const btnLuar = document.getElementById("btnLuar");
+		const btnDalam = document.getElementById("btnDalam");
+		const rumusL = document.getElementById("rumusL");
+		const rumusD = document.getElementById("rumusD");
+		
+		myBG.style.backgroundImage = "url(../img/bg2GSP.png)";
+		rumusL.style.backgroundImage = "url(../img/gsp1.png)";
+		rumusD.style.backgroundImage = "url(../img/gsp2.png)";
+		
+		let lebarJendela = window.innerWidth;
+		let tinggiJendela = window.innerHeight;
+		var scl = 1;
+		myBG.x = window.scrollX+(lebarJendela-840*scl)/2;
+		myBG.y = window.scrollY+(tinggiJendela-472*scl)/2;
+		myBG.style.left = ''+(myBG.x)+'px';
+		myBG.style.top = ''+(myBG.y)+'px';
+		myBG.w = 840;
+		myBG.h = 472;
+		
+		
+		tAD.innerHTML = 'A';
+		tBD.innerHTML = 'B';
+		tPD.innerHTML = 'P';
+		tQD.innerHTML = 'Q';
+		
+		tAL.innerHTML = 'A';
+		tBL.innerHTML = 'B';
+		tPL.innerHTML = 'P';
+		tQL.innerHTML = 'Q';
+		
+	</script>
+    <script>
+		//Menggambar Lingkaran dan garis singgung
+		//........................................................................................................................................
+		var xypusat = [[200,220],[450,220]];
+		var jarak = xypusat[1][0]-xypusat[0][0];
+		var Rbesar = 100;
+		var Rkecil = 40;
+		
+		lingkaranP.style.left = ''+0+'px';
+		lingkaranP.style.top = ''+0+'px';
+		lingkaranQ.style.left = ''+0+'px';
+		lingkaranQ.style.top = ''+0+'px';
+		pusatP.style.left = ''+xypusat[0][0]+'px';
+		pusatP.style.top = ''+xypusat[0][1]+'px';
+		pusatQ.style.left = ''+xypusat[1][0]+'px';
+		pusatQ.style.top = ''+xypusat[1][1]+'px';
+		skalaP.style.left = ''+(xypusat[0][0]-Rbesar)+'px';
+		skalaP.style.top = ''+xypusat[0][1]+'px';
+		skalaQ.style.left = ''+(xypusat[1][0]+Rkecil)+'px';
+		skalaQ.style.top = ''+xypusat[1][1]+'px';
+		
+		
+		function DrawLuar(canv,x0,y0,x1,y1,x2,y2,x3,y3,x4,y4){
+			const canvas = document.getElementById(canv);
+			const ctx = canvas.getContext('2d');
+			
+			ctx.clearRect(0,0, canvas.width, canvas.height);
+			ctx.beginPath();
+			ctx.strokeStyle = '#000000'; // Warna merah
+			ctx.lineWidth = 2; // Ketebalan garis 5px
+			ctx.lineJoin = "round";
+			
+			ctx.moveTo(x0,y0);
+			ctx.lineTo(x1,y1);
+			ctx.lineTo(x2,y2);
+			ctx.lineTo(x3,y3);
+			ctx.lineTo(x4,y4);
+			ctx.moveTo(x0,y0);
+			ctx.lineTo(x3,y3);
+			ctx.stroke();
+			//DrawLuar('garisLuar',xP,yP,xA,yA,xB,yB,xQ,yQ,xRr,yRr);
+			
+			//huruf
+			tAL.style.left = x1+'px';
+			tAL.style.top = y1+'px';
+			tBL.style.left = x2+'px';
+			tBL.style.top = y2+'px';
+			tPL.style.left = x0+'px';
+			tPL.style.top = y0+'px';
+			tQL.style.left = x3+'px';
+			tQL.style.top = y3+'px';
+			
+			//Garis singgung
+			ctx.beginPath();
+			ctx.strokeStyle = '#FF6600'; // Warna merah
+			ctx.lineWidth = 4; // Ketebalan garis 5px
+			ctx.moveTo(x1,y1);
+			ctx.lineTo(x2,y2);
+			ctx.stroke();
+			
+			//Rbesar
+			ctx.beginPath();
+			ctx.strokeStyle = '#004CFE'; // Warna merah
+			ctx.lineWidth = 4; // Ketebalan garis 5px
+			ctx.moveTo(x0,y0);
+			ctx.lineTo(x1,y1);
+			ctx.stroke();
+			
+			//Rkecil
+			ctx.beginPath();
+			ctx.strokeStyle = '#00BA4A'; // Warna merah
+			ctx.lineWidth = 4; // Ketebalan garis 5px
+			ctx.moveTo(x3,y3);
+			ctx.lineTo(x2,y2);
+			ctx.stroke();
+			
+			AL.style.left = x1+'px';
+			AL.style.top = y1+'px';
+			BL.style.left = x2+'px';
+			BL.style.top = y2+'px';
+			RrL.style.left = x4+'px';
+			RrL.style.top = y4+'px';
+			return 0;
+		}
+		function DrawDalam(canv,x0,y0,x1,y1,x2,y2,x3,y3,x4,y4){
+			const canvas = document.getElementById(canv);
+			const ctx = canvas.getContext('2d');
+			
+			ctx.clearRect(0,0, canvas.width, canvas.height);
+			ctx.beginPath();
+			ctx.strokeStyle = '#000000'; // Warna merah
+			ctx.lineWidth = 2; // Ketebalan garis 5px
+			ctx.lineJoin = "round";
+			ctx.moveTo(x0,y0);
+			ctx.lineTo(x1,y1);
+			ctx.lineTo(x2,y2);
+			ctx.lineTo(x0,y0);
+			ctx.lineTo(x3,y3);
+			ctx.lineTo(x4,y4);
+			ctx.stroke();
+			//DrawDalam('garisDalam',xP,yP,xRr,yRr,xQ,yQ,xA,yA,xB,yB);
+			
+			//huruf
+			tAD.style.left = x3+'px';
+			tAD.style.top = y3+'px';
+			tBD.style.left = x4+'px';
+			tBD.style.top = y4+'px';
+			tPD.style.left = x0+'px';
+			tPD.style.top = y0+'px';
+			tQD.style.left = x2+'px';
+			tQD.style.top = y2+'px';
+			
+			//Garis singgung
+			ctx.beginPath();
+			ctx.strokeStyle = '#FF00FF'; // Warna merah
+			ctx.lineWidth = 4; // Ketebalan garis 5px
+			ctx.moveTo(x3,y3);
+			ctx.lineTo(x4,y4);
+			ctx.stroke();
+			
+			//Rbesar
+			ctx.beginPath();
+			ctx.strokeStyle = '#004CFE'; // Warna merah
+			ctx.lineWidth = 4; // Ketebalan garis 5px
+			ctx.moveTo(x0,y0);
+			ctx.lineTo(x3,y3);
+			ctx.stroke();
+			
+			//Rkecil
+			ctx.beginPath();
+			ctx.strokeStyle = '#00BA4A'; // Warna merah
+			ctx.lineWidth = 4; // Ketebalan garis 5px
+			ctx.moveTo(x2,y2);
+			ctx.lineTo(x4,y4);
+			ctx.stroke();
+			
+
+			
+			
+			AD.style.left = x3+'px';
+			AD.style.top = y3+'px';
+			BD.style.left = x4+'px';
+			BD.style.top = y4+'px';
+			RrD.style.left = x1+'px';
+			RrD.style.top = y1+'px';
+			return 0;
+		}
+		function GSPLuar(){
+			var xP = xypusat[0][0];
+			var yP = xypusat[0][1];
+			var xQ = xypusat[1][0];
+			var yQ = xypusat[1][1];
+			var R = Rbesar;
+			var r = Rkecil;
+			var PQ = xQ-xP;
+			
+			var AB = Math.sqrt(PQ**2 - (R-r)**2);
+			var t = (R-r)*AB/PQ;
+			var x = (R-r)**2 / PQ;
+			
+			var m = -t/x;
+			var sdt = -Math.atan2(t,x)
+			
+			var xA = xP + R*Math.cos(sdt);
+			var yA = yP + R*Math.sin(sdt);
+			
+			var xB = xQ + r*Math.cos(sdt);
+			var yB = yQ + r*Math.sin(sdt);
+			
+			var xRr = xP + (R-r)*Math.cos(sdt);
+			var yRr = yP + (R-r)*Math.sin(sdt);
+			
+			DrawLuar('garisLuar',xP,yP,xA,yA,xB,yB,xQ,yQ,xRr,yRr);
+		}
+		function GSPDalam(){
+			var xP = xypusat[0][0];
+			var yP = xypusat[0][1];
+			var xQ = xypusat[1][0];
+			var yQ = xypusat[1][1];
+			var R = Rbesar;
+			var r = Rkecil;
+			var PQ = xQ-xP;
+			
+			var AB = Math.sqrt(PQ**2 - (R+r)**2);
+			var t = (R+r)*AB/PQ;
+			var x = AB**2 / PQ;
+			
+			var m = t/x;
+			var sdt = Math.atan2(t,x)
+			var sdt90 = -90*Math.PI/180+Math.atan2(t,x)
+			
+			var xA = xP + R*Math.cos(sdt90);
+			var yA = yP + R*Math.sin(sdt90);
+			
+			var xB = xQ + r*Math.cos(sdt90+180*Math.PI/180);
+			var yB = yQ + r*Math.sin(sdt90+180*Math.PI/180);
+			
+			var xRr = xQ + (R+r)*Math.cos(sdt90+180*Math.PI/180);
+			var yRr = yQ + (R+r)*Math.sin(sdt90+180*Math.PI/180);
+			
+			DrawDalam('garisDalam',xP,yP,xRr,yRr,xQ,yQ,xA,yA,xB,yB);
+		}
+		
+		GSPLuar();
+		GSPDalam();
+		//........................................................................................................................................
+		
+	</script>
+    <script>
+		// Mengedit Titik
+		//skalaP.style.left = ''+(xypusat[0][0]-Rbesar)+'px';
+		//skalaP.style.top = ''+xypusat[0][1]+'px';
+		//skalaQ.style.left = ''+(xypusat[1][0]+Rkecil)+'px';
+		//skalaQ.style.top = ''+xypusat[1][1]+'px';
+		
+		var btnSkl = [
+					 [skalaP,xypusat[0][0]-Rbesar,xypusat[0][1]],
+					 [skalaQ,xypusat[1][0]+Rkecil,xypusat[0][1]]
+					];
+		var xykembali = [715,420];
+		var mcbtn = [];
+		var sdt0 = [180,0,-90,30,60,120,210,300,330];
+		var xx0=0;
+		var yy0=0;
+		
+		mcUnsur.style.left = ''+0+'px';
+		mcUnsur.style.top = ''+0+'px';
+		mcUnsur.w = 600;
+		mcUnsur.h = 420;
+		mcUnsur.x = 0;
+		mcUnsur.y = 0;
+		
+		btnLuar.style.left = ''+730+'px';
+		btnLuar.style.top = ''+50+'px';
+		btnDalam.style.left = ''+730+'px';
+		btnDalam.style.top = ''+100+'px';
+		btnLuar.innerHTML = "Luar";
+		btnDalam.innerHTML = "Dalam";
+		
+		
+		rumusL.style.left = ''+730+'px';
+		rumusL.style.top = ''+250+'px';
+		rumusD.style.left = ''+730+'px';
+		rumusD.style.top = ''+250+'px';
+		
+		propD.style.opacity = '0';
+		rumusD.style.opacity = '0';
+		btnLuar.classList.add("glow");
+		
+		btnLuar.addEventListener('click', (e)=>{
+			btnLuar.classList.add("glow");
+			btnDalam.classList.remove("glow");
+			propD.style.opacity = '0';
+			propL.style.opacity = '1';
+			rumusD.style.opacity = '0';
+			rumusL.style.opacity = '1';
+		});
+		btnDalam.addEventListener('click', (e)=>{
+			btnDalam.classList.add("glow");
+			btnLuar.classList.remove("glow");
+			propL.style.opacity = '0';
+			propD.style.opacity = '1';
+			rumusL.style.opacity = '0';
+			rumusD.style.opacity = '1';
+		});
+		
+	</script>
+    <script>
+	</script>
+    <script>
+    </script>
+
+	<script>
+		var selectedEl = null;
+		const controller = new AbortController();
+        function selectElement(el) {
+            UnselectElement(el)
+            selectedEl = el;
+            //selectedEl.classList.add('terseleksi');
+        }
+        function UnselectElement(el) {
+            if (selectedEl) {
+                //selectedEl.classList.remove('terseleksi');
+                //selectedEl.classList.remove('dropbenar');
+				selectedEl = null;
+            }
+        }
+		function setupDraggable(el,mc) {
+			//var xmax = (mc.offsetWidth-el.offsetWidth);
+			//var ymax = (mc.offsetHeight-el.offsetHeight);
+			//var xmax = (myBG.w-el.offsetWidth/2);
+			//var ymax = (myBG.h-el.offsetHeight/2);
+			//var xmin = el.offsetWidth/2;
+			//var ymin = el.offsetHeight/2;
+			var xmax = (mc.w-100);
+			var ymax = (mc.h-100);
+			var xmin = mc.x+40;
+			var ymin = mc.y+40;
+			let startX=0, startY=0, initialX=0, initialY=0;
+			let newX=0, newY=0;
+			
+            el.addEventListener('mousedown', dragMouseDown, { signal: controller.signal });
+            el.addEventListener('touchstart', dragMouseDown, { signal: controller.signal }, { passive: false });
+			
+			el.ff = false;
+            function dragMouseDown(e) {
+                e.preventDefault();
+                selectElement(el);
+				if(e.type==="touchstart"){
+					startX = e.touches[0].clientX;
+					startY = e.touches[0].clientY;
+					initialX = el.offsetLeft;
+					initialY = el.offsetTop;
+					document.addEventListener('touchend', dragMouseUp);
+					document.addEventListener('touchmove', dragMouseMove, { passive: false });
+				}else{
+					startX = e.clientX;
+					startY = e.clientY;
+					initialX = el.offsetLeft;
+					initialY = el.offsetTop;
+					document.addEventListener('mouseup', dragMouseUp);
+					document.addEventListener('mousemove', dragMouseMove);
+				}
+				if(el==skalaP){
+					el.Rmin = 5;
+					el.Rmax = 200;
+					el.xmin = Math.max( 30 ,  xypusat[0][0]-(jarak-Rkecil-5));
+					el.xmax = Math.min(xypusat[0][0]-(Rkecil+5)  , xypusat[1][0]-(jarak-Rkecil));
+				}else{
+					el.Rmin = 5;
+					el.Rmax = 200;
+					el.xmin = xypusat[1][0]+5;
+					el.xmax = Math.min(xypusat[1][0]+(Rbesar-5)  , xypusat[1][0]+(jarak-Rbesar-5));
+				}
+				DrawElemen();
+            }
+
+            function dragMouseMove(e) {
+                e.preventDefault();
+				let deltaX=0;
+				let deltaY=0;
+				if(e.type==="touchmove"){
+					deltaX = (e.touches[0].clientX - startX) / scl;
+					deltaY = (e.touches[0].clientY - startY) / scl;
+				}else{
+					deltaX = (e.clientX - startX) / scl;
+					deltaY = (e.clientY - startY) / scl;
+				}
+				newX = initialX + deltaX;
+				newX = Math.max(el.xmin,Math.min(el.xmax,newX));
+				
+				el.style.left = newX + "px";
+				if(el==skalaP){
+					Rbesar = Math.abs(newX-xypusat[0][0]);
+				}else{
+					Rkecil = Math.abs(newX-xypusat[1][0]);
+				}
+				DrawElemen();
+            }
+			
+            function dragMouseUp() {
+                document.removeEventListener('mouseup', dragMouseUp);
+                document.removeEventListener('mousemove', dragMouseMove);
+                document.removeEventListener('touchend', dragMouseUp);
+                document.removeEventListener('touchmove', dragMouseMove);
+				CekDrop();
+				DrawElemen();
+            }
+			function CekDrop() {
+				//XYbenda();
+				UnselectElement(el);
+			}
+			
+        }
+		function DrawLingkaran(canv,xo,yo,rr){
+			const canvas = document.getElementById(canv);
+			const ctx = canvas.getContext('2d');
+			
+			ctx.clearRect(0,0, canvas.width, canvas.height);
+			ctx.beginPath();
+			ctx.strokeStyle = '#000000'; // Warna merah
+			ctx.lineWidth = 2; // Ketebalan garis 5px
+			ctx.lineJoin = "round";
+			
+			ctx.arc(xo, yo, rr, 0, 2 * Math.PI);
+			ctx.closePath();
+			ctx.stroke();
+			return 0;
+		}
+		function Koma2Angka(n){
+			return StringDesimal(Math.round(n*100)/100);
+		}
+		function Koma1Angka(n){
+			return StringDesimal(Math.round(n*10)/10);
+		}
+		function TanpaKoma(n){
+			return Math.round(n);
+		}
+		function DrawElemen(){
+			var lingkarP = DrawLingkaran('lingkaranP',xypusat[0][0],xypusat[0][1],Rbesar);
+			var lingkarQ = DrawLingkaran('lingkaranQ',xypusat[1][0],xypusat[1][1],Rkecil);
+			GSPLuar();
+			GSPDalam();
+		}
+	</script>	
+	<script>
+		
+		setupDraggable(skalaP, mcUnsur)
+		setupDraggable(skalaQ, mcUnsur)
+		DrawElemen();
+		
+	</script>
+	<script>
+	</script>
+	<script>
+		var fixscale = 1;
+		var fixzoom
+		document.body.style.backgroundColor = "black";
+		window.addEventListener('resize', () => {
+			ZoomAll();
+		});
+		function XYbenda(){
+			lebarJendela = window.innerWidth;
+			tinggiJendela = window.innerHeight;
+			myBG.x = window.scrollX+(lebarJendela-840*scl)/2;
+			myBG.y = window.scrollY+(tinggiJendela-472*scl)/2;
+			myBG.style.left = ''+(myBG.x)+'px';
+			myBG.style.top = ''+(myBG.y)+'px';
+			
+		}
+		function ZoomAll(){
+			let lebarJendela = window.innerWidth;
+			let tinggiJendela = window.innerHeight;
+			var xscale = lebarJendela/840;
+			var yscale = tinggiJendela/472;
+			scl = 0.95*Math.min(xscale,yscale);
+			fixscale = scl;
+			fixzoom = scl*100;
+			document.body.style.zoom = ""+fixzoom+"%";
+			XYbenda();
+		}
+		
+		ZoomAll();
+		function handleClick(event) {
+			console.log("handleClick");
+		}
+		myBG.addEventListener('click', handleClick);
+		setTimeout(() => {
+			console.log("handleClick")
+			ZoomAll();
+			myBG.removeEventListener('click', handleClick);
+		}, 100);
+	</script>
+</body>
+</html>

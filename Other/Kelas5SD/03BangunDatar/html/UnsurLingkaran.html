@@ -43,6 +43,43 @@
 			/*opacity : 0.5;*/
 			user-select: none;
 			-webkit-user-select: none;
+			
+			
+		}@keyframes pulseGlow {
+			0% {
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+				opacity: 1;
+			}
+			25% {
+				width: 30px;
+				height: 30px;
+				border-radius: 50%;
+				opacity: 1;
+			}
+			50% {
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+				opacity: 1;
+			}
+			75% {
+				width: 30px;
+				height: 30px;
+				border-radius: 50%;
+				opacity: 1;
+			}
+			100% {
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+				opacity: 1;
+			}
+		}
+
+		.glow {
+			animation: pulseGlow 1s ease forwards;
 		}
 		.btnGabung {
 			position: absolute;
@@ -427,17 +464,24 @@
 			ArMate[i][0].addEventListener('click', (event) => {
 				//console.log(event.target)
 				var mc = event.target;
-				if(mc.tf){
-					for(var j=0;j<mc.mate.length;j++){
-						//mc.mate[j].style.display="none";
-						mc.mate[j].style.opacity="0";
-						mc.style.opacity="0.5";
-					}
+				if(mc.mate[0]==titikpusat){
+					mc.mate[0].classList.add('glow');
+					mc.mate[0].addEventListener("animationend", () => {
+						mc.mate[0].classList.remove("glow");
+					}, { once: true }); // { once: true } makes the listener run only one time
 				}else{
-					for(var j=0;j<mc.mate.length;j++){
-						//mc.mate[j].style.display="";
-						mc.mate[j].style.opacity="1";
-						mc.style.opacity="1";
+					if(mc.tf){
+						for(var j=0;j<mc.mate.length;j++){
+							//mc.mate[j].style.display="none";
+							mc.mate[j].style.opacity="0";
+							mc.style.opacity="0.5";
+						}
+					}else{
+						for(var j=0;j<mc.mate.length;j++){
+							//mc.mate[j].style.display="";
+							mc.mate[j].style.opacity="1";
+							mc.style.opacity="1";
+						}
 					}
 				}
 				if(isiapotema.style.opacity=="0" && isitembereng.style.opacity=="0" && isibusur.style.opacity=="0" && isitalibusur.style.opacity=="0"){

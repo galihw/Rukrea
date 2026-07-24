@@ -121,6 +121,36 @@
 			align-items: center;
 			text-align: center;
 		}
+		.textbold {
+			position: absolute;
+			cursor: default;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 28px;
+			color: #000000;
+			/*background-color: #000000;*/
+			width: 500px;
+			height: 40px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
+		.text {
+			position: absolute;
+			cursor: default;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 18px;
+			color: #000000;
+			/*background-color: #000000;*/
+			width: 500px;
+			height: 40px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
 	</style>
 </head>
 <body>
@@ -173,6 +203,9 @@
 		<div class="textABbtn" id="btntembereng" style="background-color:yellow"></div>
 		<div class="textABbtn" id="btntalibusur" style="background-color:#B3B3B3"></div>
 		<div class="btnGabung" id="btnGabung"></div>
+		
+		<div class="textbold" id="judul"></div>
+		<div class="text" id="perintah"></div>
 	</div>
 	<script>
 		function RandomAngkaAtoB(a,b){ 
@@ -223,6 +256,8 @@
 		const btnapotema = document.getElementById("btnapotema");
 		const btntembereng = document.getElementById("btntembereng");
 		const btntalibusur = document.getElementById("btntalibusur");
+		const judul = document.getElementById("judul");
+		const perintah = document.getElementById("perintah");
 		myBG.style.backgroundImage = "url(../img/bg0.png)";
 		let lebarJendela = window.innerWidth;
 		let tinggiJendela = window.innerHeight;
@@ -272,20 +307,20 @@
 		
 		btntitikpusat.style.left = ''+730+'px';
 		btntitikpusat.style.top = ''+50+'px';
-		btndiameter.style.left = ''+730+'px';
-		btndiameter.style.top = ''+100+'px';
 		btnjarijari.style.left = ''+730+'px';
-		btnjarijari.style.top = ''+150+'px';
-		btnjuring.style.left = ''+730+'px';
-		btnjuring.style.top = ''+200+'px';
+		btnjarijari.style.top = ''+100+'px';
+		btndiameter.style.left = ''+730+'px';
+		btndiameter.style.top = ''+150+'px';
 		btnbusur.style.left = ''+730+'px';
-		btnbusur.style.top = ''+250+'px';
-		btnapotema.style.left = ''+730+'px';
-		btnapotema.style.top = ''+300+'px';
+		btnbusur.style.top = ''+200+'px';
+		btnjuring.style.left = ''+730+'px';
+		btnjuring.style.top = ''+250+'px';
+		btntalibusur.style.left = ''+730+'px';
+		btntalibusur.style.top = ''+300+'px';
 		btntembereng.style.left = ''+730+'px';
 		btntembereng.style.top = ''+350+'px';
-		btntalibusur.style.left = ''+730+'px';
-		btntalibusur.style.top = ''+400+'px';
+		btnapotema.style.left = ''+730+'px';
+		btnapotema.style.top = ''+400+'px';
 		
 		
 		titikpusat.style.left = ''+320+'px';
@@ -316,7 +351,51 @@
 		apotemaB.style.left = ''+0+'px';
 		apotemaB.style.top = ''+0+'px';
 		
+		judul.style.left = ''+320+'px';
+		judul.style.top = ''+50+'px';
 		
+		perintah.style.left = ''+320+'px';
+		perintah.style.top = ''+400+'px';
+		
+		judul.innerHTML = 'Eksplorasi Unsur-Unsur Lingkaran';
+		perintah.innerHTML = 'Klik tombol di kanan untuk menampilkan Unsur pada Lingkaran';
+		
+		
+		// untuk menghilangkan semua unsur
+					  
+		//titikpusat.style.opacity="0";
+
+		diameter.style.opacity="0";
+		mcbtn[1].style.opacity="0";
+		mcbtn[2].style.opacity="0";
+
+		jarijari.style.opacity="0";
+		mcbtn[3].style.opacity="0";
+
+		isijuring.style.opacity="0";
+		mcbtn[4].style.opacity="0";
+		mcbtn[5].style.opacity="0";
+
+		isibusur.style.opacity="0";
+		isiapotema.style.opacity="0";
+		mcbtn[8].style.opacity="0";
+
+		isitembereng.style.opacity="0";
+
+		btntalibusur.style.opacity="0";
+		isitalibusur.style.opacity="0";
+		mcbtn[6].style.opacity="0";
+		mcbtn[7].style.opacity="0";
+		
+		//btntitikpusat.style.opacity="0.5";
+		btndiameter.style.opacity="0.5";
+		btnjarijari.style.opacity="0.5";
+		btnjuring.style.opacity="0.5";
+		btnbusur.style.opacity="0.5";
+		btnapotema.style.opacity="0.5";
+		btntembereng.style.opacity="0.5";
+		btntalibusur.style.opacity="0.5";
+		// end hilangkan
 		
 		btntitikpusat.innerHTML = "Titik Pusat";
 		btndiameter.innerHTML = "Diameter";
@@ -342,7 +421,8 @@
 					 ]
 		
 		for(var i=0;i<ArMate.length;i++){
-			ArMate[i][0].tf = true;
+			ArMate[i][0].tf = false;
+			if(ArMate[i][1][0]==titikpusat)	ArMate[i][0].tf = true;
 			ArMate[i][0].mate = ArMate[i][1];
 			ArMate[i][0].addEventListener('click', (event) => {
 				//console.log(event.target)

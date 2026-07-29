@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membandingkan Pecahan</title>
+	<style>
+		.bg {
+			position: absolute;
+			width: 840px;
+			height: 472px;
+			background-color: grey;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.terseleksi {
+			box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.myCanvas {
+			position: absolute;
+			cursor: default;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.myCanvasArea {
+			position: absolute;
+			cursor: default;
+			width: 100px; 
+			height: 100px;
+			/*transform: translate(-50%, -50%);*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.myDiv {
+			position: absolute;
+			cursor: default;
+			width: 100px; 
+			height: 100px;
+			transform: translate(-50%, -50%);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.textbox {
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #ffffff;
+			background-color: #000000;
+			width: 140px;
+			height: 120px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.textAB {
+			cursor: pointer;
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #ffffff;
+			/*background-color: #000000;*/
+			width: 140px;
+			height: 40px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.textABsmall {
+			cursor: pointer;
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 14px;
+			color: #ffffff;
+			/*background-color: #000000;*/
+			width: 180px;
+			height: 40px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.isibtn {
+			position: absolute;
+			width: 600px;
+			height: 420px;
+			overflow: clip;/* Options: visible, hidden, scroll, auto, clip */
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.isiks {
+			position: absolute;
+			width: 50px;
+			height: 50px;
+			/*transform: translate(-50%, -50%);*/
+			user-select: none;
+			-webkit-user-select: none;
+			
+		}
+		.mcgarisper0segi {
+			position: absolute;
+			width: 0px;
+			height: 0px;
+			transform: translate(-50%, -50%);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.myCanvas {
+			position: absolute;
+			cursor: default;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.btn {
+			cursor: pointer;
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #ffffff;
+			background-color: #000000;
+			width: 100px;
+			height: 40px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		@keyframes Fade {
+			0% {
+				opacity: 1;
+			}
+			10% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+			}
+		}
+		.fading {
+			pointer-events: none;
+			position: absolute;
+			width: 840px;
+			height: 472px;
+			background-color: #000000;
+			animation: Fade 1s ease forwards;
+		}
+		.kotak {
+			cursor: pointer;
+			position: absolute;
+			background-color: #ffffff;
+			outline: 2px solid #000000;
+			width: 700px;
+			height: 80px;
+			transform: translate(-50%, -50%);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.arkotak {
+			pointer-events: none;
+			position: absolute;
+			background-color: #ffffff;
+			outline: 2px solid #000000;
+			width: 40px;
+			height: 80px;
+			transform: translate(-50%, -50%);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.arisi {
+			background-color: #ff0000;
+		}
+		.titik {
+			width: 20px;
+			height: 20px;
+			background-color: #3498db;
+			border-radius: 50%;
+			transform: translate(-50%, -50%);
+			position: absolute;
+			cursor: default;
+			touch-action: none;
+			outline: 3px solid black;
+			pointer-events: none;
+			cursor: pointer;
+			/*opacity : 0.5;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.mc {
+			width: 80px;
+			height: 100px;
+			background-color: #ff00ff;
+			transform: translate(-50%, -50%);
+			position: absolute;
+			cursor: pointer;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.tUkur {
+			pointer-events: none;
+			position: absolute;
+			cursor: default;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #000000;
+			width: 40px;
+			height: 20px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+	</style>
+</head>
+<body>
+	<div class ="bg" id="bg">
+		<div class="kotak" id="kotak0"></div>
+		<div class="kotak" id="kotak1"></div>
+		<div id="container0"></div>
+		<div id="container1"></div>
+		<div id="mc0" class="mc" style="cursor: default;">
+			<div class="tUkur" id="pembilang0"></div>
+			<div class="tUkur" id="garisper0"></div>
+			<div class="tUkur" id="penyebut0"></div>
+		</div>
+		<div id="mc0B" class="mc" style="cursor: default;">
+			<div class="tUkur" id="pembilang0B"></div>
+			<div class="tUkur" id="garisper0B"></div>
+			<div class="tUkur" id="penyebut0B"></div>
+		</div>
+		<div id="mctanda" class="mc">
+			<div class="tUkur" id="tanda"></div>
+		</div>
+		<div id="mc1" class="mc" style="cursor: default;">
+			<div class="tUkur" id="pembilang1"></div>
+			<div class="tUkur" id="garisper1"></div>
+			<div class="tUkur" id="penyebut1"></div>
+		</div>
+		<div id="mc1B" class="mc" style="cursor: default;">
+			<div class="tUkur" id="pembilang1B"></div>
+			<div class="tUkur" id="garisper1B"></div>
+			<div class="tUkur" id="penyebut1B"></div>
+		</div>
+		<div id="mc2" class="mc" style="cursor: default;">
+			<div class="tUkur" id="pembilang2"></div>
+			<div class="tUkur" id="garisper2"></div>
+			<div class="tUkur" id="penyebut2"></div>
+		</div>
+		<div id="mc3" class="mc" style="cursor: default;">
+			<div class="tUkur" id="pembilang3"></div>
+			<div class="tUkur" id="garisper3"></div>
+			<div class="tUkur" id="penyebut3"></div>
+		</div>
+		<div class="titik" id="titik"></div>
+		<div class="btn" id="btn"></div>
+		<div class="fading" id="tutup"></div>
+	</div>
+	<script>
+		function RandomAngkaAtoB(a,b){ 
+			var r = a+Math.ceil(Math.random() * b);
+			return r;
+		}
+		function RandomMyArray(Arr){
+			for (var i=0; i<Arr.length; i++){
+				var r = Math.floor(Math.random() * Arr.length);
+				var a = Arr[i];
+				Arr[i] = Arr[r];
+				Arr[r] = a;
+			}
+			return Arr
+		}
+		function StringDesimal(ff){
+			var strff = ""+ff;
+			const gg = strff.split(".");
+			if(gg.length==2)	return gg[0]+","+gg[1];
+			else 				return ff
+		}
+		function CariFPB(ar){
+			//https://www.ketutrare.com/2019/05/contoh-aplikasi-fpb-dan-kpk-menggunakan-bahasa-c.html
+			
+			var min = 0;
+			var max = 0;
+			for(var i=0;i<ar.length;i++){
+				min = Math.min(min,ar[i]);
+				max = Math.max(max,ar[i]);
+			}
+			
+			var iter = 0;
+			var fpb = 1;
+			var f = [];
+			do {
+				iter++;
+				ff = 1;
+				for(var i=0;i<ar.length;i++){
+					f[i] = (ar[i]%iter)==0;
+					ff *= f[i];
+				}
+				
+				if (ff){
+					fpb = iter;
+				}
+				fakhir = iter==max;
+			}while (!fakhir);
+			
+			return fpb;
+		}
+	</script>
+	<script>
+		const cX = window.scrollX;
+		const cY = window.scrollY;
+		const myBG = document.getElementById("bg");
+		
+		const kotak0 = document.getElementById("kotak0");
+		const kotak1 = document.getElementById("kotak1");
+		const container0 = document.getElementById("container0");
+		const container1 = document.getElementById("container1");
+		const pembilang0 = document.getElementById("pembilang0");
+		const garisper0 = document.getElementById("garisper0");
+		const penyebut0 = document.getElementById("penyebut0");
+		const pembilang1 = document.getElementById("pembilang1");
+		const garisper1 = document.getElementById("garisper1");
+		const penyebut1 = document.getElementById("penyebut1");
+		const pembilang0B = document.getElementById("pembilang0B");
+		const garisper0B = document.getElementById("garisper0B");
+		const penyebut0B = document.getElementById("penyebut0B");
+		const pembilang1B = document.getElementById("pembilang1B");
+		const garisper1B = document.getElementById("garisper1B");
+		const penyebut1B = document.getElementById("penyebut1B");
+		const pembilang2 = document.getElementById("pembilang2");
+		const garisper2 = document.getElementById("garisper2");
+		const penyebut2 = document.getElementById("penyebut2");
+		const pembilang3 = document.getElementById("pembilang3");
+		const garisper3 = document.getElementById("garisper3");
+		const penyebut3 = document.getElementById("penyebut3");
+		const tanya = document.getElementById("tanya");
+		const mc0 = document.getElementById("mc0");
+		const mc1 = document.getElementById("mc1");
+		const mc0B = document.getElementById("mc0B");
+		const mc1B = document.getElementById("mc1B");
+		const mc2 = document.getElementById("mc2");
+		const mc3 = document.getElementById("mc3");
+		const titik = document.getElementById("titik");
+		const tanda = document.getElementById("tanda");
+		const mctanda = document.getElementById("mctanda");
+		const btn = document.getElementById("btn");
+		
+		myBG.style.backgroundImage = "url(../img/bg0.png)";
+		let lebarJendela = window.innerWidth;
+		let tinggiJendela = window.innerHeight;
+		var scl = 1;
+		myBG.x = window.scrollX+(lebarJendela-840*scl)/2;
+		myBG.y = window.scrollY+(tinggiJendela-472*scl)/2;
+		myBG.style.left = ''+(myBG.x)+'px';
+		myBG.style.top = ''+(myBG.y)+'px';
+		myBG.w = 840;
+		myBG.h = 472;
+		
+		titik.style.opacity = '0'; // untuk tracing titik
+		
+		
+		kotak0.x0 = 840/2-50;
+		kotak0.y0 = 472/2;
+		kotak1.x0 = 840/2-50;
+		kotak1.y0 = 472/2+100;
+		kotak0.style.left = kotak0.x0+'px';
+		kotak0.style.top = kotak0.y0+'px';
+		kotak1.style.left = kotak1.x0+'px';
+		kotak1.style.top = kotak1.y0+'px';
+		
+		btn.style.left = 770+'px';
+		btn.style.top = 50+'px';
+		btn.innerHTML = 'Soal Baru';
+		
+		
+		mc0.style.left = (840/2-80)+'px';
+		mc0.style.top = (472/2-150)+'px';
+		mc1.style.left = (840/2+80)+'px';
+		mc1.style.top = (472/2-150)+'px';
+		mc0B.style.left = (840/2-80)+'px';
+		mc0B.style.top = (472/2-150)+'px';
+		mc1B.style.left = (840/2+80)+'px';
+		mc1B.style.top = (472/2-150)+'px';
+		
+		mctanda.style.left = (840/2)+'px';
+		mctanda.style.top = (472/2-150)+'px';
+		tanda.style.left = (40)+'px';
+		tanda.style.top = (50)+'px';
+		
+		mc2.style.left = (kotak0.x0+400)+'px';
+		mc2.style.top = kotak0.y0+'px';
+		mc3.style.left = (kotak1.x0+400)+'px';
+		mc3.style.top = kotak1.y0+'px';
+		
+		pembilang0.style.left = (40)+'px';
+		pembilang0.style.top = (25)+'px';
+		garisper0.style.left = (40)+'px';
+		garisper0.style.top = (50)+'px';
+		penyebut0.style.left = (40)+'px';
+		penyebut0.style.top = (75)+'px';
+		
+		pembilang1.style.left = (40)+'px';
+		pembilang1.style.top = (25)+'px';
+		garisper1.style.left = (40)+'px';
+		garisper1.style.top = (50)+'px';
+		penyebut1.style.left = (40)+'px';
+		penyebut1.style.top = (75)+'px';
+		
+		pembilang0B.style.left = (40)+'px';
+		pembilang0B.style.top = (25)+'px';
+		garisper0B.style.left = (40)+'px';
+		garisper0B.style.top = (50)+'px';
+		penyebut0B.style.left = (40)+'px';
+		penyebut0B.style.top = (75)+'px';
+		
+		pembilang1B.style.left = (40)+'px';
+		pembilang1B.style.top = (25)+'px';
+		garisper1B.style.left = (40)+'px';
+		garisper1B.style.top = (50)+'px';
+		penyebut1B.style.left = (40)+'px';
+		penyebut1B.style.top = (75)+'px';
+		
+		pembilang2.style.left = (40)+'px';
+		pembilang2.style.top = (25)+'px';
+		garisper2.style.left = (40)+'px';
+		garisper2.style.top = (50)+'px';
+		penyebut2.style.left = (40)+'px';
+		penyebut2.style.top = (75)+'px';
+		
+		pembilang3.style.left = (40)+'px';
+		pembilang3.style.top = (25)+'px';
+		garisper3.style.left = (40)+'px';
+		garisper3.style.top = (50)+'px';
+		penyebut3.style.left = (40)+'px';
+		penyebut3.style.top = (75)+'px';
+		
+		pembilang0.innerHTML = '0';
+		garisper0.innerHTML = '\u{2501}\u{2501}';
+		penyebut0.innerHTML = '1';
+		
+		pembilang1.innerHTML = '0';
+		garisper1.innerHTML = '\u{2501}\u{2501}';
+		penyebut1.innerHTML = '1';
+		
+		pembilang0B.innerHTML = '0';
+		garisper0B.innerHTML = '\u{2501}\u{2501}';
+		penyebut0B.innerHTML = '1';
+		
+		pembilang1B.innerHTML = '0';
+		garisper1B.innerHTML = '\u{2501}\u{2501}';
+		penyebut1B.innerHTML = '1';
+		
+		pembilang2.innerHTML = '0';
+		garisper2.innerHTML = '\u{2501}\u{2501}';
+		penyebut2.innerHTML = '1';
+		
+		pembilang3.innerHTML = '0';
+		garisper3.innerHTML = '\u{2501}\u{2501}';
+		penyebut3.innerHTML = '1';
+		
+		tanda.innerHTML = '...';
+		
+		
+		
+		function FuncSoal(){
+			var b1 = RandomAngkaAtoB(5,5);
+			var b2 = RandomAngkaAtoB(5,5);
+			var a1 = b1-RandomAngkaAtoB(0,b1-1);
+			var a2 = b2-RandomAngkaAtoB(0,b2-1);
+			
+			var a1b2 = a1*b2;
+			var a2b1 = a2*b1;
+			if(a1b2<a2b1)		tanda.benar = '<';
+			else if(a1b2>a2b1)	tanda.benar = '>';
+			else				tanda.benar = '=';
+			
+			pembilang0.innerHTML = a1;
+			pembilang1.innerHTML = a2;
+			penyebut0.innerHTML = b1;
+			penyebut1.innerHTML = b2;
+			
+			if(b1==b2){
+				pembilang0B.innerHTML = a1;
+				pembilang1B.innerHTML = a2;
+				penyebut0B.innerHTML = b1;
+				penyebut1B.innerHTML = b2;
+			}else{
+				pembilang0B.innerHTML = a1b2;
+				pembilang1B.innerHTML = a2b1;
+				penyebut0B.innerHTML = b1*b2;
+				penyebut1B.innerHTML = b1*b2;
+			}
+			tanda.innerHTML = '...';
+			mctanda.klik = false;
+			mc0B.style.display = 'none';
+			mc1B.style.display = 'none';
+		}
+		mctanda.addEventListener('click',()=>{
+			mctanda.klik = !mctanda.klik;
+			if(mctanda.klik){
+				tanda.innerHTML = tanda.benar;
+			}else{
+				tanda.innerHTML = '...';
+			}
+		});
+		
+		
+		mc0.addEventListener('click',()=>{
+			mc0B.style.display = '';
+		});
+		mc1.addEventListener('click',()=>{
+			mc1B.style.display = '';
+		});
+		mc0B.addEventListener('click',()=>{
+			mc0B.style.display = 'none';
+		});
+		mc1B.addEventListener('click',()=>{
+			mc1B.style.display = 'none';
+		});
+		
+		
+		FuncSoal(); // memanggil soal
+		
+		btn.addEventListener('click',()=>{
+			FuncSoal();
+			setupDraggable(kotak0,myBG,container0,pembilang2,penyebut2);
+			setupDraggable(kotak1,myBG,container1,pembilang3,penyebut3);
+		});
+	</script>
+	<script>
+		var selectedEl = null;
+		let startX=0, startY=0, initialX=0, initialY=0;
+		const controller = new AbortController();
+        function selectElement(el) {
+            UnselectElement(el)
+            selectedEl = el;
+            //selectedEl.classList.add('terseleksi');
+        }
+        function UnselectElement(el) {
+            if (selectedEl) {
+                //selectedEl.classList.remove('terseleksi');
+                //selectedEl.classList.remove('dropbenar');
+				selectedEl = null;
+            }
+        }
+		function setupDraggable(el,mc,container,pembilang,penyebut) {
+			//var xmax = (mc.offsetWidth-el.offsetWidth);
+			//var ymax = (mc.offsetHeight-el.offsetHeight);
+			var xmax = (myBG.w-el.offsetWidth/2);
+			var ymax = (myBG.h-el.offsetHeight/2);
+			var xmin = el.offsetWidth/2;
+			var ymin = el.offsetHeight/2;
+			let newX=0, newY=0;
+			el.pembilang = pembilang;
+			el.penyebut = penyebut;
+            el.addEventListener('mousedown', dragMouseDown,{ signal: controller.signal });
+            el.addEventListener('touchstart', dragMouseDown, { signal: controller.signal } ,{ passive: false });
+			
+			el.ff = false;
+            function dragMouseDown(e) {
+                e.preventDefault();
+				if(!selectedEl){
+					selectElement(e.target);
+					if(e.type==="touchstart"){
+						startX = e.touches[0].clientX;
+						startY = e.touches[0].clientY;
+						initialX = selectedEl.offsetLeft;
+						initialY = selectedEl.offsetTop;
+						document.addEventListener('touchend', dragMouseUp);
+						document.addEventListener('touchmove', dragMouseMove, { passive: false });
+					}else{
+						startX = e.clientX;
+						startY = e.clientY;
+						initialX = selectedEl.offsetLeft;
+						initialY = selectedEl.offsetTop;
+						document.addEventListener('mouseup', dragMouseUp);
+						document.addEventListener('mousemove', dragMouseMove);
+					}
+					selectedEl.movein=false;
+					selectedEl.nfix1=selectedEl.nfix0;
+				}
+            }
+			el.arChild = [];
+			el.nfix0 = 0;
+			el.nfix1 = 0;
+			el.movein = true;
+			AddRemove(el,1);
+			function cekTekan(sX,sY,elm){
+				const rect = myBG.getBoundingClientRect();
+				const xF = (sX / scl- rect.left) ;
+				const yF = (sY / scl - rect.top);
+				titik.style.left = (xF)+'px';
+				titik.style.top = (yF)+'px';
+				elm.classList.remove('arisi');
+				var ww = 700;
+				var hh = 80;
+				var areax = (elm.x0-ww/2 <= xF) && (elm.x0+ww/2 >= xF);
+				var areay = (elm.y0-hh/2 <= yF) && (elm.y0+hh/2 >= yF);
+				if(areax && areay){
+					elm.ct = Math.ceil((xF-(elm.x0-ww/2))/Math.ceil(ww/elm.nfix1));
+					for(var j=1;j<=elm.nfix1;j++){
+						if(elm.arChild[j]){
+							elm.arChild[j].classList.remove('arisi');
+						}
+					}
+					for(var j=1;j<=elm.ct;j++){
+						if(elm.arChild[j]){
+							elm.arChild[j].classList.add('arisi');
+						}
+					}
+				}else{
+					elm.ct=0;
+				}
+				elm.pembilang.innerHTML = elm.ct;
+				elm.penyebut.innerHTML = elm.nfix1;
+				/*
+				
+				var fpb = CariFPB([ct,nfix1])
+				pembilang1.innerHTML = ct/fpb;
+				penyebut1.innerHTML = nfix1/fpb;
+				*/
+			}
+			
+
+            function dragMouseMove(e) {
+				e.preventDefault();
+				if(selectedEl){
+					let deltaX=0;
+					let deltaY=0;
+					if(e.type==="touchmove"){
+						deltaX = (e.touches[0].clientX - startX) / scl;
+						deltaY = (e.touches[0].clientY - startY) / scl;
+					}else{
+						deltaX = (e.clientX - startX) / scl;
+						deltaY = (e.clientY - startY) / scl;
+					}
+					
+					selectedEl.movein = true;
+					AddRemove(selectedEl,Math.round(deltaX/10));
+				}
+            }
+			
+			function AddRemove(elm,nn){
+				var ww = 700;
+				var hh = 80;
+				var nmax = 100
+				elm.nfix = Math.min(Math.max(1,elm.nfix1+nn),nmax);
+				for(var i=1;i<=nmax;i++){
+					if(elm.arChild[i]) elm.arChild[i].remove();
+				}
+				var dx = ww/(elm.nfix*2);
+				var x0f = elm.x0-ww/2 + dx;
+				var y0f = elm.y0;//y0;
+				for(var i=1;i<=elm.nfix;i++){
+					elm.arChild[i] = document.createElement("div");
+					elm.arChild[i].classList.add("arkotak");
+					container.appendChild(elm.arChild[i]);
+					elm.arChild[i].style.width = ww/elm.nfix+'px';
+					elm.arChild[i].style.height = hh+'px';
+					
+					elm.arChild[i].style.left = (x0f+2*dx*(i-1))+'px';
+					elm.arChild[i].style.top = (y0f)+'px';
+					elm.arChild[i].klik = false;
+				}
+				elm.nfix0 = elm.nfix;
+				elm.pembilang.innerHTML = 0;
+				elm.penyebut.innerHTML = elm.nfix0;
+				/*
+				pembilang0.innerHTML = 0;
+				penyebut0.innerHTML = nfix0;
+				
+				pembilang1.innerHTML = 0;
+				penyebut1.innerHTML = nfix0;
+				*/
+			}
+			
+            function dragMouseUp() {
+				if(selectedEl){
+					if(!selectedEl.movein){
+						cekTekan(startX,startY,selectedEl);
+					}
+					UnselectElement(selectedEl);
+				}
+			}
+        }
+	</script>	
+	
+	<script>
+		//kotak0.addEventListener()
+		setupDraggable(kotak0,myBG,container0,pembilang2,penyebut2);
+		setupDraggable(kotak1,myBG,container1,pembilang3,penyebut3);
+	</script>
+	<script>
+	
+		var fixscale = 1;
+		var fixzoom
+		document.body.style.backgroundColor = "black";
+		window.addEventListener('resize', () => {
+			ZoomAll();
+		});
+		function XYbenda(){
+			lebarJendela = window.innerWidth;
+			tinggiJendela = window.innerHeight;
+			myBG.x = window.scrollX+(lebarJendela-840*scl)/2;
+			myBG.y = window.scrollY+(tinggiJendela-472*scl)/2;
+			myBG.style.left = ''+(myBG.x)+'px';
+			myBG.style.top = ''+(myBG.y)+'px';
+		}
+		function ZoomAll(){
+			let lebarJendela = window.innerWidth;
+			let tinggiJendela = window.innerHeight;
+			var xscale = lebarJendela/840;
+			var yscale = tinggiJendela/472;
+			scl = 0.95*Math.min(xscale,yscale);
+			fixscale = scl;
+			fixzoom = scl*100;
+			document.body.style.zoom = ""+fixzoom+"%";
+			XYbenda();
+		}
+		
+		ZoomAll();
+		function handleClick(event) {
+			console.log("handleClick");
+		}
+		myBG.addEventListener('click', handleClick);
+		setTimeout(() => {
+			console.log("handleClick")
+			ZoomAll();
+			myBG.removeEventListener('click', handleClick);
+		}, 100);
+		
+	</script>
+	<script>
+	</script>
+</body>
+</html>

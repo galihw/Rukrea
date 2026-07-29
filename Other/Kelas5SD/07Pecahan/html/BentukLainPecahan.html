@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membandingkan Pecahan</title>
+	<style>
+		.bg {
+			position: absolute;
+			width: 840px;
+			height: 472px;
+			background-color: grey;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.terseleksi {
+			box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.myCanvas {
+			position: absolute;
+			cursor: default;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.myCanvasArea {
+			position: absolute;
+			cursor: default;
+			width: 100px; 
+			height: 100px;
+			/*transform: translate(-50%, -50%);*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.myDiv {
+			position: absolute;
+			cursor: default;
+			width: 100px; 
+			height: 100px;
+			transform: translate(-50%, -50%);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.textbox {
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #ffffff;
+			background-color: #000000;
+			width: 140px;
+			height: 120px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.textAB {
+			cursor: pointer;
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #ffffff;
+			/*background-color: #000000;*/
+			width: 140px;
+			height: 40px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.textABsmall {
+			cursor: pointer;
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 14px;
+			color: #ffffff;
+			/*background-color: #000000;*/
+			width: 180px;
+			height: 40px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.isibtn {
+			position: absolute;
+			width: 600px;
+			height: 420px;
+			overflow: clip;/* Options: visible, hidden, scroll, auto, clip */
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.isiks {
+			position: absolute;
+			width: 50px;
+			height: 50px;
+			/*transform: translate(-50%, -50%);*/
+			user-select: none;
+			-webkit-user-select: none;
+			
+		}
+		.mcgarisper0segi {
+			position: absolute;
+			width: 0px;
+			height: 0px;
+			transform: translate(-50%, -50%);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.myCanvas {
+			position: absolute;
+			cursor: default;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.btn {
+			cursor: pointer;
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #ffffff;
+			background-color: #000000;
+			width: 100px;
+			height: 40px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		@keyframes Fade {
+			0% {
+				opacity: 1;
+			}
+			10% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+			}
+		}
+		.fading {
+			pointer-events: none;
+			position: absolute;
+			width: 840px;
+			height: 472px;
+			background-color: #000000;
+			animation: Fade 1s ease forwards;
+		}
+		.kotak {
+			cursor: pointer;
+			position: absolute;
+			background-color: #ffffff;
+			outline: 2px solid #000000;
+			width: 700px;
+			height: 80px;
+			transform: translate(-50%, -50%);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.arkotak {
+			pointer-events: none;
+			position: absolute;
+			background-color: #ffffff;
+			outline: 2px solid #000000;
+			width: 40px;
+			height: 80px;
+			transform: translate(-50%, -50%);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.arisi {
+			background-color: #ff0000;
+		}
+		.titik {
+			width: 20px;
+			height: 20px;
+			background-color: #3498db;
+			border-radius: 50%;
+			transform: translate(-50%, -50%);
+			position: absolute;
+			cursor: default;
+			touch-action: none;
+			outline: 3px solid black;
+			pointer-events: none;
+			cursor: pointer;
+			/*opacity : 0.5;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.mc {
+			width: 80px;
+			height: 100px;
+			background-color: #ff00ff;
+			transform: translate(-50%, -50%);
+			position: absolute;
+			cursor: pointer;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.tUkur {
+			pointer-events: none;
+			position: absolute;
+			cursor: default;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #000000;
+			width: 40px;
+			height: 20px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.teks {
+			cursor: default;
+			position: absolute;
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			font-size: 32px;
+			font-weight: bold;
+			text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+			color: #ffffff;
+			width: 100px;
+			height: 40px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.per {
+			pointer-events: none;
+			position: absolute;
+			background-color: #ffffff;
+			box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+			width: 50px;
+			height: 5px;
+			transform: translate(-50%, -50%);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.myVideo {
+			pointer-events: none;
+			position: absolute;
+			outline: 2px solid #000000;
+			/*width: 840px;*/
+			/*height: 472px;*/
+			/*transform: translate(-50%, -50%);*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+	</style>
+</head>
+<body>
+	<div class ="bg" id="bg">
+		<div id="mctanda0" class="mc">
+			<div class="tUkur" id="tanda0"></div>
+		</div>
+		<div id="mctanda1" class="mc">
+			<div class="tUkur" id="tanda1"></div>
+		</div>
+		<div id="mc0A" class="mc" style="cursor: default;">
+			<div class="tUkur" id="pembilang0A"></div>
+			<div class="tUkur" id="garisper0A"></div>
+			<div class="tUkur" id="penyebut0A"></div>
+		</div>
+		<div id="mc0B" class="mc" style="cursor: default;">
+			<div class="tUkur" id="bulat0B"></div>
+			<div class="tUkur" id="pembilang0B"></div>
+			<div class="tUkur" id="garisper0B"></div>
+			<div class="tUkur" id="penyebut0B"></div>
+		</div>
+		<div id="mc1A" class="mc" style="cursor: default;">
+			<div class="tUkur" id="bulat1A"></div>
+			<div class="tUkur" id="pembilang1A"></div>
+			<div class="tUkur" id="garisper1A"></div>
+			<div class="tUkur" id="penyebut1A"></div>
+		</div>
+		<div id="mc1B" class="mc" style="cursor: default;">
+			<div class="tUkur" id="pembilang1B"></div>
+			<div class="tUkur" id="garisper1B"></div>
+			<div class="tUkur" id="penyebut1B"></div>
+		</div>
+		<div class="titik" id="titik"></div>
+		<div class="btn" id="btn"></div>
+		
+		
+		<video id="myVideo1" width="420" class='myVideo'>
+			<source src="../img/BiasaKeCampuran.mp4" type="video/mp4">
+		</video>
+		<video id="myVideo2" width="420" class='myVideo'>
+			<source src="../img/CampuranKeBiasa.mp4" type="video/mp4">
+		</video>
+
+		<div class="btn" id="btnputar1"></div>
+		<div class="btn" id="btnputar2"></div>
+
+		<div class="fading" id="tutup"></div>
+	</div>
+	<script>
+		function RandomAngkaAtoB(a,b){ 
+			var r = a+Math.ceil(Math.random() * b);
+			return r;
+		}
+		function RandomMyArray(Arr){
+			for (var i=0; i<Arr.length; i++){
+				var r = Math.floor(Math.random() * Arr.length);
+				var a = Arr[i];
+				Arr[i] = Arr[r];
+				Arr[r] = a;
+			}
+			return Arr
+		}
+		function StringDesimal(ff){
+			var strff = ""+ff;
+			const gg = strff.split(".");
+			if(gg.length==2)	return gg[0]+","+gg[1];
+			else 				return ff
+		}
+		function CariFPB(ar){
+			//https://www.ketutrare.com/2019/05/contoh-aplikasi-fpb-dan-kpk-menggunakan-bahasa-c.html
+			
+			var min = 0;
+			var max = 0;
+			for(var i=0;i<ar.length;i++){
+				min = Math.min(min,ar[i]);
+				max = Math.max(max,ar[i]);
+			}
+			
+			var iter = 0;
+			var fpb = 1;
+			var f = [];
+			do {
+				iter++;
+				ff = 1;
+				for(var i=0;i<ar.length;i++){
+					f[i] = (ar[i]%iter)==0;
+					ff *= f[i];
+				}
+				
+				if (ff){
+					fpb = iter;
+				}
+				fakhir = iter==max;
+			}while (!fakhir);
+			
+			return fpb;
+		}
+	</script>
+	<script>
+		const cX = window.scrollX;
+		const cY = window.scrollY;
+		const myBG = document.getElementById("bg");
+		
+		const pembilang0A = document.getElementById("pembilang0A");
+		const garisper0A = document.getElementById("garisper0A");
+		const penyebut0A = document.getElementById("penyebut0A");
+		const bulat1A = document.getElementById("bulat1A");
+		const pembilang1A = document.getElementById("pembilang1A");
+		const garisper1A = document.getElementById("garisper1A");
+		const penyebut1A = document.getElementById("penyebut1A");
+		const bulat0B = document.getElementById("bulat0B");
+		const pembilang0B = document.getElementById("pembilang0B");
+		const garisper0B = document.getElementById("garisper0B");
+		const penyebut0B = document.getElementById("penyebut0B");
+		const pembilang1B = document.getElementById("pembilang1B");
+		const garisper1B = document.getElementById("garisper1B");
+		const penyebut1B = document.getElementById("penyebut1B");
+		const tanya = document.getElementById("tanya");
+		const mc0A = document.getElementById("mc0A");
+		const mc1A = document.getElementById("mc1A");
+		const mc0B = document.getElementById("mc0B");
+		const mc1B = document.getElementById("mc1B");
+		const titik = document.getElementById("titik");
+		const tanda0 = document.getElementById("tanda0");
+		const tanda1 = document.getElementById("tanda1");
+		const mctanda0 = document.getElementById("mctanda0");
+		const mctanda1 = document.getElementById("mctanda1");
+		const btn = document.getElementById("btn");
+		
+		
+		const teksA1 = document.getElementById("teksA1");
+		const teksB1 = document.getElementById("teksB1");
+		const teksC1 = document.getElementById("teksC1");
+		const per1 = document.getElementById("per1");
+		
+		const samadengan1 = document.getElementById("samadengan1");
+		
+		const teksA2 = document.getElementById("teksA2");
+		const teksB2 = document.getElementById("teksB2");
+		const teksC2A = document.getElementById("teksC2A");
+		const teksC2B = document.getElementById("teksC2B");
+		const per2 = document.getElementById("per2");
+		
+		const kali1 = document.getElementById("kali1");
+		const tambah1 = document.getElementById("tambah1");
+		
+		const myVideo1 = document.getElementById("myVideo1");
+		const myVideo2 = document.getElementById("myVideo2");
+		const btnputar1 = document.getElementById("btnputar1");
+		const btnputar2 = document.getElementById("btnputar2");
+		
+		myBG.style.backgroundImage = "url(../img/bg0.png)";
+		let lebarJendela = window.innerWidth;
+		let tinggiJendela = window.innerHeight;
+		var scl = 1;
+		myBG.x = window.scrollX+(lebarJendela-840*scl)/2;
+		myBG.y = window.scrollY+(tinggiJendela-472*scl)/2;
+		myBG.style.left = ''+(myBG.x)+'px';
+		myBG.style.top = ''+(myBG.y)+'px';
+		myBG.w = 840;
+		myBG.h = 472;
+		
+		titik.style.opacity = '0'; // untuk tracing titik
+		
+		btn.style.left = 420+'px';
+		btn.style.top = 400+'px';
+		btn.innerHTML = 'Soal Baru';
+		
+		btnputar1.style.left = 210+'px';
+		btnputar1.style.top = 200+'px';
+		btnputar1.innerHTML = 'putar';
+		btnputar2.style.left = 630+'px';
+		btnputar2.style.top = 200+'px';
+		btnputar2.innerHTML = 'putar';
+		
+		//myVideo1.style.opacity = '0.5';
+		//myVideo2.style.opacity = '0.5';
+		
+		myVideo1.style.left = 0+'px';
+		myVideo1.style.top = 0+'px';
+		myVideo2.style.left = 420+'px';
+		myVideo2.style.top = 0+'px';
+		
+		mc0A.style.left = 100+'px';
+		mc0A.style.top = 300+'px';
+		mc0B.style.left = 220+'px';
+		mc0B.style.top = 300+'px';
+		
+		mc1A.style.left = 520+'px';
+		mc1A.style.top = 300+'px';
+		mc1B.style.left = 640+'px';
+		mc1B.style.top = 300+'px';
+		
+		mctanda0.style.left = 150+'px';
+		mctanda0.style.top = 300+'px';
+		tanda0.style.left = (40)+'px';
+		tanda0.style.top = (50)+'px';
+		mctanda1.style.left = 570+'px';
+		mctanda1.style.top = 300+'px';
+		tanda1.style.left = (40)+'px';
+		tanda1.style.top = (50)+'px';
+		
+		pembilang0A.style.left = (40)+'px';
+		pembilang0A.style.top = (25)+'px';
+		garisper0A.style.left = (40)+'px';
+		garisper0A.style.top = (50)+'px';
+		penyebut0A.style.left = (40)+'px';
+		penyebut0A.style.top = (75)+'px';
+		
+		bulat1A.style.left = (20)+'px';
+		bulat1A.style.top = (50)+'px';
+		pembilang1A.style.left = (50)+'px';
+		pembilang1A.style.top = (25)+'px';
+		garisper1A.style.left = (50)+'px';
+		garisper1A.style.top = (50)+'px';
+		penyebut1A.style.left = (50)+'px';
+		penyebut1A.style.top = (75)+'px';
+		
+		bulat0B.style.left = (20)+'px';
+		bulat0B.style.top = (50)+'px';
+		pembilang0B.style.left = (50)+'px';
+		pembilang0B.style.top = (25)+'px';
+		garisper0B.style.left = (50)+'px';
+		garisper0B.style.top = (50)+'px';
+		penyebut0B.style.left = (50)+'px';
+		penyebut0B.style.top = (75)+'px';
+		
+		pembilang1B.style.left = (40)+'px';
+		pembilang1B.style.top = (25)+'px';
+		garisper1B.style.left = (40)+'px';
+		garisper1B.style.top = (50)+'px';
+		penyebut1B.style.left = (40)+'px';
+		penyebut1B.style.top = (75)+'px';
+		
+		pembilang0A.innerHTML = '0';
+		garisper0A.innerHTML = '\u{2501}\u{2501}';
+		penyebut0A.innerHTML = '1';
+		
+		pembilang1A.innerHTML = '0';
+		garisper1A.innerHTML = '\u{2501}\u{2501}';
+		penyebut1A.innerHTML = '1';
+		
+		pembilang0B.innerHTML = '0';
+		garisper0B.innerHTML = '\u{2501}\u{2501}';
+		penyebut0B.innerHTML = '1';
+		
+		pembilang1B.innerHTML = '0';
+		garisper1B.innerHTML = '\u{2501}\u{2501}';
+		penyebut1B.innerHTML = '1';
+		
+		tanda0.innerHTML = '= ?';
+		tanda1.innerHTML = '= ?';
+		
+		
+		
+		function FuncSoal(){
+			var c1 = RandomAngkaAtoB(5,5);
+			var c2 = RandomAngkaAtoB(5,5);
+			var b1 = c1-RandomAngkaAtoB(0,c1-1);
+			var b2 = c2-RandomAngkaAtoB(0,c2-1);
+			var a1 = RandomAngkaAtoB(0,5);
+			var a2 = RandomAngkaAtoB(0,5);
+			var p1 = a1*c1+b1;
+			var p2 = a2*c2+b2;
+			
+			pembilang0A.innerHTML = p1;
+			penyebut0A.innerHTML = c1;
+			bulat0B.innerHTML = a1;
+			pembilang0B.innerHTML = b1;
+			penyebut0B.innerHTML = c1;
+			
+			bulat1A.innerHTML = a2;
+			pembilang1A.innerHTML = b2;
+			penyebut1A.innerHTML = c2;
+			pembilang1B.innerHTML = p2;
+			penyebut1B.innerHTML = c2;
+			
+			tanda0.innerHTML = '= ?';
+			tanda1.innerHTML = '= ?';
+			mctanda0.klik = false;
+			mctanda1.klik = false;
+			mc0B.style.display = 'none';
+			mc1B.style.display = 'none';
+		}
+		mctanda0.addEventListener('click',()=>{
+			mctanda0.klik = !mctanda0.klik;
+			if(mctanda0.klik){
+				mc0B.style.display = '';
+				tanda0.innerHTML = '=';
+			}else{
+				mc0B.style.display = 'none';
+				tanda0.innerHTML = '= ?';
+			}
+		});
+		mctanda1.addEventListener('click',()=>{
+			mctanda1.klik = !mctanda1.klik;
+			if(mctanda1.klik){
+				mc1B.style.display = '';
+				tanda1.innerHTML = '=';
+			}else{
+				mc1B.style.display = 'none';
+				tanda1.innerHTML = '= ?';
+			}
+		});
+		
+		
+		
+		FuncSoal(); // memanggil soal
+		
+		btn.addEventListener('click',()=>{
+			FuncSoal();
+		});
+	</script>
+	
+	<script>
+		btnputar1.addEventListener('click', function() {
+			myVideo1.play();
+			btnputar1.style.display = 'none';
+		});
+		btnputar2.addEventListener('click', function() {
+			myVideo2.play();
+			btnputar2.style.display = 'none';
+		});
+		myVideo1.addEventListener("ended", function () {
+			//console.log("myVideo1");
+			btnputar1.style.display = '';
+		});
+		myVideo2.addEventListener("ended", function () {
+			//console.log("myVideo2");
+			btnputar2.style.display = '';
+		});
+	</script>
+	<script>
+	
+		var fixscale = 1;
+		var fixzoom
+		document.body.style.backgroundColor = "black";
+		window.addEventListener('resize', () => {
+			ZoomAll();
+		});
+		function XYbenda(){
+			lebarJendela = window.innerWidth;
+			tinggiJendela = window.innerHeight;
+			myBG.x = window.scrollX+(lebarJendela-840*scl)/2;
+			myBG.y = window.scrollY+(tinggiJendela-472*scl)/2;
+			myBG.style.left = ''+(myBG.x)+'px';
+			myBG.style.top = ''+(myBG.y)+'px';
+		}
+		function ZoomAll(){
+			let lebarJendela = window.innerWidth;
+			let tinggiJendela = window.innerHeight;
+			var xscale = lebarJendela/840;
+			var yscale = tinggiJendela/472;
+			scl = 0.95*Math.min(xscale,yscale);
+			fixscale = scl;
+			fixzoom = scl*100;
+			document.body.style.zoom = ""+fixzoom+"%";
+			XYbenda();
+		}
+		
+		ZoomAll();
+		function handleClick(event) {
+			console.log("handleClick");
+		}
+		myBG.addEventListener('click', handleClick);
+		setTimeout(() => {
+			console.log("handleClick")
+			ZoomAll();
+			myBG.removeEventListener('click', handleClick);
+		}, 100);
+		
+	</script>
+	<script>
+	</script>
+</body>
+</html>

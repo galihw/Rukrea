@@ -214,7 +214,7 @@
 			arTombol[i].i = i;
 			arTombol[i].j = -1;
 			arTombol[i].sudah = false;
-			arTombol[i].style.backgroundImage = "url(../img/h"+i+".png)";
+			arTombol[i].style.backgroundImage = "url(../img/m"+i+".png)";
 			arTombol[i].isi = "kosong";
 		}
 		for(var i=0;i<=5;i++){
@@ -379,8 +379,8 @@
 					newY = initialY + deltaY;
 					newX = Math.max(xmin,Math.min(xmax,newX));
 					newY = Math.max(ymin,Math.min(ymax,newY));
-					newX = Math.round(newX/20)*20;
-					newY = Math.round(newY/20)*20;
+					//newX = Math.round(newX/20)*20;
+					//newY = Math.round(newY/20)*20;
 					//el.x = newX;
 					//el.y = newY;
 					el.style.left = newX + "px";
@@ -389,7 +389,7 @@
 					xybtn[el.i][1] = newY;
 					mcatas.style.left = newX + "px";
 					mcatas.style.top = newY + "px";
-					mcatas.style.backgroundImage = "url(../img/h"+el.i+".png)";
+					mcatas.style.backgroundImage = "url(../img/m"+el.i+".png)";
 				}
             }
 			

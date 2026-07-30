@@ -214,7 +214,7 @@
 			arTombol[i].i = i;
 			arTombol[i].j = -1;
 			arTombol[i].sudah = false;
-			arTombol[i].style.backgroundImage = "url(../img/h"+i+".png)";
+			arTombol[i].style.backgroundImage = "url(../img/k"+i+".png)";
 			arTombol[i].isi = "kosong";
 		}
 		for(var i=0;i<=5;i++){
@@ -324,9 +324,12 @@
 		console.log(isitrue);
 	</script>
 	<script>
+		var ff = false;
 		textbox.addEventListener('input', (event) => {
-			var ff = textboxkecil.innerHTML==event.target.innerHTML;
-			console.log('ff = ',ff);
+			ff = textboxkecil.innerHTML==event.target.innerHTML;
+			//console.log('ff = ',ff);
+			//console.log(textboxkecil.innerHTML);
+			//console.log(event.target.innerHTML);
 			if(event.target.innerHTML!==""){
 				btncek.style.display = "";
 			}else{
@@ -334,7 +337,7 @@
 			}
 		});
 		function klikCek(){
-			var ff = textboxkecil.innerHTML==textbox.innerHTML;
+			//var ff = textboxkecil.innerHTML==textbox.innerHTML;
 			btncek.style.display = "none";
 			if(ff){
 				//console.log("benar");

@@ -106,6 +106,7 @@
 		</div>
 		<div class="textbox" id="textbox"></div>
 		<div class="btnGabung" id="btnGabung"></div>
+		<div class="btnGabung" id="btnReset"></div>
 	</div>
 	<script>
 		function RandomAngkaAtoB(a,b){ 
@@ -135,6 +136,7 @@
 		const isibtn = document.getElementById("isibtn");
 		const myArea = document.getElementById("myArea");
 		const btnGabung = document.getElementById("btnGabung");
+		const btnReset = document.getElementById("btnReset");
 		myBG.style.backgroundImage = "url(../img/bg0.png)";
 		let lebarJendela = window.innerWidth;
 		let tinggiJendela = window.innerHeight;
@@ -182,10 +184,14 @@
 		myArea.style.top = ''+0+'px';
 		btnGabung.style.left = ''+730+'px';
 		btnGabung.style.top = ''+100+'px';
+		btnReset.style.left = ''+730+'px';
+		btnReset.style.top = ''+100+'px';
 		textbox.style.left = ''+730+'px';
 		textbox.style.top = ''+300+'px';
 		
 		btnGabung.innerHTML = "Gabung Sudut";
+		btnReset.innerHTML = "Reset";
+		btnReset.style.display = "none";
 		
 	</script>
     <script>
@@ -488,6 +494,7 @@
 		function fnGabung(e){
 			controller.abort();
 			btnGabung.style.display = "none";
+			btnReset.style.display = "";
 			//20 - 600+20 --> 300+20
 			//20 - 420+20 --> 210+20
 			var arTxy = [[0,0],[0,0],[0,0]];
@@ -508,6 +515,7 @@
 		}
 		
 		btnGabung.addEventListener('click',fnGabung);
+		btnReset.addEventListener('click', ()=>{window.location.href = 'SudutPadaSegitiga.html'});
 	</script>
 	<script>
 		var fixscale = 1;

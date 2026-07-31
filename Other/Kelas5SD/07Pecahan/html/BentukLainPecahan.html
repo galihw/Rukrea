@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Membandingkan Pecahan</title>
+    <title>Bentuk Lain Pecahan</title>
 	<style>
 		.bg {
 			position: absolute;
@@ -127,9 +127,9 @@
 			cursor: pointer;
 			position: absolute;
 			font-family: Arial, Helvetica, sans-serif;
-			font-size: 20px;
+			font-size: 15px;
 			color: #ffffff;
-			background-color: #000000;
+			/*background-color: #000000;*/
 			width: 100px;
 			height: 40px;
 			transform: translate(-50%, -50%);
@@ -139,7 +139,24 @@
 			text-align: center;
 			user-select: none;
 			-webkit-user-select: none;
+			
+			background-color: #3498db;
+			color: white;
+			border: none;
+			font-weight: bold;
+			
+			box-shadow: 
+				inset 2px 2px 3px rgba(255, 255, 255, 0.6), 
+				inset -2px -2px 3px rgba(0, 0, 0, 0.4);
+  
+			transition: transform 0.1s ease;
 		}
+		.btn:active {
+			/*transform: scale(0.99);*/
+			box-shadow: 
+			inset 2px 2px 3px rgba(0, 0, 0, 0.4), 
+			inset -2px -2px 3px rgba(255, 255, 255, 0.6);
+		}		
 		@keyframes Fade {
 			0% {
 				opacity: 1;
@@ -203,12 +220,24 @@
 		.mc {
 			width: 80px;
 			height: 100px;
-			background-color: #ff00ff;
+			/*background-color: #ff00ff;*/
 			transform: translate(-50%, -50%);
 			position: absolute;
 			cursor: pointer;
 			user-select: none;
 			-webkit-user-select: none;
+		}
+		.mcArea {
+			width: 240px;
+			height: 100px;
+			background-color: #FBCEB1;
+			/*transform: translate(-50%, -50%);*/
+			position: absolute;
+			user-select: none;
+			-webkit-user-select: none;
+			box-shadow: 
+				inset 2px 2px 3px rgba(0, 0, 0, 0.4), 
+				inset -2px -2px 3px rgba(255, 255, 255, 0.6);
 		}
 		.tUkur {
 			pointer-events: none;
@@ -265,11 +294,15 @@
 			/*transform: translate(-50%, -50%);*/
 			user-select: none;
 			-webkit-user-select: none;
+			border-radius: 20px;
+			overflow: hidden;
 		}
 	</style>
 </head>
 <body>
 	<div class ="bg" id="bg">
+		<div id="mcArea1" class="mcArea"></div>
+		<div id="mcArea2" class="mcArea"></div>
 		<div id="mctanda0" class="mc">
 			<div class="tUkur" id="tanda0"></div>
 		</div>
@@ -302,10 +335,10 @@
 		<div class="btn" id="btn"></div>
 		
 		
-		<video id="myVideo1" width="420" class='myVideo'>
+		<video id="myVideo1" width="380" class='myVideo'>
 			<source src="../img/BiasaKeCampuran.mp4" type="video/mp4">
 		</video>
-		<video id="myVideo2" width="420" class='myVideo'>
+		<video id="myVideo2" width="380" class='myVideo'>
 			<source src="../img/CampuranKeBiasa.mp4" type="video/mp4">
 		</video>
 
@@ -395,6 +428,9 @@
 		const mctanda1 = document.getElementById("mctanda1");
 		const btn = document.getElementById("btn");
 		
+		const mcArea1 = document.getElementById("mcArea1");
+		const mcArea2 = document.getElementById("mcArea2");
+		
 		
 		const teksA1 = document.getElementById("teksA1");
 		const teksB1 = document.getElementById("teksB1");
@@ -417,7 +453,7 @@
 		const btnputar1 = document.getElementById("btnputar1");
 		const btnputar2 = document.getElementById("btnputar2");
 		
-		myBG.style.backgroundImage = "url(../img/bg0.png)";
+		myBG.style.backgroundImage = "url(../img/bgpecahan7.png)";
 		let lebarJendela = window.innerWidth;
 		let tinggiJendela = window.innerHeight;
 		var scl = 1;
@@ -441,13 +477,24 @@
 		btnputar2.style.top = 200+'px';
 		btnputar2.innerHTML = 'putar';
 		
+		mcArea1.style.left = 60+'px';
+		mcArea1.style.top = 250+'px';
+		mcArea2.style.left = 480+'px';
+		mcArea2.style.top = 250+'px';
+		
+		mcArea1.style.width = '130px';
+		mcArea2.style.width = '130px';
+		
+		//mcArea1.style.width = '200px';
+		//mcArea2.style.width = '200px';
+		
 		//myVideo1.style.opacity = '0.5';
 		//myVideo2.style.opacity = '0.5';
 		
-		myVideo1.style.left = 0+'px';
-		myVideo1.style.top = 0+'px';
-		myVideo2.style.left = 420+'px';
-		myVideo2.style.top = 0+'px';
+		myVideo1.style.left = 20+'px';
+		myVideo1.style.top = 20+'px';
+		myVideo2.style.left = 440+'px';
+		myVideo2.style.top = 20+'px';
 		
 		mc0A.style.left = 100+'px';
 		mc0A.style.top = 300+'px';
@@ -555,9 +602,11 @@
 			if(mctanda0.klik){
 				mc0B.style.display = '';
 				tanda0.innerHTML = '=';
+				mcArea1.style.width = '200px';
 			}else{
 				mc0B.style.display = 'none';
 				tanda0.innerHTML = '= ?';
+				mcArea1.style.width = '130px';
 			}
 		});
 		mctanda1.addEventListener('click',()=>{
@@ -565,9 +614,11 @@
 			if(mctanda1.klik){
 				mc1B.style.display = '';
 				tanda1.innerHTML = '=';
+				mcArea2.style.width = '200px';
 			}else{
 				mc1B.style.display = 'none';
 				tanda1.innerHTML = '= ?';
+				mcArea2.style.width = '130px';
 			}
 		});
 		

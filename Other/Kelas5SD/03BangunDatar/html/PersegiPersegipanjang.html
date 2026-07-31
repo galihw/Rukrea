@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persegi dan Persegi Panjang</title>
+	<style>
+		.bg {
+			position: absolute;
+			width: 840px;
+			height: 472px;
+			background-color: grey;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.terseleksi {
+			box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.myCanvas {
+			position: absolute;
+			cursor: default;
+		}
+		.myCanvasArea {
+			position: absolute;
+			cursor: default;
+			width: 100px; 
+			height: 100px;
+			/*transform: translate(-50%, -50%);*/
+		}
+		.myDiv {
+			position: absolute;
+			cursor: default;
+			width: 100px; 
+			height: 100px;
+			transform: translate(-50%, -50%);
+		}
+		.textbox {
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #ffffff;
+			background-color: #000000;
+			width: 140px;
+			height: 120px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.textAB {
+			cursor: pointer;
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #ffffff;
+			/*background-color: #000000;*/
+			width: 140px;
+			height: 40px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
+		.textABsmall {
+			cursor: pointer;
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 14px;
+			color: #ffffff;
+			/*background-color: #000000;*/
+			width: 180px;
+			height: 40px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
+		.isibtn {
+			position: absolute;
+			width: 600px;
+			height: 420px;
+			overflow: clip;/* Options: visible, hidden, scroll, auto, clip */
+		}
+		.isiks {
+			position: absolute;
+			width: 50px;
+			height: 50px;
+			/*transform: translate(-50%, -50%);*/
+			user-select: none;
+			-webkit-user-select: none;
+			
+		}
+		.mcpersegi {
+			position: absolute;
+			width: 0px;
+			height: 0px;
+			transform: translate(-50%, -50%);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.garisV {
+			position: absolute;
+			height: 300px;
+			width: 0;
+			border-left: 2px solid yellow;
+		}
+		.garisH {
+			position: absolute;
+			height: 0;
+			width: 300px;
+			border-top: 2px solid yellow;
+		}
+	</style>
+</head>
+<body>
+	<div class ="bg" id="bg">
+		<div class='mcpersegi' id="mcpersegi"></div>
+		<div class="textAB" id="acak" style="background-color:black"></div>
+		<div class="textAB" id="pjg" style="background-color:red"></div>
+		<div class="textAB" id="lbr" style="background-color:green"></div>
+		<div class="textAB" id="luas" style="background-color:brown"></div>
+		<div class="textAB" id="keliling" style="background-color:purple"></div>
+		<div class="textABsmall" id="nama" style="background-color:magenta"></div>
+		<div class="garisV" id="V1"></div>
+		<div class="garisV" id="V2"></div>
+		<div class="garisH" id="H1"></div>
+		<div class="garisH" id="H2"></div>
+	</div>
+	<script>
+		function RandomAngkaAtoB(a,b){ 
+			var r = a+Math.ceil(Math.random() * b);
+			return r;
+		}
+		function RandomMyArray(Arr){
+			for (var i=0; i<Arr.length; i++){
+				var r = Math.floor(Math.random() * Arr.length);
+				var a = Arr[i];
+				Arr[i] = Arr[r];
+				Arr[r] = a;
+			}
+			return Arr
+		}
+		function StringDesimal(ff){
+			var strff = ""+ff;
+			const gg = strff.split(".");
+			if(gg.length==2)	return gg[0]+","+gg[1];
+			else 				return ff
+		}
+	</script>
+	<script>
+		const cX = window.scrollX;
+		const cY = window.scrollY;
+		const myBG = document.getElementById("bg");
+		const mcpersegi = document.getElementById("mcpersegi");
+		const acak = document.getElementById("acak");
+		const pjg = document.getElementById("pjg");
+		const lbr = document.getElementById("lbr");
+		const luas = document.getElementById("luas");
+		const keliling = document.getElementById("keliling");
+		const nama = document.getElementById("nama");
+		
+		const H1 = document.getElementById("H1");
+		const H2 = document.getElementById("H2");
+		const V1 = document.getElementById("V1");
+		const V2 = document.getElementById("V2");
+		
+		
+		myBG.style.backgroundImage = "url(../img/bg1.png)";
+		let lebarJendela = window.innerWidth;
+		let tinggiJendela = window.innerHeight;
+		var scl = 1;
+		myBG.x = window.scrollX+(lebarJendela-840*scl)/2;
+		myBG.y = window.scrollY+(tinggiJendela-472*scl)/2;
+		myBG.style.left = ''+(myBG.x)+'px';
+		myBG.style.top = ''+(myBG.y)+'px';
+		myBG.w = 840;
+		myBG.h = 472;
+		
+		
+		acak.style.left = 730+'px';
+		acak.style.top = 50+'px';
+		
+		pjg.style.left = 730+'px';
+		pjg.style.top = 150+'px';
+		lbr.style.left = 730+'px';
+		lbr.style.top = 200+'px';
+		nama.style.left = 730+'px';
+		nama.style.top = 300+'px';
+		luas.style.left = 730+'px';
+		luas.style.top = 350+'px';
+		keliling.style.left = 730+'px';
+		keliling.style.top = 400+'px';
+		
+		V1.style.display = "none";
+		V2.style.display = "none";
+		H1.style.display = "none";
+		H2.style.display = "none";
+		
+		
+	</script>
+	<script>
+	
+		var fixscale = 1;
+		var fixzoom
+		document.body.style.backgroundColor = "black";
+		window.addEventListener('resize', () => {
+			ZoomAll();
+		});
+		function XYbenda(){
+			lebarJendela = window.innerWidth;
+			tinggiJendela = window.innerHeight;
+			myBG.x = window.scrollX+(lebarJendela-840*scl)/2;
+			myBG.y = window.scrollY+(tinggiJendela-472*scl)/2;
+			myBG.style.left = ''+(myBG.x)+'px';
+			myBG.style.top = ''+(myBG.y)+'px';
+		}
+		function ZoomAll(){
+			let lebarJendela = window.innerWidth;
+			let tinggiJendela = window.innerHeight;
+			var xscale = lebarJendela/840;
+			var yscale = tinggiJendela/472;
+			scl = 0.95*Math.min(xscale,yscale);
+			fixscale = scl;
+			fixzoom = scl*100;
+			document.body.style.zoom = ""+fixzoom+"%";
+			XYbenda();
+		}
+		
+		ZoomAll();
+		function handleClick(event) {
+			console.log("handleClick");
+		}
+		myBG.addEventListener('click', handleClick);
+		setTimeout(() => {
+			console.log("handleClick")
+			ZoomAll();
+			myBG.removeEventListener('click', handleClick);
+		}, 100);
+		
+	</script>
+	<script>
+		//random plt
+		function Persegi(){
+			acak.innerHTML = 'Soal Baru';	
+			pjg.innerHTML = 'p = ?';
+			lbr.innerHTML = 'l = ?';
+			keliling.innerHTML = 'kel = ?';
+			luas.innerHTML = 'luas = ?';
+			nama.innerHTML = 'nama = ?';
+			pjg.klik=false;
+			lbr.klik=false;
+			keliling.klik=false;
+			luas.klik=false;
+			nama.klik=false;
+			
+			var mode = RandomAngkaAtoB(-1,2);
+			
+			var pp = RandomAngkaAtoB(0,6);
+			var ll = RandomAngkaAtoB(0,6);
+			mcpersegi.nama = "Persegi Panjang";
+			if(mode==1){
+				ll=pp;
+				mcpersegi.nama = "Persegi";
+			}
+			mcpersegi.pp = pp;
+			mcpersegi.ll = ll;
+			mcpersegi.luas = (pp*ll);
+			mcpersegi.keliling = 2*(pp+ll);
+			
+			mcpersegi.replaceChildren()
+			var xb = 320;
+			var yb = 230;
+			mcpersegi.style.left = xb+'px';
+			mcpersegi.style.top = yb+'px';
+			var x0 = 0;
+			var y0 = 0;
+			var armc = [];
+			var wid=0,hei=0,widA,widB,heiA,heiB;
+			for(var i=0;i<ll;i++){
+				for(var j=0;j<pp;j++){
+						var mc = document.createElement("div");
+						armc.push(mc);
+						mcpersegi.appendChild(mc);
+						mc.classList.add("isiks");
+						mc.style.backgroundImage = "url(../img/PS.png)";
+						var xx = x0 + 50*j;
+						var yy = y0 + 50*i;
+						mc.style.left = xx+'px';
+						mc.style.top = yy+'px';
+				}	
+			}
+			// menghitung kiri dan kanan
+			wid = 50*pp;
+			hei = 50*ll;
+			//console.log(wid,hei);
+			mcpersegi.style.left = (xb-wid+wid/2)+'px';
+			mcpersegi.style.top = (yb-hei+hei/2)+'px';
+			// untuk mengecek wid dan hei A dan B
+			/*
+			V1.style.left = (300-widA)+'px';
+			V1.style.top = (330)+'px';
+			V2.style.left = (300+widB)+'px';
+			V2.style.top = (330)+'px';
+			H1.style.left = (300)+'px';
+			H1.style.top = (330-heiA)+'px';
+			H2.style.left = (300)+'px';
+			H2.style.top = (330+heiB)+'px';
+			*/
+		}
+		
+		Persegi();
+	</script>
+    <script>
+		pjg.addEventListener('click', ()=>{
+			pjg.klik = !pjg.klik;
+			if(pjg.klik)	pjg.innerHTML = 'p = '+mcpersegi.pp;
+			else			pjg.innerHTML = 'p = ?';
+		});
+		lbr.addEventListener('click', ()=>{
+			lbr.klik = !lbr.klik;
+			if(lbr.klik)	lbr.innerHTML = 'l = '+mcpersegi.ll;
+			else			lbr.innerHTML = 'l = ?';
+		});
+		keliling.addEventListener('click', ()=>{
+			keliling.klik = !keliling.klik;
+			if(keliling.klik)	keliling.innerHTML = 'kel = '+mcpersegi.keliling;
+			else				keliling.innerHTML = 'kel = ?';
+		});
+		luas.addEventListener('click', ()=>{
+			luas.klik = !luas.klik;
+			if(luas.klik)	luas.innerHTML = 'luas = '+mcpersegi.luas;
+			else			luas.innerHTML = 'luas = ?';
+		});
+		nama.addEventListener('click', ()=>{
+			nama.klik = !nama.klik;
+			if(nama.klik)	nama.innerHTML = 'nama = '+mcpersegi.nama;
+			else			nama.innerHTML = 'nama = ?';
+		});
+		
+		acak.addEventListener('click', ()=>{
+			Persegi();
+		});
+		
+		
+    </script>
+	<script>
+	</script>
+</body>
+</html>

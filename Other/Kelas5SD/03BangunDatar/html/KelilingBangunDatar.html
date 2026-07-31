@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keliling Bangun Datar</title>
+	<style>
+		.bg {
+			position: absolute;
+			width: 840px;
+			height: 472px;
+			background-color: grey;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.terseleksi {
+			box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.myCanvas {
+			position: absolute;
+			cursor: default;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.myCanvasArea {
+			position: absolute;
+			cursor: default;
+			width: 100px; 
+			height: 100px;
+			/*transform: translate(-50%, -50%);*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.myDiv {
+			position: absolute;
+			cursor: default;
+			width: 100px; 
+			height: 100px;
+			transform: translate(-50%, -50%);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.textbox {
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #ffffff;
+			background-color: #000000;
+			width: 140px;
+			height: 120px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.textAB {
+			cursor: pointer;
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #ffffff;
+			/*background-color: #000000;*/
+			width: 140px;
+			height: 40px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.textABsmall {
+			cursor: pointer;
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 14px;
+			color: #ffffff;
+			/*background-color: #000000;*/
+			width: 180px;
+			height: 40px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.isibtn {
+			position: absolute;
+			width: 600px;
+			height: 420px;
+			overflow: clip;/* Options: visible, hidden, scroll, auto, clip */
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.isiks {
+			position: absolute;
+			width: 50px;
+			height: 50px;
+			/*transform: translate(-50%, -50%);*/
+			user-select: none;
+			-webkit-user-select: none;
+			
+		}
+		.mcpersegi {
+			position: absolute;
+			width: 0px;
+			height: 0px;
+			transform: translate(-50%, -50%);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.myCanvas {
+			position: absolute;
+			cursor: default;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.tUkur {
+			position: absolute;
+			cursor: default;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #000000;
+			width: 40px;
+			height: 20px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.btn {
+			cursor: pointer;
+			position: absolute;
+			width: 72px;
+			height: 56px;
+			transform: translate(-50%, -50%);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		@keyframes Fade {
+			0% {
+				opacity: 1;
+			}
+			10% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+			}
+		}
+		.fading {
+			pointer-events: none;
+			position: absolute;
+			width: 840px;
+			height: 472px;
+			background-color: #000000;
+			animation: Fade 1s ease forwards;
+		}
+		
+	</style>
+</head>
+<body>
+	<div class ="bg" id="bg">
+		<div id="allrumus">
+			<div class="textAB" id="rumus1" style="background-color:black"></div>
+			<div class="textAB" id="rumus2" style="background-color:black"></div>
+			<div class="textAB" id="rumus3" style="background-color:black"></div>
+			<div class="textAB" id="rumus4" style="background-color:black"></div>
+			<div class="textAB" id="rumus5" style="background-color:black"></div>
+			<div class="textAB" id="rumus6" style="background-color:black"></div>
+			<div class="textAB" id="rumus7" style="background-color:black"></div>
+		</div>
+		<div id="mc1">
+			<canvas class="myCanvas" id="segitiga" width="840" height="472" ></canvas>
+			<div class="tUkur" id="segitigaa"></div>
+			<div class="tUkur" id="segitigab"></div>
+			<div class="tUkur" id="segitigac"></div>
+		</div>
+		<div id="mc2">
+			<canvas class="myCanvas" id="persegi" width="840" height="472" ></canvas>
+			<div class="tUkur" id="persegia"></div>
+			<div class="tUkur" id="persegib"></div>
+			<div class="tUkur" id="persegic"></div>
+			<div class="tUkur" id="persegid"></div>
+		</div>
+		<div id="mc3">
+			<canvas class="myCanvas" id="persegipanjang" width="840" height="472" ></canvas>
+			<div class="tUkur" id="persegipanjanga"></div>
+			<div class="tUkur" id="persegipanjangb"></div>
+			<div class="tUkur" id="persegipanjangc"></div>
+			<div class="tUkur" id="persegipanjangd"></div>
+		</div>
+		<div id="mc4">
+			<canvas class="myCanvas" id="jajargenjang" width="840" height="472" ></canvas>
+			<div class="tUkur" id="jajargenjanga"></div>
+			<div class="tUkur" id="jajargenjangb"></div>
+			<div class="tUkur" id="jajargenjangc"></div>
+			<div class="tUkur" id="jajargenjangd"></div>
+		</div>
+		<div id="mc5">
+			<canvas class="myCanvas" id="trapesium" width="840" height="472" ></canvas>
+			<div class="tUkur" id="trapesiuma"></div>
+			<div class="tUkur" id="trapesiumb"></div>
+			<div class="tUkur" id="trapesiumc"></div>
+			<div class="tUkur" id="trapesiumd"></div>
+		</div>
+		<div id="mc6">
+			<canvas class="myCanvas" id="belahketupat" width="840" height="472" ></canvas>
+			<div class="tUkur" id="belahketupata"></div>
+			<div class="tUkur" id="belahketupatb"></div>
+			<div class="tUkur" id="belahketupatc"></div>
+			<div class="tUkur" id="belahketupatd"></div>
+		</div>
+		<div id="mc7">
+			<canvas class="myCanvas" id="layanglayang" width="840" height="472" ></canvas>
+			<div class="tUkur" id="layanglayanga"></div>
+			<div class="tUkur" id="layanglayangb"></div>
+			<div class="tUkur" id="layanglayangc"></div>
+			<div class="tUkur" id="layanglayangd"></div>
+		</div>
+		<div id="allbutton">
+			<div class="btn" id="btn1"></div>
+			<div class="btn" id="btn2"></div>
+			<div class="btn" id="btn3"></div>
+			<div class="btn" id="btn4"></div>
+			<div class="btn" id="btn5"></div>
+			<div class="btn" id="btn6"></div>
+			<div class="btn" id="btn7"></div>
+		</div>
+		<div class='mcpersegi' id="mcpersegi"></div>
+		<div class="textAB" id="acak" style="background-color:green"></div>
+		<div class="textAB" id="pjg" style="background-color:black"></div>
+		<div class="textAB" id="lbr" style="background-color:black"></div>
+		<div class="textAB" id="tgg" style="background-color:black"></div>
+		<div class="textAB" id="grr" style="background-color:black"></div>
+		<div class="textABsmall" id="nama" style="background-color:black"></div>
+		<div class="textAB" id="rumus" style="background-color:black"></div>
+		<div class="textAB" id="kel" style="background-color:black"></div>
+		
+		<div class="fading" id="tutup"></div>
+	</div>
+	<script>
+		function RandomAngkaAtoB(a,b){ 
+			var r = a+Math.ceil(Math.random() * b);
+			return r;
+		}
+		function RandomMyArray(Arr){
+			for (var i=0; i<Arr.length; i++){
+				var r = Math.floor(Math.random() * Arr.length);
+				var a = Arr[i];
+				Arr[i] = Arr[r];
+				Arr[r] = a;
+			}
+			return Arr
+		}
+		function StringDesimal(ff){
+			var strff = ""+ff;
+			const gg = strff.split(".");
+			if(gg.length==2)	return gg[0]+","+gg[1];
+			else 				return ff
+		}
+	</script>
+	<script>
+		const cX = window.scrollX;
+		const cY = window.scrollY;
+		const myBG = document.getElementById("bg");
+		const mcpersegi = document.getElementById("mcpersegi");
+		const acak = document.getElementById("acak");
+		const pjg = document.getElementById("pjg");
+		const lbr = document.getElementById("lbr");
+		const tgg = document.getElementById("tgg");
+		const grr = document.getElementById("grr");
+		const rumus = document.getElementById("rumus");
+		const kel = document.getElementById("kel");
+		const nama = document.getElementById("nama");
+		const allrumus = document.getElementById("allrumus");
+		
+		myBG.style.backgroundImage = "url(../img/bg1.png)";
+		let lebarJendela = window.innerWidth;
+		let tinggiJendela = window.innerHeight;
+		var scl = 1;
+		myBG.x = window.scrollX+(lebarJendela-840*scl)/2;
+		myBG.y = window.scrollY+(tinggiJendela-472*scl)/2;
+		myBG.style.left = ''+(myBG.x)+'px';
+		myBG.style.top = ''+(myBG.y)+'px';
+		myBG.w = 840;
+		myBG.h = 472;
+		
+		
+		acak.style.left = 730+'px';
+		acak.style.top = 50+'px';
+		
+		pjg.style.left = 730+'px';
+		pjg.style.top = 100+'px';
+		lbr.style.left = 730+'px';
+		lbr.style.top = 150+'px';
+		tgg.style.left = 730+'px';
+		tgg.style.top = 200+'px';
+		grr.style.left = 730+'px';
+		grr.style.top = 250+'px';
+		
+		nama.style.left = 730+'px';
+		nama.style.top = 300+'px';
+		rumus.style.left = 730+'px';
+		rumus.style.top = 350+'px';
+		kel.style.left = 730+'px';
+		kel.style.top = 400+'px';
+		
+		
+	</script>
+	<script>
+	
+		var fixscale = 1;
+		var fixzoom
+		document.body.style.backgroundColor = "black";
+		window.addEventListener('resize', () => {
+			ZoomAll();
+		});
+		function XYbenda(){
+			lebarJendela = window.innerWidth;
+			tinggiJendela = window.innerHeight;
+			myBG.x = window.scrollX+(lebarJendela-840*scl)/2;
+			myBG.y = window.scrollY+(tinggiJendela-472*scl)/2;
+			myBG.style.left = ''+(myBG.x)+'px';
+			myBG.style.top = ''+(myBG.y)+'px';
+		}
+		function ZoomAll(){
+			let lebarJendela = window.innerWidth;
+			let tinggiJendela = window.innerHeight;
+			var xscale = lebarJendela/840;
+			var yscale = tinggiJendela/472;
+			scl = 0.95*Math.min(xscale,yscale);
+			fixscale = scl;
+			fixzoom = scl*100;
+			document.body.style.zoom = ""+fixzoom+"%";
+			XYbenda();
+		}
+		
+		ZoomAll();
+		function handleClick(event) {
+			console.log("handleClick");
+		}
+		myBG.addEventListener('click', handleClick);
+		setTimeout(() => {
+			console.log("handleClick")
+			ZoomAll();
+			myBG.removeEventListener('click', handleClick);
+		}, 100);
+		
+	</script>
+	<script>
+		var x0 = 310;
+		var y0 = 200;
+		
+		function DrawSegitiga(canv,ss1,ss2,ss3,id){
+			const canvas = document.getElementById(canv);
+			const ctx = canvas.getContext('2d');
+			
+			ctx.clearRect(0,0, canvas.width, canvas.height);
+			ctx.reset()
+			
+			var dx = 100;
+			var dy = dx;
+			
+			ctx.beginPath();
+			ctx.fillStyle = 'rgba(86, 99, 207, 0.3)'; // Warna
+			ctx.moveTo(x0-30       ,y0-dy);
+			ctx.lineTo(x0+dx    ,y0+dy);
+			ctx.lineTo(x0-dx    ,y0+dy);
+			ctx.lineTo(x0-30       ,y0-dy);
+			ctx.lineJoin = "round";
+			ctx.fill()
+			ctx.strokeStyle = '#000000'; // Warna 
+			ctx.lineWidth = 4; // Ketebalan garis 
+			ctx.closePath();
+			ctx.stroke();
+			
+			
+			
+			document.getElementById(canv+"a").style.left = (x0)+'px';
+			document.getElementById(canv+"a").style.top = (y0+dy+20)+'px';
+			document.getElementById(canv+"a").innerHTML = ss1;
+			document.getElementById(canv+"b").style.left = (x0+dx-20)+'px';
+			document.getElementById(canv+"b").style.top = (y0)+'px';
+			document.getElementById(canv+"b").innerHTML = ss2;
+			document.getElementById(canv+"c").style.left = (x0-dx)+'px';
+			document.getElementById(canv+"c").style.top = (y0)+'px';
+			document.getElementById(canv+"c").innerHTML = ss3;
+			
+			document.getElementById(id).pp = StringDesimal(ss1);
+			document.getElementById(id).ll = StringDesimal(ss1);
+			document.getElementById(id).tt = StringDesimal(ss2);
+			document.getElementById(id).rr = StringDesimal(ss3);
+			document.getElementById(id).kel = StringDesimal(ss1+ss2+ss3);
+			document.getElementById(id).t0 = '';
+			document.getElementById(id).t1 = 'a';
+			document.getElementById(id).t2 = 'b';
+			document.getElementById(id).t3 = 'c';
+			
+			return 0;
+		}
+		function DrawPersegi(canv,ss1,id){
+			const canvas = document.getElementById(canv);
+			const ctx = canvas.getContext('2d');
+			
+			ctx.clearRect(0,0, canvas.width, canvas.height);
+			ctx.reset()
+			
+			var dx = 100;
+			var dy = dx;
+			
+			ctx.beginPath();
+			ctx.fillStyle = 'rgba(86, 99, 207, 0.3)'; // Warna
+			ctx.moveTo(x0-dx    ,y0-dy);
+			ctx.lineTo(x0+dx    ,y0-dy);
+			ctx.lineTo(x0+dx    ,y0+dy);
+			ctx.lineTo(x0-dx    ,y0+dy);
+			ctx.lineTo(x0-dx    ,y0-dy);
+			ctx.lineJoin = "round";
+			ctx.fill()
+			ctx.strokeStyle = '#000000'; // Warna 
+			ctx.lineWidth = 4; // Ketebalan garis 
+			ctx.closePath();
+			ctx.stroke();
+			
+			
+			document.getElementById(canv+"a").style.left = (x0)+'px';
+			document.getElementById(canv+"a").style.top = (y0+dy+20)+'px';
+			document.getElementById(canv+"a").innerHTML = ss1;
+			document.getElementById(canv+"b").style.left = (x0+dx+20)+'px';
+			document.getElementById(canv+"b").style.top = (y0)+'px';
+			document.getElementById(canv+"b").innerHTML = ss1;
+			document.getElementById(canv+"c").style.left = (x0)+'px';
+			document.getElementById(canv+"c").style.top = (y0-dy-20)+'px';
+			document.getElementById(canv+"c").innerHTML = ss1;
+			document.getElementById(canv+"d").style.left = (x0-dx-20)+'px';
+			document.getElementById(canv+"d").style.top = (y0)+'px';
+			document.getElementById(canv+"d").innerHTML = ss1;
+			
+			document.getElementById(id).pp = StringDesimal(ss1);
+			document.getElementById(id).ll = StringDesimal(ss1);
+			document.getElementById(id).tt = StringDesimal(ss1);
+			document.getElementById(id).rr = StringDesimal(ss1);
+			document.getElementById(id).kel = StringDesimal(4*ss1);
+			document.getElementById(id).t0 = '';
+			document.getElementById(id).t1 = '';
+			document.getElementById(id).t2 = '';
+			document.getElementById(id).t3 = 's';
+			
+			return 0;
+		}
+		function DrawPersegiPanjang(canv,ss1,ss2,id){
+			const canvas = document.getElementById(canv);
+			const ctx = canvas.getContext('2d');
+			
+			ctx.clearRect(0,0, canvas.width, canvas.height);
+			ctx.reset()
+			
+			var dx = 150;
+			var dy = 100;
+			
+			ctx.beginPath();
+			ctx.fillStyle = 'rgba(86, 99, 207, 0.3)'; // Warna
+			ctx.moveTo(x0-dx    ,y0-dy);
+			ctx.lineTo(x0+dx    ,y0-dy);
+			ctx.lineTo(x0+dx    ,y0+dy);
+			ctx.lineTo(x0-dx    ,y0+dy);
+			ctx.lineTo(x0-dx    ,y0-dy);
+			ctx.lineJoin = "round";
+			ctx.fill()
+			ctx.strokeStyle = '#000000'; // Warna 
+			ctx.lineWidth = 4; // Ketebalan garis 
+			ctx.closePath();
+			ctx.stroke();
+			
+			
+			document.getElementById(canv+"a").style.left = (x0)+'px';
+			document.getElementById(canv+"a").style.top = (y0+dy+20)+'px';
+			document.getElementById(canv+"a").innerHTML = ss1;
+			document.getElementById(canv+"b").style.left = (x0+dx+20)+'px';
+			document.getElementById(canv+"b").style.top = (y0)+'px';
+			document.getElementById(canv+"b").innerHTML = ss2;
+			document.getElementById(canv+"c").style.left = (x0)+'px';
+			document.getElementById(canv+"c").style.top = (y0-dy-20)+'px';
+			document.getElementById(canv+"c").innerHTML = ss1;
+			document.getElementById(canv+"d").style.left = (x0-dx-20)+'px';
+			document.getElementById(canv+"d").style.top = (y0)+'px';
+			document.getElementById(canv+"d").innerHTML = ss2;
+			
+			document.getElementById(id).pp = StringDesimal(ss1);
+			document.getElementById(id).ll = StringDesimal(ss2);
+			document.getElementById(id).tt = StringDesimal(ss1);
+			document.getElementById(id).rr = StringDesimal(ss2);
+			document.getElementById(id).kel = StringDesimal(2*(ss1+ss2));
+			document.getElementById(id).t0 = '';
+			document.getElementById(id).t1 = '';
+			document.getElementById(id).t2 = 'p';
+			document.getElementById(id).t3 = 'l';
+			
+			return 0;
+		}
+		function DrawJajarGenjang(canv,ss1,ss2,id){
+			const canvas = document.getElementById(canv);
+			const ctx = canvas.getContext('2d');
+			
+			ctx.clearRect(0,0, canvas.width, canvas.height);
+			ctx.reset()
+			
+			var dx = 150;
+			var dy = 100;
+			
+			ctx.beginPath();
+			ctx.fillStyle = 'rgba(86, 99, 207, 0.3)'; // Warna
+			ctx.moveTo(x0-dx+50    ,y0-dy);
+			ctx.lineTo(x0+dx       ,y0-dy);
+			ctx.lineTo(x0+dx-50    ,y0+dy);
+			ctx.lineTo(x0-dx       ,y0+dy);
+			ctx.lineTo(x0-dx+50    ,y0-dy);
+			ctx.lineJoin = "round";
+			ctx.fill()
+			ctx.strokeStyle = '#000000'; // Warna 
+			ctx.lineWidth = 4; // Ketebalan garis 
+			ctx.closePath();
+			ctx.stroke();
+			
+			
+			document.getElementById(canv+"a").style.left = (x0-20)+'px';
+			document.getElementById(canv+"a").style.top = (y0+dy+20)+'px';
+			document.getElementById(canv+"a").innerHTML = ss1;
+			document.getElementById(canv+"b").style.left = (x0+dx)+'px';
+			document.getElementById(canv+"b").style.top = (y0)+'px';
+			document.getElementById(canv+"b").innerHTML = ss2;
+			document.getElementById(canv+"c").style.left = (x0+20)+'px';
+			document.getElementById(canv+"c").style.top = (y0-dy-20)+'px';
+			document.getElementById(canv+"c").innerHTML = ss1;
+			document.getElementById(canv+"d").style.left = (x0-dx)+'px';
+			document.getElementById(canv+"d").style.top = (y0)+'px';
+			document.getElementById(canv+"d").innerHTML = ss2;
+			
+			document.getElementById(id).tt = StringDesimal(ss1);
+			document.getElementById(id).rr = StringDesimal(ss2);
+			document.getElementById(id).kel = StringDesimal(2*(ss1+ss2));
+			document.getElementById(id).t0 = '';
+			document.getElementById(id).t1 = '';
+			document.getElementById(id).t2 = 'a';
+			document.getElementById(id).t3 = 'b';
+			
+			
+			return 0;
+		}
+		function DrawTrapesium(canv,ss1,ss2,ss3,ss4,id){
+			const canvas = document.getElementById(canv);
+			const ctx = canvas.getContext('2d');
+			
+			ctx.clearRect(0,0, canvas.width, canvas.height);
+			ctx.reset()
+			
+			var dx = 150;
+			var dy = 100;
+			
+			ctx.beginPath();
+			ctx.fillStyle = 'rgba(86, 99, 207, 0.3)'; // Warna
+			ctx.moveTo(x0-dx+50    ,y0-dy);
+			ctx.lineTo(x0+dx-50       ,y0-dy);
+			ctx.lineTo(x0+dx    ,y0+dy);
+			ctx.lineTo(x0-dx       ,y0+dy);
+			ctx.lineTo(x0-dx+50    ,y0-dy);
+			ctx.lineJoin = "round";
+			ctx.fill()
+			ctx.strokeStyle = '#000000'; // Warna 
+			ctx.lineWidth = 4; // Ketebalan garis 
+			ctx.closePath();
+			ctx.stroke();
+			
+			
+			document.getElementById(canv+"a").style.left = (x0)+'px';
+			document.getElementById(canv+"a").style.top = (y0-dy-20)+'px';
+			document.getElementById(canv+"a").innerHTML = ss1;
+			document.getElementById(canv+"b").style.left = (x0+dx)+'px';
+			document.getElementById(canv+"b").style.top = (y0)+'px';
+			document.getElementById(canv+"b").innerHTML = ss2;
+			document.getElementById(canv+"c").style.left = (x0)+'px';
+			document.getElementById(canv+"c").style.top = (y0+dy+20)+'px';
+			document.getElementById(canv+"c").innerHTML = ss3;
+			document.getElementById(canv+"d").style.left = (x0-dx)+'px';
+			document.getElementById(canv+"d").style.top = (y0)+'px';
+			document.getElementById(canv+"d").innerHTML = ss4;
+			
+			
+			document.getElementById(id).pp = StringDesimal(ss1);
+			document.getElementById(id).ll = StringDesimal(ss2);
+			document.getElementById(id).tt = StringDesimal(ss3);
+			document.getElementById(id).rr = StringDesimal(ss4);
+			document.getElementById(id).kel = StringDesimal(ss1+ss2+ss3+ss4);
+			document.getElementById(id).t0 = 'a';
+			document.getElementById(id).t1 = 'b';
+			document.getElementById(id).t2 = 'c';
+			document.getElementById(id).t3 = 'd';
+			
+			return 0;
+		}
+		function DrawBelahKetupat(canv,ss1,id){
+			const canvas = document.getElementById(canv);
+			const ctx = canvas.getContext('2d');
+			
+			ctx.clearRect(0,0, canvas.width, canvas.height);
+			ctx.reset()
+			
+			var dx = 100;
+			var dy = dx;
+			
+			ctx.beginPath();
+			ctx.fillStyle = 'rgba(86, 99, 207, 0.3)'; // Warna
+			ctx.moveTo(x0    ,y0-dy);
+			ctx.lineTo(x0+dx-10    ,y0);
+			ctx.lineTo(x0    ,y0+dy);
+			ctx.lineTo(x0-dx+10    ,y0);
+			ctx.lineTo(x0    ,y0-dy);
+			ctx.lineJoin = "round";
+			ctx.fill()
+			ctx.strokeStyle = '#000000'; // Warna 
+			ctx.lineWidth = 4; // Ketebalan garis 
+			ctx.closePath();
+			ctx.stroke();
+			
+			
+			document.getElementById(canv+"a").style.left = (x0+dx-30)+'px';
+			document.getElementById(canv+"a").style.top = (y0+dy-30)+'px';
+			document.getElementById(canv+"a").innerHTML = ss1;
+			document.getElementById(canv+"b").style.left = (x0+dx-30)+'px';
+			document.getElementById(canv+"b").style.top = (y0-dy+30)+'px';
+			document.getElementById(canv+"b").innerHTML = ss1;
+			document.getElementById(canv+"c").style.left = (x0-dx+30)+'px';
+			document.getElementById(canv+"c").style.top = (y0-dy+30)+'px';
+			document.getElementById(canv+"c").innerHTML = ss1;
+			document.getElementById(canv+"d").style.left = (x0-dx+30)+'px';
+			document.getElementById(canv+"d").style.top = (y0+dy-30)+'px';
+			document.getElementById(canv+"d").innerHTML = ss1;
+			
+			document.getElementById(id).pp = StringDesimal(ss1);
+			document.getElementById(id).ll = StringDesimal(ss1);
+			document.getElementById(id).tt = StringDesimal(ss1);
+			document.getElementById(id).rr = StringDesimal(ss1);
+			document.getElementById(id).kel = (4*ss1);
+			document.getElementById(id).t0 = 's';
+			document.getElementById(id).t1 = 's';
+			document.getElementById(id).t2 = 's';
+			document.getElementById(id).t3 = 's';
+			
+			return 0;
+		}
+		function DrawLayangLayang(canv,ss1,ss2,id){
+			const canvas = document.getElementById(canv);
+			const ctx = canvas.getContext('2d');
+			
+			ctx.clearRect(0,0, canvas.width, canvas.height);
+			ctx.reset()
+			
+			var dx = 100;
+			var dy = dx;
+			
+			ctx.beginPath();
+			ctx.fillStyle = 'rgba(86, 99, 207, 0.3)'; // Warna
+			ctx.moveTo(x0    ,y0-dy);
+			ctx.lineTo(x0+dx-10    ,y0-30);
+			ctx.lineTo(x0    ,y0+dy);
+			ctx.lineTo(x0-dx+10    ,y0-30);
+			ctx.lineTo(x0    ,y0-dy);
+			ctx.lineJoin = "round";
+			ctx.fill()
+			ctx.strokeStyle = '#000000'; // Warna 
+			ctx.lineWidth = 4; // Ketebalan garis 
+			ctx.closePath();
+			ctx.stroke();
+			
+			
+			document.getElementById(canv+"a").style.left = (x0+dx-40)+'px';
+			document.getElementById(canv+"a").style.top = (y0+dy-40)+'px';
+			document.getElementById(canv+"a").innerHTML = ss1;
+			document.getElementById(canv+"b").style.left = (x0+dx-40)+'px';
+			document.getElementById(canv+"b").style.top = (y0-dy+20)+'px';
+			document.getElementById(canv+"b").innerHTML = ss2;
+			document.getElementById(canv+"c").style.left = (x0-dx+40)+'px';
+			document.getElementById(canv+"c").style.top = (y0-dy+20)+'px';
+			document.getElementById(canv+"c").innerHTML = ss2;
+			document.getElementById(canv+"d").style.left = (x0-dx+40)+'px';
+			document.getElementById(canv+"d").style.top = (y0+dy-40)+'px';
+			document.getElementById(canv+"d").innerHTML = ss1;
+			
+			document.getElementById(id).pp = StringDesimal(ss1);
+			document.getElementById(id).ll = StringDesimal(ss2);
+			document.getElementById(id).tt = StringDesimal(ss2);
+			document.getElementById(id).rr = StringDesimal(ss1);
+			document.getElementById(id).kel = StringDesimal(2*(ss1+ss2));
+			document.getElementById(id).t0 = 'a';
+			document.getElementById(id).t1 = 'b';
+			document.getElementById(id).t2 = 'a';
+			document.getElementById(id).t3 = 'b';
+			
+			return 0;
+		}
+		
+	</script>
+	<script>
+		//random plt
+		acak.innerHTML = 'Soal Baru';
+		var da,db,dt
+		var awal = true;
+		function Reset(){
+			do{
+				da = RandomAngkaAtoB(0,20);
+				db = RandomAngkaAtoB(0,20);
+				dc = RandomAngkaAtoB(0,20);
+				dd = RandomAngkaAtoB(0,20);
+			}while(da<=db || da<=dc || da<=dd || db==dc || db==dd || dc==dd || da>=db+dc || db>=da+dc || dc>=db+da)
+			DrawSegitiga('segitiga',da,db,dc,"mc1");
+			DrawPersegi('persegi',da,"mc2");
+			DrawPersegiPanjang('persegipanjang',da,db,"mc3");
+			DrawJajarGenjang('jajargenjang',da,db,"mc4");
+			DrawTrapesium('trapesium',da,db,dc,dd,"mc5");
+			DrawBelahKetupat('belahketupat',da,"mc6");
+			DrawLayangLayang('layanglayang',da,db,"mc7");
+			allrumus.style.opacity = 0;
+			
+			pjg.style.opacity = '0';
+			lbr.style.opacity = '0';
+			tgg.style.opacity = '0';
+			kel.style.opacity = '0';
+			rumus.style.opacity = '0';
+			nama.style.opacity = '0';
+			if(awal){
+				//Show(null,null);
+				awal = !awal;
+				Show(arBtn[1].mc,arBtn[1].rumus);
+			}else{
+				Show(btnaktif.mc,btnaktif.rumus);
+			}
+		}
+		
+		
+	</script>
+	<script>
+		var arName = ["","Segitiga","Persegi","Persegipanjang","jajargenjang","Trapesium","Belah Ketupat","Layang-layang"];
+		var arBtn = [];
+		var arMc = [];
+		var arRumus = [];
+		var mcaktif = null;
+		var btnaktif = null;
+		var elaktif = null;
+		for(var i=1;i<=7;i++){
+			arMc[i] = document.getElementById('mc'+i);
+			arBtn[i] = document.getElementById('btn'+i);
+			arRumus[i] = document.getElementById('rumus'+i);
+			arBtn[i].mc = arMc[i];
+			arBtn[i].rumus = arRumus[i];
+			arBtn[i].no = i;
+			
+			arMc[i].nama = arName[i];
+			arMc[i].no = i;
+			arMc[i].btn = arBtn[i];
+			
+			arRumus[i].style.left = 730+'px';
+			arRumus[i].style.top = 350+'px';
+			arBtn[i].no = i;
+			arBtn[i].style.left = (62.86+(i-1)*85.71)+'px';
+			arBtn[i].style.top = (405.0)+'px';
+			arBtn[i].style.backgroundImage = "url(../img/btnLuas"+i+".png)";
+			arRumus[i].style.backgroundImage = "url(../img/rumusK"+i+".png)";
+		}
+		function ButtonShow(no){
+			allrumus.style.opacity = 1;
+			
+			pjg.style.opacity = '0';
+			lbr.style.opacity = '0';
+			tgg.style.opacity = '0';
+			grr.style.opacity = '1';
+			kel.style.opacity = '1';
+			rumus.style.opacity = '1';
+			nama.style.opacity = '1';
+			
+			pjg.innerHTML = 'a = ?';
+			lbr.innerHTML = 'b = ?';
+			tgg.innerHTML = 'c = ?';
+			grr.innerHTML = 'd = ?';
+			kel.innerHTML = 'kel = ?';
+			rumus.innerHTML = 'rumus = ?';
+			nama.innerHTML = 'nama = ?';
+			pjg.klik=false;
+			lbr.klik=false;
+			tgg.klik=false;
+			grr.klik=false;
+			kel.klik=false;
+			rumus.klik=false;
+			nama.klik=false;
+			
+			if(no==1){
+				lbr.innerHTML = 'a = ?';
+				tgg.innerHTML = 'b = ?';
+				grr.innerHTML = 'c = ?';
+				lbr.style.opacity = '1';
+				tgg.style.opacity = '1';
+			}else if(no==2){
+				grr.innerHTML = 's = ?';
+			}else if(no==3){
+				tgg.innerHTML = 'p = ?';
+				grr.innerHTML = 'l = ?';
+				tgg.style.opacity = '1';
+			}else if(no==4){
+				tgg.innerHTML = 'a = ?';
+				grr.innerHTML = 'b = ?';
+				tgg.style.opacity = '1';
+			}else if(no==5){
+				pjg.innerHTML = 'a = ?';
+				lbr.innerHTML = 'b = ?';
+				tgg.innerHTML = 'c = ?';
+				grr.innerHTML = 'd = ?';
+				pjg.style.opacity = '1';
+				lbr.style.opacity = '1';
+				tgg.style.opacity = '1';
+			}else if(no==6){
+				grr.innerHTML = 's = ?';
+			}else{
+				tgg.innerHTML = 'a = ?';
+				grr.innerHTML = 'b = ?';
+				tgg.style.opacity = '1';
+			}
+		}
+		function Show(mc,brumus){
+			//console.log(mc);
+			for(var i=1;i<=7;i++){
+				arMc[i].style.opacity = 0;
+				arRumus[i].style.opacity = 0;
+			}
+			if(mc){
+				mc.style.opacity = 1;
+				brumus.style.opacity = 1;
+				mcaktif = mc;
+				btnaktif = mc.btn; 
+				ButtonShow(mc.no);
+			}
+		}
+		for(var i=1;i<=7;i++){
+			arBtn[i].addEventListener('click',(e)=>{
+				var el = e.target
+				//var mc = e.target.mc;
+				//var brumus = e.target.rumus;
+				Show(el.mc,el.rumus);
+				elaktif = el;
+			});
+		}
+		
+		Reset();
+		
+	</script>
+    <script>
+		pjg.addEventListener('click', ()=>{
+			pjg.klik = !pjg.klik;
+			if(pjg.klik)	pjg.innerHTML = ''+mcaktif.t0+' = '+mcaktif.pp;
+			else			pjg.innerHTML = ''+mcaktif.t0+' = ?';
+		});
+		lbr.addEventListener('click', ()=>{
+			lbr.klik = !lbr.klik;
+			if(lbr.klik)	lbr.innerHTML = ''+mcaktif.t1+' = '+mcaktif.ll;
+			else			lbr.innerHTML = ''+mcaktif.t1+' = ?';
+		});
+		tgg.addEventListener('click', ()=>{
+			tgg.klik = !tgg.klik;
+			if(tgg.klik)	tgg.innerHTML = ''+mcaktif.t2+' = '+mcaktif.tt;
+			else			tgg.innerHTML = ''+mcaktif.t2+' = ?';
+		});
+		grr.addEventListener('click', ()=>{
+			grr.klik = !grr.klik;
+			if(grr.klik)	grr.innerHTML = ''+mcaktif.t3+' = '+mcaktif.rr;
+			else			grr.innerHTML = ''+mcaktif.t3+' = ?';
+		});
+		kel.addEventListener('click', ()=>{
+			kel.klik = !kel.klik;
+			if(kel.klik)	kel.innerHTML = 'kel = '+mcaktif.kel;
+			else			kel.innerHTML = 'kel = ?';
+		});
+		rumus.addEventListener('click', ()=>{
+			rumus.klik = !rumus.klik;
+			//if(rumus.klik)	rumus.innerHTML = 'rumus = '+mcpersegi.rumus;
+			//else				rumus.innerHTML = 'rumus = ?';
+			if(rumus.klik)	rumus.style.opacity = 0;
+			else			rumus.style.opacity = 1;
+		});
+		nama.addEventListener('click', ()=>{
+			nama.klik = !nama.klik;
+			if(nama.klik)	nama.innerHTML = 'nama = '+mcaktif.nama;
+			else			nama.innerHTML = 'nama = ?';
+		});
+		
+		acak.addEventListener('click', ()=>{
+			Reset();
+		});
+		
+		
+    </script>
+	<script>
+	</script>
+</body>
+</html>

@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dasar Pecahan</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background-color: #1a1a1a; /* Warna gelap untuk area di luar bg */
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+			overflow: hidden;
+		}
+
+		.bg {
+			position: relative; /* Diubah dari absolute agar centering lebih mudah */
+			width: 840px;
+			height: 472px;
+			/* PERBAIKAN BACKGROUND: Menggunakan gradien lembut */
+			background: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%);
+			border-radius: 10px; /* Sedikit lengkungan di pojok */
+			box-shadow: 0 10px 20px rgba(0,0,0,0.5); /* Bayangan agar realistis */
+			user-select: none;
+			-webkit-user-select: none;
+			overflow: hidden; /* Memastikan konten tidak keluar */
+		}
+
+		.terseleksi {
+			box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+
+		.myDiv {
+			position: absolute;
+			cursor: default;
+			width: 100px; 
+			height: 100px;
+			transform: translate(-50%, -50%);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		
+		/* PERBAIKAN TEKS PECAHAN (mc) */
+		.mc {
+			width: 100px; /* Sedikit diperlebar */
+			height: 120px; /* Sedikit dipertinggi */
+			/* Menghapus background ungu */
+			background-color: transparent; 
+			transform: translate(-50%, -50%);
+			position: absolute;
+			cursor: pointer;
+			user-select: none;
+			-webkit-user-select: none;
+			
+			/* Mengatur konten secara vertikal */
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+
+		/* Style untuk angka dan tanda tanya */
+		.tUkur {
+			pointer-events: none;
+			position: static; /* Menggunakan flow normal flexbox */
+			cursor: default;
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font lebih modern */
+			font-size: 32px; /* Ukuran diperbesar */
+			font-weight: bold; /* Tebal */
+			/* PERBAIKAN WARNA TEKS: Menjadi Putih */
+			color: #ffffff; 
+			width: auto;
+			height: auto;
+			/* Memberikan sedikit shadow agar teks 'keluar' */
+			text-shadow: 2px 2px 4px rgba(0,0,0,0.5); 
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			user-select: none;
+			-webkit-user-select: none;
+			line-height: 1; /* Mengatur jarak antar baris */
+		}
+
+		/* Khusus untuk garis pecahan */
+		.tUkur.garis {
+			font-size: 24px;
+			margin-top: -5px;
+			margin-bottom: -5px;
+		}
+		
+		.isibtn {
+			position: absolute;
+			width: 600px;
+			height: 420px;
+			overflow: clip;/* Options: visible, hidden, scroll, auto, clip */
+			user-select: none;
+			-webkit-user-select: none;
+		}
+
+		@keyframes Fade {
+			0% { opacity: 1; }
+			10% { opacity: 1; }
+			100% { opacity: 0; }
+		}
+
+		.fading {
+			pointer-events: none;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: #000000;
+			animation: Fade 1s ease forwards;
+			z-index: 100; /* Memastikan di atas segalanya saat fade */
+		}
+
+		.kotak {
+			cursor: pointer;
+			position: absolute;
+			background-color: rgba(255, 255, 255, 0.9); /* Sedikit transparan */
+			outline: 2px solid #333;
+			width: 700px;
+			height: 80px;
+			transform: translate(-50%, -50%);
+			border-radius: 5px;
+			user-select: none;
+			-webkit-user-select: none;
+			z-index: 10;
+		}
+
+		.arkotak {
+			pointer-events: none;
+			position: absolute;
+			background-color: transparent;
+			outline: 1px solid #555; /* Garis pembagi lebih tipis */
+			width: 40px;
+			height: 80px;
+			transform: translate(-50%, -50%);
+			user-select: none;
+			-webkit-user-select: none;
+			transition: background-color 0.2s; /* Transisi halus saat diisi */
+		}
+
+		.arisi {
+			/* Warna isi yang lebih menarik (misal: Teal) */
+			background-color: #008080; 
+			outline: 1px solid #006666;
+		}
+
+		.titik {
+			width: 20px;
+			height: 20px;
+			background-color: #e74c3c; /* Warna merah yang lebih cerah */
+			border-radius: 50%;
+			transform: translate(-50%, -50%);
+			position: absolute;
+			cursor: default;
+			touch-action: none;
+			outline: 3px solid white;
+			box-shadow: 0 0 10px rgba(0,0,0,0.5);
+			user-select: none;
+			-webkit-user-select: none;
+			z-index: 50; /* Di atas kotak */
+		}
+		
+		/* Mengatur posisi elemen teks di dalam mc secara spesifik jika diperlukan */
+		#samadengan1 {
+			font-size: 40px;
+			margin-right: 10px;
+		}
+		
+		/* Container untuk menampung bagian pecahan di mc2 agar sejajar dengan sama dengan */
+		.pecahan-container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+	</style>
+</head>
+<body>
+	<div class ="bg" id="bg">
+		<div class="kotak" id="kotak"></div>
+		<div id="container"></div>
+		
+		<!-- mc0: Pecahan Input -->
+		<div id="mc0" class="mc" style="cursor: default;">
+			<div class="tUkur" id="pembilang0">0</div>
+			<div class="tUkur garis" id="garisper0">━</div> <!-- Menggunakan karakter garis tunggal -->
+			<div class="tUkur" id="penyebut0">1</div>
+		</div>
+		
+		<!-- mc1: Tanda Tanya -->
+		<div id="mc1" class="mc">
+			<div class="tUkur" id="tanya">= ?</div>
+		</div>
+		
+		<!-- mc2: Pecahan Hasil (Sederhana) -->
+		<div id="mc2" class="mc" style="flex-direction: row; width: 150px;"> <!-- Row untuk menampung '=' dan pecahan -->
+			<div class="tUkur" id="samadengan1">=</div>
+			<div class="pecahan-container">
+				<div class="tUkur" id="pembilang1">0</div>
+				<div class="tUkur garis" id="garisper1">━</div>
+				<div class="tUkur" id="penyebut1">1</div>
+			</div>
+		</div>
+		
+		<div class="titik" id="titik"></div>
+		<div class="fading" id="tutup"></div>
+	</div>
+
+	<!-- SCRIPT TETAP SAMA (Hanya penyesuaian kecil untuk inisialisasi posisi karena perubahan CSS) -->
+	<script>
+		function RandomAngkaAtoB(a,b){ 
+			var r = a+Math.ceil(Math.random() * b);
+			return r;
+		}
+		function RandomMyArray(Arr){
+			for (var i=0; i<Arr.length; i++){
+				var r = Math.floor(Math.random() * Arr.length);
+				var a = Arr[i];
+				Arr[i] = Arr[r];
+				Arr[r] = a;
+			}
+			return Arr
+		}
+		function StringDesimal(ff){
+			var strff = ""+ff;
+			const gg = strff.split(".");
+			if(gg.length==2)	return gg[0]+","+gg[1];
+			else 				return ff
+		}
+		function CariFPB(ar){
+			var min = Math.abs(ar[0]);
+			var max = Math.abs(ar[0]);
+			for(var i=0;i<ar.length;i++){
+				var v = Math.abs(ar[i]);
+				if (v < min) min = v;
+				if (v > max) max = v;
+			}
+			if (min === 0) return max;
+			
+			var iter = 0;
+			var fpb = 1;
+			var f = [];
+			do {
+				iter++;
+				var ff = 1;
+				for(var i=0;i<ar.length;i++){
+					f[i] = (ar[i]%iter)==0;
+					ff *= f[i];
+				}
+				
+				if (ff){
+					fpb = iter;
+				}
+				var fakhir = iter>=min; // Cukup iterasi sampai angka terkecil
+			}while (!fakhir);
+			
+			return fpb;
+		}
+	</script>
+	<script>
+		// Menghapus zoom logic karena mengganggu centering CSS modern
+		const myBG = document.getElementById("bg");
+		const kotak = document.getElementById("kotak");
+		const container = document.getElementById("container");
+		const pembilang0 = document.getElementById("pembilang0");
+		const penyebut0 = document.getElementById("penyebut0");
+		const pembilang1 = document.getElementById("pembilang1");
+		const penyebut1 = document.getElementById("penyebut1");
+		const tanya = document.getElementById("tanya");
+		const mc0 = document.getElementById("mc0");
+		const mc1 = document.getElementById("mc1");
+		const mc2 = document.getElementById("mc2");
+		const titik = document.getElementById("titik");
+		
+		// Inisialisasi variabel internal bg
+		myBG.w = 840;
+		myBG.h = 472;
+		
+		titik.style.opacity = '0'; // untuk tracing titik
+		
+		// Posisi Kotak Utama
+		kotak.style.left = myBG.w/2+'px';
+		kotak.style.top = myBG.h/2 - 50 +'px'; // Sedikit ke atas
+		
+		// Posisi Area Teks (relatif terhadap bg)
+		const textY = myBG.h/2 + 120 + 'px'; // Posisi Y untuk semua teks
+		
+		mc0.style.left = (myBG.w/2 - 100)+'px';
+		mc0.style.top = textY;
+		
+		mc1.style.left = (myBG.w/2)+'px';
+		mc1.style.top = textY;
+		
+		mc2.style.left = (myBG.w/2 + 120)+'px'; // Sedikit menjauh karena mc2 lebih lebar sekarang
+		mc2.style.top = textY;
+		
+		// Set isi awal (CSS Flexbox menangani posisi internal)
+		tanya.innerHTML = '= ?'
+		pembilang0.innerHTML = '0';
+		penyebut0.innerHTML = '1';
+		pembilang1.innerHTML = '0';
+		penyebut1.innerHTML = '1';
+		
+		mc2.klik = false;
+		mc2.style.opacity='0'
+		mc2.style.transition = 'opacity 0.3s'; // Animasi halus saat muncul
+
+		mc2.addEventListener('click',()=>{
+			mc2.klik = !mc2.klik;
+			if(mc2.klik){
+				mc2.style.opacity='1'
+			}else{
+				mc2.style.opacity='0'
+			}
+		});
+		
+	</script>
+	<script>
+		var selectedEl = null;
+		// Nonaktifkan scaling sementara untuk drag logic agar kalkulasi koordinat akurat
+		var scl = 1; 
+
+        function selectElement(el) {
+            UnselectElement(el)
+            selectedEl = el;
+        }
+        function UnselectElement(el) {
+            if (selectedEl) {
+				selectedEl = null;
+            }
+        }
+		function setupDraggable(el) {
+			let startX=0, startY=0, initialX=0, initialY=0;
+            el.addEventListener('mousedown', dragMouseDown);
+            el.addEventListener('touchstart', dragMouseDown ,{ passive: false });
+			
+            function dragMouseDown(e) {
+                e.preventDefault();
+				if(!selectedEl){
+					selectElement(el);
+					if(e.type==="touchstart"){
+						startX = e.touches[0].clientX;
+						startY = e.touches[0].clientY;
+						document.addEventListener('touchend', dragMouseUp);
+						document.addEventListener('touchmove', dragMouseMove, { passive: false });
+					}else{
+						startX = e.clientX;
+						startY = e.clientY;
+						document.addEventListener('mouseup', dragMouseUp);
+						document.addEventListener('mousemove', dragMouseMove);
+					}
+					movein=false;
+					nfix1=nfix0
+				}
+            }
+			var arChild = [];
+			var nfix0 = 1; // Mulai dari 1
+			var nfix1 = 1;
+			var movein = false;
+
+			// Menghitung offset posisi kotak dari pinggir screen untuk kalkulasi klik yang akurat
+			function getBGOffset() {
+				const rect = myBG.getBoundingClientRect();
+				return { left: rect.left, top: rect.top };
+			}
+
+			function cekTekan(sX,sY){
+				const offset = getBGOffset();
+				// Koordinat mouse/touch relatif terhadap elemen .bg
+				const xF = sX - offset.left;
+				const yF = sY - offset.top;
+
+				titik.style.left = (xF)+'px';
+				titik.style.top = (yF)+'px';
+				
+				const kotakRect = kotak.getBoundingClientRect();
+				const kotakLeft = kotakRect.left - offset.left;
+				const kotakTop = kotakRect.top - offset.top;
+				const ww = kotak.offsetWidth;
+				const hh = kotak.offsetHeight;
+
+				var areax = (xF >= kotakLeft) && (xF <= kotakLeft + ww);
+				var areay = (yF >= kotakTop) && (yF <= kotakTop + hh);
+
+				if(areax && areay){
+					// Hitung bagian mana yang diklik (1-based index)
+					var partWidth = ww / nfix1;
+					var ct = Math.ceil((xF - kotakLeft) / partWidth);
+					
+					// Batasi ct agar tidak out of bounds karena presisi floating point
+					ct = Math.max(0, Math.min(ct, nfix1));
+
+					// Update visual arisi
+					for(var j=1;j<=nfix1;j++){
+						if(arChild[j]){
+							arChild[j].classList.remove('arisi');
+						}
+					}
+					for(var j=1;j<=ct;j++){
+						if(arChild[j]){
+							arChild[j].classList.add('arisi');
+						}
+					}
+					
+					updateFractions(ct, nfix1);
+				}
+			}
+			
+			function updateFractions(num, den) {
+				pembilang0.innerHTML = num;
+				penyebut0.innerHTML = den;
+				
+				if (num === 0) {
+					pembilang1.innerHTML = 0;
+					penyebut1.innerHTML = den; // Atau bisa diset 1
+				} else {
+					var fpb = CariFPB([num, den]);
+					pembilang1.innerHTML = num / fpb;
+					penyebut1.innerHTML = den / fpb;
+				}
+			}
+
+            function dragMouseMove(e) {
+				// e.preventDefault(); // Sudah di prevent di mousedown
+				if(selectedEl){
+					let currentX = (e.type === "touchmove") ? e.touches[0].clientX : e.clientX;
+					// Sensitivitas drag: ubah angka berdasarkan seberapa jauh drag horizontal
+					let diffX = currentX - startX;
+					let change = Math.round(diffX / 20); // Ubah penyebut setiap drag 20px
+					
+					if (change !== 0) {
+						AddRemove(change);
+						// Reset startX agar perubahan terasa bertahap dari posisi drag terakhir
+						startX = currentX; 
+						movein = true;
+					}
+				}
+            }
+			
+			function AddRemove(nn){
+				// Sembunyikan hasil saat penyebut berubah
+				mc2.klik = false;
+				mc2.style.opacity='0';
+				
+				const ww = kotak.offsetWidth;
+				const hh = kotak.offsetHeight;
+				const kotakRect = kotak.getBoundingClientRect();
+				const offset = getBGOffset();
+				const kotakLeft = kotakRect.left - offset.left;
+				const kotakTop = kotakRect.top - offset.top;
+
+				var nmax = 20; // Mengurangi nmax agar visual tidak terlalu padat
+				var nfix = Math.min(Math.max(1, nfix1 + nn), nmax);
+				
+				if (nfix === nfix1) return; // Tidak ada perubahan
+
+				// Hapus anak lama
+				while (container.firstChild) {
+					container.removeChild(container.firstChild);
+				}
+				arChild = [];
+
+				// Buat anak baru
+				var partWidth = ww / nfix;
+				for(var i=1; i<=nfix; i++){
+					var child = document.createElement("div");
+					child.classList.add("arkotak");
+					child.style.width = partWidth + 'px';
+					child.style.height = hh + 'px';
+					// Posisi absolute relatif terhadap .bg, sejajar dengan .kotak
+					child.style.left = kotakLeft + (partWidth * (i - 1)) + partWidth/2 + 'px';
+					child.style.top = kotakTop + hh/2 + 'px';
+					
+					container.appendChild(child);
+					arChild[i] = child;
+				}
+				nfix1 = nfix;
+				nfix0 = nfix; // Sinkronisasi nfix0 untuk drag selanjutnya
+
+				// Reset pembilang jadi 0 saat penyebut berubah
+				updateFractions(0, nfix1);
+			}
+			
+            function dragMouseUp(e) {
+				if(selectedEl){
+					let endX = (e.type === "touchend") ? e.changedTouches[0].clientX : e.clientX;
+					let endY = (e.type === "touchend") ? e.changedTouches[0].clientY : e.clientY;
+
+					if(!movein){
+						// Jika tidak drag (cuma klik), cek area mana yang ditekan
+						cekTekan(endX, endY);
+					}
+					UnselectElement(el);
+					// Hapus event listener dokumen agar tidak menumpuk
+					document.removeEventListener('mousemove', dragMouseMove);
+					document.removeEventListener('mouseup', dragMouseUp);
+					document.removeEventListener('touchmove', dragMouseMove);
+					document.removeEventListener('touchend', dragMouseUp);
+				}
+			}
+			
+			// Inisialisasi awal kotak pembagi (den = 1)
+			AddRemove(0); 
+        }
+	</script>	
+	
+	<script>
+		// Menjalankan draggable setup
+		setupDraggable(kotak);
+		
+		// Menghapus logic resize/zoom window yang lama karena menggunakan CSS centering
+		document.body.style.zoom = "100%"; 
+	</script>
+</body>
+</html>

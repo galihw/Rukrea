@@ -174,9 +174,10 @@
 			-webkit-user-select: none;
 		}
 		.arisi {
-			background-color: #ff0000;
+			background-color: #FFA500;/*#ff0000;*/
 		}
 		.titik {
+			pointer-events: none;
 			width: 20px;
 			height: 20px;
 			background-color: #3498db;
@@ -194,12 +195,24 @@
 		.mc {
 			width: 80px;
 			height: 100px;
-			background-color: #ff00ff;
+			/*background-color: #ff00ff;*/
 			transform: translate(-50%, -50%);
 			position: absolute;
 			cursor: pointer;
 			user-select: none;
 			-webkit-user-select: none;
+		}
+		.mcArea {
+			width: 160px;
+			height: 100px;
+			background-color: #FBCEB1;
+			transform: translate(-50%, -50%);
+			position: absolute;
+			user-select: none;
+			-webkit-user-select: none;
+			box-shadow: 
+				inset 2px 2px 3px rgba(0, 0, 0, 0.4), 
+				inset -2px -2px 3px rgba(255, 255, 255, 0.6);
 		}
 		.tUkur {
 			pointer-events: none;
@@ -218,12 +231,30 @@
 			user-select: none;
 			-webkit-user-select: none;
 		}
+		.tPerintah {
+			pointer-events: none;
+			position: absolute;
+			cursor: default;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #000000;
+			width: 600px;
+			height: 20px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			user-select: none;
+			-webkit-user-select: none;
+		}
 	</style>
 </head>
 <body>
 	<div class ="bg" id="bg">
 		<div class="kotak" id="kotak"></div>
 		<div id="container"></div>
+		<div id="mcArea" class="mcArea"></div>
 		<div id="mc0" class="mc" style="cursor: default;">
 			<div class="tUkur" id="pembilang0"></div>
 			<div class="tUkur" id="garisper0"></div>
@@ -238,6 +269,9 @@
 			<div class="tUkur" id="garisper1"></div>
 			<div class="tUkur" id="penyebut1"></div>
 		</div>
+		<div class="tPerintah" id="perintah1"></div>
+		<div class="tPerintah" id="perintah2"></div>
+		<div class="tPerintah" id="perintah3"></div>
 		<div class="titik" id="titik"></div>
 		<div class="fading" id="tutup"></div>
 	</div>
@@ -305,12 +339,16 @@
 		const garisper1 = document.getElementById("garisper1");
 		const penyebut1 = document.getElementById("penyebut1");
 		const tanya = document.getElementById("tanya");
+		const mcArea = document.getElementById("mcArea");
 		const mc0 = document.getElementById("mc0");
 		const mc1 = document.getElementById("mc1");
 		const mc2 = document.getElementById("mc2");
 		const titik = document.getElementById("titik");
+		const perintah1 = document.getElementById("perintah1");
+		const perintah2 = document.getElementById("perintah2");
+		const perintah3 = document.getElementById("perintah3");
 		
-		myBG.style.backgroundImage = "url(../img/bg0.png)";
+		myBG.style.backgroundImage = "url(../img/bgpecahan2.jpg)";
 		let lebarJendela = window.innerWidth;
 		let tinggiJendela = window.innerHeight;
 		var scl = 1;
@@ -326,13 +364,25 @@
 		kotak.style.left = 840/2+'px';
 		kotak.style.top = 472/2+'px';
 		
+		perintah1.style.left = 840/2+'px';
+		perintah1.style.top = (472/2)+'px';
+		perintah1.innerHTML = 'Klik dan geser ke kanan dan kiri untuk mengubah potongan.';
+		perintah2.style.left = 840/2+'px';
+		perintah2.style.top = (472-40)+'px';
+		perintah2.innerHTML = 'Klik "?" untuk melihat bentuk pecahan sederhananya (jika ada).';
+		perintah3.style.left = 840/2+'px';
+		perintah3.style.top = (472/2-60)+'px';
+		perintah3.innerHTML = 'Klik potongan untuk mengubah pecahan.';
 		
+		
+		mcArea.style.left = (840/2)+'px';
+		mcArea.style.top = (472/2+120)+'px';
 		mc0.style.left = (840/2-40)+'px';
-		mc0.style.top = (472/2+150)+'px';
+		mc0.style.top = (472/2+120)+'px';
 		mc1.style.left = (840/2+40)+'px';
-		mc1.style.top = (472/2+150)+'px';
+		mc1.style.top = (472/2+120)+'px';
 		mc2.style.left = (840/2+40)+'px';
-		mc2.style.top = (472/2+150)+'px';
+		mc2.style.top = (472/2+120)+'px';
 		
 		tanya.style.left = (40)+'px';
 		tanya.style.top = (50)+'px';
@@ -364,13 +414,17 @@
 		samadengan1.innerHTML = '=';
 		
 		mc2.klik = false;
-		mc2.style.opacity='0'
+		mc2.style.opacity='0';
 		mc2.addEventListener('click',()=>{
 			mc2.klik = !mc2.klik;
 			if(mc2.klik){
-				mc2.style.opacity='1'
+				mc1.style.opacity='0';
+				mc2.style.opacity='1';
+				perintah2.style.opacity='0';
 			}else{
-				mc2.style.opacity='0'
+				mc1.style.opacity='1';
+				mc2.style.opacity='0';
+				perintah2.style.opacity='1';
 			}
 		});
 		
@@ -481,6 +535,7 @@
 						deltaX = (e.clientX - startX) / scl;
 						deltaY = (e.clientY - startY) / scl;
 					}
+					perintah1.style.opacity='0';
 					AddRemove(Math.round(deltaX/10));
 					movein = true;
 				}
@@ -489,6 +544,9 @@
 			function AddRemove(nn){
 				mc2.klik = false;
 				mc2.style.opacity='0';
+				mc1.style.opacity='1';
+				perintah2.style.opacity='1';
+				
 				
 				var x0 = 840/2;
 				var y0 = 472/2;
@@ -520,6 +578,7 @@
 				
 				pembilang1.innerHTML = 0;
 				penyebut1.innerHTML = nfix0;
+				if(nfix<=1)	perintah1.style.opacity='1';
 			}
 			
             function dragMouseUp() {

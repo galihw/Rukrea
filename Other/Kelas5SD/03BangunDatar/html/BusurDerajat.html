@@ -41,8 +41,8 @@
 			-webkit-user-select: none;
 		}
 		.titikputar {
-			width: 20px;
-			height: 20px;
+			width: 40px;
+			height: 40px;
 			background-color: #3498db;
 			border-radius: 50%;
 			transform: translate(-50%, -50%);
@@ -107,6 +107,20 @@
 			align-items: center;
 			text-align: center;
 		}
+		.textAja {
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #ffffff;
+			/*background-color: #000000;*/
+			width: 140px;
+			height: 40px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
 		.textAB {
 			cursor: pointer;
 			position: absolute;
@@ -121,7 +135,16 @@
 			justify-content: center;
 			align-items: center;
 			text-align: center;
+			box-shadow: 
+				inset 2px 2px 3px rgba(255, 255, 255, 0.6), 
+				inset -2px -2px 3px rgba(0, 0, 0, 0.4);
 		}
+		.textAB:active {
+			/*transform: scale(0.99);*/
+			box-shadow: 
+				inset 2px 2px 3px rgba(0, 0, 0, 0.4), 
+				inset -2px -2px 3px rgba(255, 255, 255, 0.6);
+		}	
 		
 		.isibtn {
 			position: absolute;
@@ -149,7 +172,7 @@
 			</div>
 		</div>
 		<div class="textAB" id="jawab" style="background-color:#010057"></div>
-		<div class="textAB" id="tanya"></div>
+		<div class="textAja" id="tanya"></div>
 		<div class="textAB" id="reset" style="background-color:#006400"></div>
 	</div>
 	<script>

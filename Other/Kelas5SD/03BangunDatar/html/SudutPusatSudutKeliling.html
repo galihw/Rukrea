@@ -107,6 +107,9 @@
 			justify-content: center;
 			align-items: center;
 			text-align: center;
+			box-shadow: 
+				inset 2px 2px 3px rgba(0, 0, 0, 0.4), 
+				inset -2px -2px 3px rgba(255, 255, 255, 0.6);
 		}
 	</style>
 </head>
@@ -441,7 +444,10 @@
 			else		return sdtF;
 			*/
 			//return sdtF;
-			return (Ar[3]-Ar[2])*180/Math.PI;
+			//return (Ar[3]-Ar[2])*180/Math.PI;
+			sdtF = (Ar[3]-Ar[2])*180/Math.PI;
+			if(sdtF<0)	sdtF=360+sdtF;
+			return sdtF;
 		}
 		function DrawSudutPusat(canv,b,c,warna){
 			var Ar = DrawAnglePusat(b,c);
@@ -468,10 +474,15 @@
 			ctx.restore(); // Kembalikan state kanvas seperti semula
 			
 			var sdtF = 0;
+			/*
 			if(!Ar[4]) 	sdtF = (Ar[3]-Ar[2])*180/Math.PI;
 			else 		sdtF = (Ar[2]-Ar[3])*180/Math.PI;
 			if(sdtF<0)	return 360+sdtF;
 			else		return sdtF;
+			*/
+			sdtF = (Ar[3]-Ar[2])*180/Math.PI;
+			if(sdtF<0)	sdtF=360+sdtF;
+			return sdtF;
 			//return sdtF;
 		}
 		function DrawGaris(canv){
@@ -514,6 +525,8 @@
 			//sdt1 = Koma2Angka(sdt1);
 			//sdt2 = Koma2Angka(sdt2);
 			//sdt3 = Koma2Angka(sdt3);
+			
+			//console.log(sdt1)
 			var dsdt = Math.round(sdt2-2*sdt1);
 			var sdtKel = TanpaKoma(Math.abs(sdt1));
 			if(sdtKel>180) sdtKel-=180 
@@ -524,14 +537,15 @@
 			//console.log(Math.round(kali2-2));
 			var ff = (sdt1>=-270 && sdt1<=0) || sdt1>180;
 			//var ff = Math.round(kali1-2)==0;
+			sdtPusat = TanpaKoma(Math.abs(sdt3));//2*sdtKel;//
 			if(ff){
-				sdtPusat = TanpaKoma(Math.abs(sdt3));//2*sdtKel;//
+				//sdtPusat = TanpaKoma(Math.abs(sdt3));//2*sdtKel;//
 				fixpusatA.style.display = "none";
 				fixpusatB.style.display = "";
 				kali = Koma2Angka(Math.abs(sdt3/sdt1));
 				if(sdt1==0) kali = 2;
 			}else{
-				sdtPusat = TanpaKoma(Math.abs(sdt2));//2*sdtKel;//
+				//sdtPusat = TanpaKoma(Math.abs(sdt2));//2*sdtKel;//
 				fixpusatB.style.display = "none";
 				fixpusatA.style.display = "";
 				kali = Koma2Angka(Math.abs(sdt2/sdt1));

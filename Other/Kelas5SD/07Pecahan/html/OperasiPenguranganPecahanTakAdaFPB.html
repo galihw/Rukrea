@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jumlah Pecahan Tak Ada FPB</title>
+    <title>Kurang Pecahan Tak Ada FPB</title>
 	<style>
 		.bg {
 			position: absolute;
@@ -637,11 +637,11 @@
 		penyebut3A.innerHTML = '1';
 		
 		
-		tanda1.innerHTML = '+';
+		tanda1.innerHTML = '\u{2212}';
 		tanda2.innerHTML = '=';
-		tanda3.innerHTML = '+';
+		tanda3.innerHTML = '\u{2212}';
 		tanda4.innerHTML = '=';
-		tanda5.innerHTML = '+';
+		tanda5.innerHTML = '\u{2212}';
 		tanda6.innerHTML = '=';
 		
 		
@@ -672,7 +672,7 @@
 			pembilang2B.innerHTML = a2b1;
 			penyebut2A.innerHTML = KPK;
 			penyebut2B.innerHTML = KPK;
-			pembilang3A.innerHTML = a1b2+a2b1;
+			pembilang3A.innerHTML = a1b2-a2b1;if(a1b2-a2b1<0) pembilang3A.innerHTML = '\u{2212}'+Math.abs(a1b2-a2b1);
 			penyebut3A.innerHTML = KPK;
 			
 			mc0A.style.display = '';

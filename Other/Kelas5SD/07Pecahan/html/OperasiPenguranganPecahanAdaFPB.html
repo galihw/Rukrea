@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jumlah Pecahan Tak Ada FPB</title>
+    <title>Kurang Pecahan Ada FPB</title>
 	<style>
 		.bg {
 			position: absolute;
@@ -637,19 +637,19 @@
 		penyebut3A.innerHTML = '1';
 		
 		
-		tanda1.innerHTML = '+';
+		tanda1.innerHTML = '\u{2212}';
 		tanda2.innerHTML = '=';
-		tanda3.innerHTML = '+';
+		tanda3.innerHTML = '\u{2212}';
 		tanda4.innerHTML = '=';
-		tanda5.innerHTML = '+';
+		tanda5.innerHTML = '\u{2212}';
 		tanda6.innerHTML = '=';
 		
 		
 		
 		function FuncSoal(){
 			do{
-				var b1 = RandomAngkaAtoB(5,5);
-				var b2 = RandomAngkaAtoB(5,5);
+				var b1 = RandomAngkaAtoB(5,15);
+				var b2 = RandomAngkaAtoB(5,15);
 				var a1 = b1-RandomAngkaAtoB(0,b1-1);
 				var a2 = b2-RandomAngkaAtoB(0,b2-1);
 				
@@ -657,22 +657,23 @@
 				var KPK = CariKPK([b1,b2])
 				var a1b2 = a1*KPK/b1;//a1*b2;
 				var a2b1 = a2*KPK/b2;//a2*b1;
-			}while(KPK!==b1*b2)
+			}while(KPK==b1*b2 || b1==b2)
 			
 			pembilang0A.innerHTML = a1;
 			pembilang0B.innerHTML = a2;
 			penyebut0A.innerHTML = b1;
 			penyebut0B.innerHTML = b2;
 			
-			pembilang1A.innerHTML = a1+'\u{00D7}'+b2;
-			pembilang1B.innerHTML = a2+'\u{00D7}'+b1;
-			penyebut1A.innerHTML = b1+'\u{00D7}'+b2;
-			penyebut1B.innerHTML = b2+'\u{00D7}'+b1;
+			
+			pembilang1A.innerHTML = a1+'\u{00D7}'+KPK/b1;
+			pembilang1B.innerHTML = a2+'\u{00D7}'+KPK/b2;
+			penyebut1A.innerHTML = b1+'\u{00D7}'+KPK/b1;
+			penyebut1B.innerHTML = b2+'\u{00D7}'+KPK/b2;
 			pembilang2A.innerHTML = a1b2;
 			pembilang2B.innerHTML = a2b1;
 			penyebut2A.innerHTML = KPK;
 			penyebut2B.innerHTML = KPK;
-			pembilang3A.innerHTML = a1b2+a2b1;
+			pembilang3A.innerHTML = a1b2-a2b1;if(a1b2-a2b1<0) pembilang3A.innerHTML = '\u{2212}'+Math.abs(a1b2-a2b1);
 			penyebut3A.innerHTML = KPK;
 			
 			mc0A.style.display = '';

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jumlah Pecahan Tak Ada FPB</title>
+    <title>Bagi Pecahan Langsung</title>
 	<style>
 		.bg {
 			position: absolute;
@@ -495,16 +495,16 @@
 		btn.style.top = 50+'px';
 		btn.innerHTML = 'Soal Baru';
 		
-		perintah1.style.left = 840/2+'px';
-		perintah1.style.top = 365+'px';
-		perintah1.innerHTML = 'Samakan penyebutnya.';
+		perintah1.style.left = (840*3/4)+'px';
+		perintah1.style.top = 400+'px';
+		perintah1.innerHTML = 'Pembagian jadi perkalian <br>dan pecahan yang bagian kanan <br>diputar dibalik.';
 		
-		perintah2.style.left = 840/2+'px';
-		perintah2.style.top = 390+'px';
-		perintah2.innerHTML = 'Jumlahkan pembilangnya.';
+		perintah2.style.left = (840*3/4)+'px';
+		perintah2.style.top = 400+'px';
+		perintah2.innerHTML = 'Pembilang kali pembilang, <br>dan penyebut kali penyebut.';
 		
-		perintah3.style.left = 840/2+'px';
-		perintah3.style.top = 420+'px';
+		perintah3.style.left = (840*3/4)+'px';
+		perintah3.style.top = 400+'px';
 		perintah3.innerHTML = 'Selesai.';
 		
 		mc0A.style.left = (840/2-280)+'px';
@@ -637,43 +637,52 @@
 		penyebut3A.innerHTML = '1';
 		
 		
-		tanda1.innerHTML = '+';
+		tanda1.innerHTML = ':';
 		tanda2.innerHTML = '=';
-		tanda3.innerHTML = '+';
+		tanda3.innerHTML = '\u{00D7}';
 		tanda4.innerHTML = '=';
-		tanda5.innerHTML = '+';
+		tanda5.innerHTML = '\u{00D7}';
 		tanda6.innerHTML = '=';
 		
 		
 		
 		function FuncSoal(){
 			do{
-				var b1 = RandomAngkaAtoB(5,5);
-				var b2 = RandomAngkaAtoB(5,5);
-				var a1 = b1-RandomAngkaAtoB(0,b1-1);
-				var a2 = b2-RandomAngkaAtoB(0,b2-1);
+				var b1 = RandomAngkaAtoB(1,15);
+				var b2 = RandomAngkaAtoB(1,15);
+				var a1 = RandomAngkaAtoB(1,15);
+				var a2 = RandomAngkaAtoB(1,15);
+				//var a1 = b1-RandomAngkaAtoB(0,b1-1);
+				//var a2 = b2-RandomAngkaAtoB(0,b2-1);
 				
 				
-				var KPK = CariKPK([b1,b2])
-				var a1b2 = a1*KPK/b1;//a1*b2;
-				var a2b1 = a2*KPK/b2;//a2*b1;
-			}while(KPK!==b1*b2)
+				var FPBab1 = CariFPB([a1,b1]);
+				var FPBab2 = CariFPB([a2,b2]);
+				var FPB1 = CariFPB([a1,a2]);
+				var FPB2 = CariFPB([b1,b2]);
+				var FPB = FPB1*FPB2;
+			}while(FPB1!==1 || FPB2!==1 || FPBab1!==1 || FPBab2!==1);
 			
 			pembilang0A.innerHTML = a1;
 			pembilang0B.innerHTML = a2;
 			penyebut0A.innerHTML = b1;
 			penyebut0B.innerHTML = b2;
+			pembilang2B.style.display = 'none';
+			garisper2B.style.display = 'none';
+			penyebut2B.style.display = 'none';
 			
-			pembilang1A.innerHTML = a1+'\u{00D7}'+b2;
-			pembilang1B.innerHTML = a2+'\u{00D7}'+b1;
-			penyebut1A.innerHTML = b1+'\u{00D7}'+b2;
-			penyebut1B.innerHTML = b2+'\u{00D7}'+b1;
-			pembilang2A.innerHTML = a1b2;
-			pembilang2B.innerHTML = a2b1;
-			penyebut2A.innerHTML = KPK;
-			penyebut2B.innerHTML = KPK;
-			pembilang3A.innerHTML = a1b2+a2b1;
-			penyebut3A.innerHTML = KPK;
+			pembilang1A.innerHTML = a1;
+			pembilang1B.innerHTML = b2;
+			penyebut1A.innerHTML = b1;
+			penyebut1B.innerHTML = a2;
+			pembilang2A.innerHTML = a1+'\u{00D7}'+b2;
+			//pembilang2B.innerHTML = a2+'\u{00D7}'+KPK/b2;
+			penyebut2A.innerHTML = b1+'\u{00D7}'+a2;
+			//penyebut2B.innerHTML = b2+'\u{00D7}'+KPK/b2;
+			pembilang3A.innerHTML = a1*b2;
+			//pembilang3B.innerHTML = b1*b2;
+			penyebut3A.innerHTML = b1*a2;
+			//penyebut3B.innerHTML = KPK;
 			
 			mc0A.style.display = '';
 			mc0B.style.display = '';
@@ -709,7 +718,7 @@
 		btn2.addEventListener('click',()=>{
 			mc2A.style.display = '';
 			mc2B.style.display = '';
-			tanda5.style.display = '';
+			//tanda5.style.display = '';
 			tanda6.style.display = '';
 			btn2.style.display = 'none';
 			btn3.style.display = '';

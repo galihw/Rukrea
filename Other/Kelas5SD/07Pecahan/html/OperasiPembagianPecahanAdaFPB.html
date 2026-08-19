@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jumlah Pecahan Tak Ada FPB</title>
+    <title>Bagi Pecahan Ada FPB</title>
 	<style>
 		.bg {
 			position: absolute;
@@ -332,14 +332,24 @@
 			<div class="tUkur" id="garisper3A"></div>
 			<div class="tUkur" id="penyebut3A"></div>
 		</div>
+		<div id="mctanda7" class="mc">
+			<div class="tUkur" id="tanda7"></div>
+		</div>
+		<div id="mc4A" class="mc" >
+			<div class="tUkur" id="pembilang4A"></div>
+			<div class="tUkur" id="garisper4A"></div>
+			<div class="tUkur" id="penyebut4A"></div>
+		</div>
 		<div class="titik" id="titik"></div>
 		<div class="btn" id="btn"></div>
 		<div class="btn" id="btn1"></div>
 		<div class="btn" id="btn2"></div>
 		<div class="btn" id="btn3"></div>
+		<div class="btn" id="btn4"></div>
 		<div class="tPerintah" id="perintah1"></div>
 		<div class="tPerintah" id="perintah2"></div>
 		<div class="tPerintah" id="perintah3"></div>
+		<div class="tPerintah" id="perintah4"></div>
 		<div class="fading" id="tutup"></div>
 	</div>
 	<script>
@@ -446,6 +456,9 @@
 		const pembilang3A = document.getElementById("pembilang3A");
 		const garisper3A = document.getElementById("garisper3A");
 		const penyebut3A = document.getElementById("penyebut3A");
+		const pembilang4A = document.getElementById("pembilang4A");
+		const garisper4A = document.getElementById("garisper4A");
+		const penyebut4A = document.getElementById("penyebut4A");
 		const tanya = document.getElementById("tanya");
 		const mcArea = document.getElementById("mcArea");
 		const mc0A = document.getElementById("mc0A");
@@ -455,6 +468,7 @@
 		const mc2A = document.getElementById("mc2A");
 		const mc2B = document.getElementById("mc2B");
 		const mc3A = document.getElementById("mc3A");
+		const mc4A = document.getElementById("mc4A");
 		const titik = document.getElementById("titik");
 		const tanda1 = document.getElementById("tanda1");
 		const tanda2 = document.getElementById("tanda2");
@@ -462,20 +476,24 @@
 		const tanda4 = document.getElementById("tanda4");
 		const tanda5 = document.getElementById("tanda5");
 		const tanda6 = document.getElementById("tanda6");
+		const tanda7 = document.getElementById("tanda7");
 		const mctanda1 = document.getElementById("mctanda1");
 		const mctanda2 = document.getElementById("mctanda2");
 		const mctanda3 = document.getElementById("mctanda3");
 		const mctanda4 = document.getElementById("mctanda4");
 		const mctanda5 = document.getElementById("mctanda5");
 		const mctanda6 = document.getElementById("mctanda6");
+		const mctanda7 = document.getElementById("mctanda7");
 		const btn = document.getElementById("btn");
 		const btn1 = document.getElementById("btn1");
 		const btn2 = document.getElementById("btn2");
 		const btn3 = document.getElementById("btn3");
+		const btn4 = document.getElementById("btn4");
 		
 		const perintah1 = document.getElementById("perintah1");
 		const perintah2 = document.getElementById("perintah2");
 		const perintah3 = document.getElementById("perintah3");
+		const perintah4 = document.getElementById("perintah4");
 		
 		
 		myBG.style.backgroundImage = "url(../img/bgpecahan8.png)";
@@ -495,17 +513,21 @@
 		btn.style.top = 50+'px';
 		btn.innerHTML = 'Soal Baru';
 		
-		perintah1.style.left = 840/2+'px';
-		perintah1.style.top = 365+'px';
-		perintah1.innerHTML = 'Samakan penyebutnya.';
+		perintah1.style.left = (840*3/4)+'px';
+		perintah1.style.top = 400+'px';
+		perintah1.innerHTML = 'Pembagian jadi perkalian <br>dan pecahan yang bagian kanan <br>diputar dibalik.';
 		
-		perintah2.style.left = 840/2+'px';
-		perintah2.style.top = 390+'px';
-		perintah2.innerHTML = 'Jumlahkan pembilangnya.';
+		perintah2.style.left = (840*3/4)+'px';
+		perintah2.style.top = 400+'px';
+		perintah2.innerHTML = 'Pembilang kali pembilang, <br>dan penyebut kali penyebut.';
 		
-		perintah3.style.left = 840/2+'px';
-		perintah3.style.top = 420+'px';
-		perintah3.innerHTML = 'Selesai.';
+		perintah3.style.left = (840*3/4)+'px';
+		perintah3.style.top = 400+'px';
+		perintah3.innerHTML = 'Cari FPB dari pembilang dan penyebut, <br>kemudian pembilang dibagi FPB <br>dan penyebut dibagi FPB.';
+		
+		perintah4.style.left = (840*3/4)+'px';
+		perintah4.style.top = 400+'px';
+		perintah4.innerHTML = 'Selesai.';
 		
 		mc0A.style.left = (840/2-280)+'px';
 		mc0A.style.top = (472/2-150)+'px';
@@ -521,6 +543,8 @@
 		mc2B.style.top = (472/2-50)+'px';
 		mc3A.style.left = (840/2-70)+'px';
 		mc3A.style.top = (472/2+50)+'px';
+		mc4A.style.left = (840/2-70)+'px';
+		mc4A.style.top = (472/2+150)+'px';
 		
 		btn1.style.left = (840/2-50)+'px';
 		btn1.style.top = (472/2-150)+'px';
@@ -531,6 +555,9 @@
 		btn3.style.left = (840/2-50)+'px';
 		btn3.style.top = (472/2+50)+'px';
 		btn3.innerHTML = 'Lanjut';
+		btn4.style.left = (840/2-50)+'px';
+		btn4.style.top = (472/2+150)+'px';
+		btn4.innerHTML = 'Lanjut';
 		
 		mctanda1.style.left = (840/2-230)+'px';
 		mctanda1.style.top = (472/2-150)+'px';
@@ -556,6 +583,10 @@
 		mctanda6.style.top = (472/2+50)+'px';
 		tanda6.style.left = (40)+'px';
 		tanda6.style.top = (50)+'px';
+		mctanda7.style.left = (840/2-130)+'px';
+		mctanda7.style.top = (472/2+150)+'px';
+		tanda7.style.left = (40)+'px';
+		tanda7.style.top = (50)+'px';
 		//×
 		
 		pembilang0A.style.left = (40)+'px';
@@ -585,6 +616,13 @@
 		garisper3A.style.top = (50)+'px';
 		penyebut3A.style.left = (40)+'px';
 		penyebut3A.style.top = (75)+'px';
+		
+		pembilang4A.style.left = (40)+'px';
+		pembilang4A.style.top = (25)+'px';
+		garisper4A.style.left = (40)+'px';
+		garisper4A.style.top = (50)+'px';
+		penyebut4A.style.left = (40)+'px';
+		penyebut4A.style.top = (75)+'px';
 		
 		pembilang0B.style.left = (40)+'px';
 		pembilang0B.style.top = (25)+'px';
@@ -636,44 +674,60 @@
 		garisper3A.innerHTML = '\u{2501}\u{2501}';
 		penyebut3A.innerHTML = '1';
 		
+		pembilang4A.innerHTML = '0';
+		garisper4A.innerHTML = '\u{2501}\u{2501}';
+		penyebut4A.innerHTML = '1';
 		
-		tanda1.innerHTML = '+';
+		
+		tanda1.innerHTML = ':';
 		tanda2.innerHTML = '=';
-		tanda3.innerHTML = '+';
+		tanda3.innerHTML = '\u{00D7}';
 		tanda4.innerHTML = '=';
-		tanda5.innerHTML = '+';
+		tanda5.innerHTML = '\u{00D7}';
 		tanda6.innerHTML = '=';
+		tanda7.innerHTML = '=';
 		
 		
 		
 		function FuncSoal(){
 			do{
-				var b1 = RandomAngkaAtoB(5,5);
-				var b2 = RandomAngkaAtoB(5,5);
-				var a1 = b1-RandomAngkaAtoB(0,b1-1);
-				var a2 = b2-RandomAngkaAtoB(0,b2-1);
+				var b1 = RandomAngkaAtoB(1,15);
+				var b2 = RandomAngkaAtoB(1,15);
+				var a1 = RandomAngkaAtoB(1,15);
+				var a2 = RandomAngkaAtoB(1,15);
+				//var a1 = b1-RandomAngkaAtoB(0,b1-1);
+				//var a2 = b2-RandomAngkaAtoB(0,b2-1);
 				
 				
-				var KPK = CariKPK([b1,b2])
-				var a1b2 = a1*KPK/b1;//a1*b2;
-				var a2b1 = a2*KPK/b2;//a2*b1;
-			}while(KPK!==b1*b2)
+				var FPBab1 = CariFPB([a1,b1]);
+				var FPBab2 = CariFPB([a2,b2]);
+				var FPB1 = CariFPB([a1,a2]);
+				var FPB2 = CariFPB([b1,b2]);
+				var FPB = FPB1*FPB2;
+			}while(FPB1==1 || FPB2==1 || FPBab1!==1 || FPBab2!==1);
 			
 			pembilang0A.innerHTML = a1;
 			pembilang0B.innerHTML = a2;
 			penyebut0A.innerHTML = b1;
 			penyebut0B.innerHTML = b2;
+			pembilang2B.style.display = 'none';
+			garisper2B.style.display = 'none';
+			penyebut2B.style.display = 'none';
 			
-			pembilang1A.innerHTML = a1+'\u{00D7}'+b2;
-			pembilang1B.innerHTML = a2+'\u{00D7}'+b1;
-			penyebut1A.innerHTML = b1+'\u{00D7}'+b2;
-			penyebut1B.innerHTML = b2+'\u{00D7}'+b1;
-			pembilang2A.innerHTML = a1b2;
-			pembilang2B.innerHTML = a2b1;
-			penyebut2A.innerHTML = KPK;
-			penyebut2B.innerHTML = KPK;
-			pembilang3A.innerHTML = a1b2+a2b1;
-			penyebut3A.innerHTML = KPK;
+			pembilang1A.innerHTML = a1;
+			pembilang1B.innerHTML = b2;
+			penyebut1A.innerHTML = b1;
+			penyebut1B.innerHTML = a2;
+			pembilang2A.innerHTML = a1+'\u{00D7}'+b2;
+			//pembilang2B.innerHTML = a2+'\u{00D7}'+KPK/b2;
+			penyebut2A.innerHTML = b1+'\u{00D7}'+a2;
+			//penyebut2B.innerHTML = b2+'\u{00D7}'+KPK/b2;
+			pembilang3A.innerHTML = a1*b2;
+			//pembilang3B.innerHTML = b1*b2;
+			penyebut3A.innerHTML = b1*a2;
+			//penyebut3B.innerHTML = KPK;
+			pembilang4A.innerHTML = a1*b2/FPB;
+			penyebut4A.innerHTML = b1*a2/FPB;
 			
 			mc0A.style.display = '';
 			mc0B.style.display = '';
@@ -686,13 +740,17 @@
 			tanda5.style.display = 'none';
 			mc3A.style.display = 'none';
 			tanda6.style.display = 'none';
+			mc4A.style.display = 'none';
+			tanda7.style.display = 'none';
 			btn1.style.display = '';
 			btn2.style.display = 'none';
 			btn3.style.display = 'none';
+			btn4.style.display = 'none';
 			
 			perintah1.style.display = 'none';
 			perintah2.style.display = 'none';
 			perintah3.style.display = 'none';
+			perintah4.style.display = 'none';
 		}
 		
 		
@@ -709,7 +767,7 @@
 		btn2.addEventListener('click',()=>{
 			mc2A.style.display = '';
 			mc2B.style.display = '';
-			tanda5.style.display = '';
+			//tanda5.style.display = '';
 			tanda6.style.display = '';
 			btn2.style.display = 'none';
 			btn3.style.display = '';
@@ -718,9 +776,17 @@
 		});
 		btn3.addEventListener('click',()=>{
 			mc3A.style.display = '';
+			tanda7.style.display = '';
 			btn3.style.display = 'none';
+			btn4.style.display = '';
 			perintah2.style.display = 'none';
 			perintah3.style.display = '';
+		});
+		btn4.addEventListener('click',()=>{
+			mc4A.style.display = '';
+			btn4.style.display = 'none';
+			perintah3.style.display = 'none';
+			perintah4.style.display = '';
 		});
 		
 		

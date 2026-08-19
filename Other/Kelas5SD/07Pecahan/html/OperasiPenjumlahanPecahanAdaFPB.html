@@ -457,7 +457,17 @@
 		const mc3A = document.getElementById("mc3A");
 		const titik = document.getElementById("titik");
 		const tanda1 = document.getElementById("tanda1");
+		const tanda2 = document.getElementById("tanda2");
+		const tanda3 = document.getElementById("tanda3");
+		const tanda4 = document.getElementById("tanda4");
+		const tanda5 = document.getElementById("tanda5");
+		const tanda6 = document.getElementById("tanda6");
 		const mctanda1 = document.getElementById("mctanda1");
+		const mctanda2 = document.getElementById("mctanda2");
+		const mctanda3 = document.getElementById("mctanda3");
+		const mctanda4 = document.getElementById("mctanda4");
+		const mctanda5 = document.getElementById("mctanda5");
+		const mctanda6 = document.getElementById("mctanda6");
 		const btn = document.getElementById("btn");
 		const btn1 = document.getElementById("btn1");
 		const btn2 = document.getElementById("btn2");
@@ -654,23 +664,17 @@
 			penyebut0A.innerHTML = b1;
 			penyebut0B.innerHTML = b2;
 			
-			if(b1==b2){
-				pembilang1A.innerHTML = a1;
-				pembilang1B.innerHTML = a2;
-				penyebut1A.innerHTML = b1;
-				penyebut1B.innerHTML = b2;
-			}else{
-				pembilang1A.innerHTML = a1+'\u{00D7}'+KPK/b1;
-				pembilang1B.innerHTML = a2+'\u{00D7}'+KPK/b2;
-				penyebut1A.innerHTML = b1+'\u{00D7}'+KPK/b1;
-				penyebut1B.innerHTML = b2+'\u{00D7}'+KPK/b2;
-				pembilang2A.innerHTML = a1b2;
-				pembilang2B.innerHTML = a2b1;
-				penyebut2A.innerHTML = KPK;
-				penyebut2B.innerHTML = KPK;
-				pembilang3A.innerHTML = a1b2+a2b1;
-				penyebut3A.innerHTML = KPK;
-			}
+			pembilang1A.innerHTML = a1+'\u{00D7}'+KPK/b1;
+			pembilang1B.innerHTML = a2+'\u{00D7}'+KPK/b2;
+			penyebut1A.innerHTML = b1+'\u{00D7}'+KPK/b1;
+			penyebut1B.innerHTML = b2+'\u{00D7}'+KPK/b2;
+			pembilang2A.innerHTML = a1b2;
+			pembilang2B.innerHTML = a2b1;
+			penyebut2A.innerHTML = KPK;
+			penyebut2B.innerHTML = KPK;
+			pembilang3A.innerHTML = a1b2+a2b1;
+			penyebut3A.innerHTML = KPK;
+			
 			mc0A.style.display = '';
 			mc0B.style.display = '';
 			mc1A.style.display = 'none';

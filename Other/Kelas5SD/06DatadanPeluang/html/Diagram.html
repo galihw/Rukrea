@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagram</title>
+	<style>
+		.bg {
+			position: absolute;
+			width: 840px;
+			height: 472px;
+			background-color: grey;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.terseleksi {
+			box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.myCanvas {
+			position: absolute;
+			cursor: default;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.myCanvasArea {
+			position: absolute;
+			cursor: default;
+			width: 100px; 
+			height: 100px;
+			/*transform: translate(-50%, -50%);*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.myDiv {
+			position: absolute;
+			cursor: default;
+			width: 100px; 
+			height: 100px;
+			transform: translate(-50%, -50%);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.textbox {
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #ffffff;
+			background-color: #000000;
+			width: 140px;
+			height: 120px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.textAB {
+			cursor: default;
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 18px;
+			color: #000000;
+			outline: 3px solid #000000;
+			background-color: #ffffff;
+			width: 60px;
+			height: 40px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.textData {
+			cursor: pointer;
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #000000;
+			/*outline: 3px solid #000000;*/
+			/*background-color: #ffffff;*/
+			width: 40px;
+			height: 40px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.textHasil {
+			cursor: default;
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 18px;
+			color: #000000;
+			outline: 3px solid #000000;
+			background-color: #ffffff;
+			width: 250px;
+			height: 40px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: left;/*center;*/
+			align-items: center;
+			text-align: left;/*center;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.isibtn {
+			position: absolute;
+			width: 600px;
+			height: 420px;
+			overflow: clip;/* Options: visible, hidden, scroll, auto, clip */
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.isiks {
+			position: absolute;
+			width: 50px;
+			height: 50px;
+			/*transform: translate(-50%, -50%);*/
+			user-select: none;
+			-webkit-user-select: none;
+			
+		}
+		.mcgarisper0segi {
+			position: absolute;
+			width: 0px;
+			height: 0px;
+			transform: translate(-50%, -50%);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.myCanvas {
+			position: absolute;
+			cursor: default;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.btn {
+			cursor: pointer;
+			position: absolute;
+			width: 72px;
+			height: 56px;
+			transform: translate(-50%, -50%);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		@keyframes Fade {
+			0% {
+				opacity: 1;
+			}
+			10% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+			}
+		}
+		.fading {
+			pointer-events: none;
+			position: absolute;
+			width: 840px;
+			height: 472px;
+			background-color: #000000;
+			animation: Fade 1s ease forwards;
+		}
+		.kotak {
+			cursor: pointer;
+			position: absolute;
+			background-color: #ffffff;
+			outline: 2px solid #000000;
+			width: 700px;
+			height: 80px;
+			transform: translate(-50%, -50%);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.arkotak {
+			pointer-events: none;
+			position: absolute;
+			background-color: #ffffff;
+			outline: 2px solid #000000;
+			width: 40px;
+			height: 80px;
+			transform: translate(-50%, -50%);
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.arisi {
+			background-color: #FFA500;/*#ff0000;*/
+		}
+		.titik {
+			pointer-events: none;
+			width: 20px;
+			height: 20px;
+			background-color: #3498db;
+			border-radius: 50%;
+			transform: translate(-50%, -50%);
+			position: absolute;
+			cursor: default;
+			touch-action: none;
+			outline: 3px solid black;
+			
+			/*opacity : 0.5;*/
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.mc {
+			width: 266px;
+			height: 280px;
+			/*background-color: #ff00ff;*/
+			transform: translate(-50%, -50%);
+			position: absolute;
+			cursor: default;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.mcD {
+			width: 386px;
+			height: 432px;
+			/*background-color: #ff00ff;*/
+			/*transform: translate(-50%, -50%);*/
+			position: absolute;
+			cursor: default;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.mcBtg {
+			width: 44px;
+			height: 362px;
+			/*background-color: #ff00ff;*/
+			transform: translate(-50%, -100%);
+			position: absolute;
+			cursor: default;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.mcPik {
+			width: 263px;
+			height: 54px;
+			/*background-color: #ff00ff;*/
+			transform: translate(-0%, -0%);
+			position: absolute;
+			cursor: default;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.mcPinset {
+			width: 21px;
+			height: 38px;
+			/*background-color: #ff00ff;*/
+			transform: translate(-50%, -50%);
+			position: absolute;
+			cursor: default;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.mcCircle {
+			width: 20px;
+			height: 20px;
+			/*background-color: #ff00ff;*/
+			transform: translate(-50%, -50%);
+			position: absolute;
+			cursor: default;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.mcArea {
+			width: 160px;
+			height: 100px;
+			background-color: #FBCEB1;
+			transform: translate(-50%, -50%);
+			position: absolute;
+			user-select: none;
+			-webkit-user-select: none;
+			box-shadow: 
+				inset 2px 2px 3px rgba(0, 0, 0, 0.4), 
+				inset -2px -2px 3px rgba(255, 255, 255, 0.6);
+		}
+		.tUkur {
+			pointer-events: none;
+			position: absolute;
+			cursor: default;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #000000;
+			width: 40px;
+			height: 20px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.tPerintah {
+			pointer-events: none;
+			position: absolute;
+			cursor: default;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #000000;
+			width: 600px;
+			height: 20px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			user-select: none;
+			-webkit-user-select: none;
+		}
+		.btn {
+			cursor: pointer;
+			position: absolute;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 15px;
+			width: 100px;
+			height: 40px;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			user-select: none;
+			-webkit-user-select: none;
+			
+			background-color: #3498db;
+			color: white;
+			border: none;
+			font-weight: bold;
+			
+			box-shadow: 
+				inset 2px 2px 3px rgba(255, 255, 255, 0.6), 
+				inset -2px -2px 3px rgba(0, 0, 0, 0.4);
+  
+			transition: transform 0.1s ease;
+		}
+		.btn:active {
+			/*transform: scale(0.99);*/
+			box-shadow: 
+			inset 2px 2px 3px rgba(0, 0, 0, 0.4), 
+			inset -2px -2px 3px rgba(255, 255, 255, 0.6);
+		}
+		.animzoom {
+			animation: membesarMengecil 0.5s ease-in-out;
+		}
+
+		@keyframes membesarMengecil {
+			0% {
+				font-size: 20px;
+			}
+			50% {
+				font-size: 30px;
+			}
+			100% {
+				font-size: 25px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class ="bg" id="bg">
+		<div class="myCont" id="container" width="840" height="472"></div>
+		<div class="mc" id="tabel">
+			<div class="textData" id="nil1" style="cursor: default;"></div>
+			<div class="textData" id="nil2" style="cursor: default;"></div>
+			<div class="textData" id="nil3" style="cursor: default;"></div>
+			<div class="textData" id="nil4" style="cursor: default;"></div>
+			<div class="textData" id="nil5" style="cursor: default;"></div>
+			<div class="textData" id="nil6" style="cursor: default;"></div>
+			<div class="textData" id="nil7" style="cursor: default;"></div>
+		</div>
+		
+		<div class="btn" id="btnA" style='width:50px; height:50px'></div>
+		<div class="btn" id="btnB" style='width:50px; height:50px'></div>
+		<div class="btn" id="btnC" style='width:50px; height:50px'></div>
+		
+		<div class="mcD" id="diagram3" style='width:386px; height:432px'>
+			<div class="mcD" id="belakang3"></div>
+			<div class="mcPik" id="pp1"></div>
+			<div class="mcPik" id="pp2"></div>
+			<div class="mcPik" id="pp3"></div>
+			<div class="mcPik" id="pp4"></div>
+			<div class="mcPik" id="pp5"></div>
+			<div class="mcPik" id="pp6"></div>
+		</div>
+		<div class="mcD" id="diagram2" style='width:386px; height:432px'>
+			<div class="mcD" id="belakang2"></div>
+			<div class="mcD" id="depan2"></div>
+			<canvas class="myCanvas" id="garis" width="386" height="432" ></canvas>
+			<div class="mcCircle" id="cc1"></div>
+			<div class="mcCircle" id="cc2"></div>
+			<div class="mcCircle" id="cc3"></div>
+			<div class="mcCircle" id="cc4"></div>
+			<div class="mcCircle" id="cc5"></div>
+			<div class="mcCircle" id="cc6"></div>
+		</div>
+		<div class="mcD" id="diagram1" style='width:386px; height:432px'>
+			<div class="mcD" id="belakang1"></div>
+			<div class="mcBtg" id="bt1"></div>
+			<div class="mcBtg" id="bt2"></div>
+			<div class="mcBtg" id="bt3"></div>
+			<div class="mcBtg" id="bt4"></div>
+			<div class="mcBtg" id="bt5"></div>
+			<div class="mcBtg" id="bt6"></div>
+			<div class="mcD" id="depan1"></div>
+		</div>
+		<div class="btn" id="btn"></div>
+		<div class="fading" id="tutup"></div>
+	</div>
+	<script>
+		function RandomAngkaAtoB(a,b){ 
+			var r = a+Math.ceil(Math.random() * b);
+			return r;
+		}
+		function RandomMyArray(Arr){
+			for (var i=0; i<Arr.length; i++){
+				var r = Math.floor(Math.random() * Arr.length);
+				var a = Arr[i];
+				Arr[i] = Arr[r];
+				Arr[r] = a;
+			}
+			return Arr
+		}
+		function StringDesimal(ff){
+			var strff = ""+ff;
+			const gg = strff.split(".");
+			if(gg.length==2)	return gg[0]+","+gg[1];
+			else 				return ff
+		}
+		function StringRibuan(str){
+			var strfix = "";
+			var arfix = new Array();
+			var StrArray = SplitString(str);
+			for (var i=0; i<StrArray.length; i++){
+				arfix.push(StrArray[i]);
+			}
+			var ct = 0;
+			var m = 0;
+			var n = 0;
+			var ctmax = StrArray.length;
+			var arct = new Array();
+			for (var i=StrArray.length-1; i>=0; i--){
+				ct++;
+				ctmax--;
+				if(ct==3){
+					ct = 0;
+					m++;
+					arct.push(3);
+				}
+			}
+			var n = StrArray.length - 3*arct.length;
+			var iter=-1;
+			strfix="";
+			for (var i=0; i<n; i++){
+				iter++;
+				strfix += arfix[iter];
+			}
+			if (n>0)
+				strfix += ".";
+			for (var i=0; i<m; i++){
+				for (j=0; j<3; j++){
+					iter++;
+					strfix += arfix[iter];
+				}
+				strfix += ".";
+			}
+			var leng = strfix.length;
+			strfix = strfix.substr(0, leng-1);
+			return strfix
+		}
+		function SplitString(ff){
+			var gg = new Array();
+			var strff = ""+ff;
+			var len = strff.length;
+			for (var i=0; i<len; i++){
+				gg.push(strff.substr(i,1));
+			}
+			return gg;
+		}
+		function CariFPB(ar){
+			//https://www.ketutrare.com/2019/05/contoh-aplikasi-fpb-dan-kpk-menggunakan-bahasa-c.html
+			
+			var min = 0;
+			var max = 0;
+			for(var i=0;i<ar.length;i++){
+				min = Math.min(min,ar[i]);
+				max = Math.max(max,ar[i]);
+			}
+			
+			var iter = 0;
+			var fpb = 1;
+			var f = [];
+			do {
+				iter++;
+				ff = 1;
+				for(var i=0;i<ar.length;i++){
+					f[i] = (ar[i]%iter)==0;
+					ff *= f[i];
+				}
+				
+				if (ff){
+					fpb = iter;
+				}
+				fakhir = iter==max;
+			}while (!fakhir);
+			
+			return fpb;
+		}
+		function sortAZ(arr){
+			arr.sort(function(a, b){return a-b});
+			return arr;
+		}
+		function sortZA(arr){
+			arr.sort(function(a, b){return b-a});
+			return arr;
+		}
+	</script>
+	<script>
+		const cX = window.scrollX;
+		const cY = window.scrollY;
+		const myBG = document.getElementById("bg");
+		
+		const container = document.getElementById("container");
+		const btn = document.getElementById("btn");
+		const tabel = document.getElementById("tabel");
+		const diagram1 = document.getElementById("diagram1");
+		const belakang1 = document.getElementById("belakang1");
+		const depan1 = document.getElementById("depan1");
+		const diagram2 = document.getElementById("diagram2");
+		const belakang2 = document.getElementById("belakang2");
+		const diagram3 = document.getElementById("diagram3");
+		const belakang3 = document.getElementById("belakang3");
+		const depan2 = document.getElementById("depan2");
+		const garis = document.getElementById("garis");
+		const btnA = document.getElementById("btnA");
+		const btnB = document.getElementById("btnB");
+		const btnC = document.getElementById("btnC");
+		
+		
+		myBG.style.backgroundImage = "url(../img/bg01.png)";
+		tabel.style.backgroundImage = "url(../img/01Tabel.png)";
+		belakang1.style.backgroundImage = "url(../img/Diagram01bawah.png)";
+		depan1.style.backgroundImage = "url(../img/Diagram01atas.png)";
+		belakang2.style.backgroundImage = "url(../img/Diagram02bawah.png)";
+		depan2.style.backgroundImage = "url(../img/Diagram02atas.png)";
+		belakang3.style.backgroundImage = "url(../img/Diagram03.png)";
+		let lebarJendela = window.innerWidth;
+		let tinggiJendela = window.innerHeight;
+		var scl = 1;
+		myBG.x = window.scrollX+(lebarJendela-840*scl)/2;
+		myBG.y = window.scrollY+(tinggiJendela-472*scl)/2;
+		myBG.style.left = ''+(myBG.x)+'px';
+		myBG.style.top = ''+(myBG.y)+'px';
+		myBG.w = 840;
+		myBG.h = 472;
+		
+		// untuk tab
+		btnA.style.left = 720+'px';
+		btnA.style.top = 100+'px';
+		//btnA.innerHTML = '1';
+		btnB.style.left = 720+'px';
+		btnB.style.top = 150+'px';
+		//btnB.innerHTML = '2';
+		btnC.style.left = 720+'px';
+		btnC.style.top = 200+'px';
+		//btnC.innerHTML = '3';
+		btnA.style.backgroundImage = "url(../img/btntabel1.png)";
+		btnB.style.backgroundImage = "url(../img/btntabel2.png)";
+		btnC.style.backgroundImage = "url(../img/btntabel3.png)";
+		
+		// untuk diagram 2
+		garis.style.left = 0+'px';
+		garis.style.top = 0+'px';
+		// untu diagram 1
+		//diagram1.style.display = 'none'; // hilangkan diagram1 batang
+		
+		diagram1.style.left = 310+'px';
+		diagram1.style.top = 20+'px';
+		diagram2.style.left = 310+'px';
+		diagram2.style.top = 20+'px';
+		diagram3.style.left = 310+'px';
+		diagram3.style.top = 20+'px';
+		tabel.style.left = 155+'px';
+		tabel.style.top = 162.22+'px';
+		
+		btn.style.left = 770+'px';
+		btn.style.top = 40+'px';
+		btn.innerHTML = 'Acak Angka';
+		
+		var arNil = [];
+		for(let i=0;i<7;i++){
+			arNil[i] = document.getElementById("nil"+(i+1))
+			arNil[i].style.left = 170+'px';
+			arNil[i].style.top  = (55+35*i)+'px';
+		}
+		for(let i=1;i<=6;i++){
+			document.getElementById("bt"+i).style.left = (104.87+43.24*(i-1))+'px';
+			document.getElementById("bt"+i).style.top  = 392+'px';
+			document.getElementById("bt"+i).style.backgroundImage = "url(../img/D01batang0"+i+".png)";
+			document.getElementById("bt"+i).style.height = 0/12*362+'px';
+			
+			document.getElementById("cc"+i).style.left = (104.87+43.24*(i-1))+'px';
+			document.getElementById("cc"+i).style.top  = 392+'px';
+			document.getElementById("cc"+i).style.backgroundImage = "url(../img/D02bulat0"+i+".png)";
+			
+			document.getElementById("pp"+i).style.left = (123.59)+'px';
+			document.getElementById("pp"+i).style.top  = (50.82+52.94*(i-1))+'px';
+			document.getElementById("pp"+i).style.backgroundImage = "url(../img/D03pik.png)";
+			document.getElementById("pp"+i).style.width = 263+'px';
+		}
+		
+	</script>
+	<script>
+		//warnaBatang = ['#9999FF','#EB99FF','#FF99C2','#FFC299','#EBFF99','#99FF99'];
+	</script>
+	<script>
+		function DrawGaris(canv,arxy){
+			const canvas = document.getElementById(canv);
+			const ctx = canvas.getContext('2d');
+			
+			//ctx.clearRect(0,0, canvas.width, canvas.height);
+			ctx.clearRect(0,0, 386, 432);
+			ctx.beginPath();
+			ctx.moveTo(arxy[0][0],arxy[0][1]);
+			ctx.lineTo(arxy[1][0],arxy[1][1]);
+			ctx.lineTo(arxy[2][0],arxy[2][1]);
+			ctx.lineTo(arxy[3][0],arxy[3][1]);
+			ctx.lineTo(arxy[4][0],arxy[4][1]);
+			ctx.lineTo(arxy[5][0],arxy[5][1]);
+			ctx.strokeStyle = '#000000'; // Warna
+			
+			ctx.lineWidth = 3; // Ketebalan garis 5px
+			//ctx.closePath();
+			ctx.stroke();
+			return 0;
+		}
+		function Klik(e){
+			arNil[e.currentTarget.mc].ct++;
+			arNil[e.currentTarget.mc].innerHTML = arNil[e.currentTarget.mc].ct;
+			
+			arNil[6].ct++;
+			arNil[6].innerHTML = arNil[6].ct;
+			e.currentTarget.style.opacity = 0.3;
+			e.currentTarget.removeEventListener('click', Klik);
+			e.currentTarget.style.cursor = 'default';
+			
+			if(arNil[6].ct==30)	modus.style.display = '';
+			
+			arNil[e.currentTarget.mc].classList.remove("animzoom"); // anim zoom
+			void arNil[e.currentTarget.mc].offsetWidth;
+			arNil[e.currentTarget.mc].classList.add("animzoom"); // anim zoom
+		}
+		function AcakData(){
+			var data = [100,90,80,70,60,50];
+			var get;
+			var max = 0;
+			var ctmax = 0;
+			var ardata = [0,0,0,0,0,0,0]
+			var maxdata = 30;
+			do{
+				ardata = [0,0,0,0,0,0,0];
+				for(let i=0;i<maxdata;i++){
+					data = RandomMyArray(data);
+					ardata[data[0]/10-5]++ ;
+				}
+				var cekData = [].concat(ardata);
+				for(let i=0;i<7;i++){
+					arNil[i].innerHTML=ardata[i];
+					if(i==6)	arNil[i].innerHTML=maxdata;
+				}
+				for(let i=1;i<=6;i++){
+					document.getElementById("bt"+i).style.height = ardata[i-1]/12*362+'px';
+				}
+				var ar_xy = [];
+				for(let i=1;i<=6;i++){
+					document.getElementById("cc"+i).style.top = (392-ardata[i-1]/12*362)+'px';
+					ar_xy.push([(104.87+43.24*(i-1)),(392-ardata[i-1]/12*362)])
+				}
+				DrawGaris('garis',ar_xy)
+				for(let i=1;i<=6;i++){
+					document.getElementById("pp"+i).style.width = ardata[i-1]/12*263+'px';
+				}
+				cekData=sortAZ(cekData);
+				//console.log('cekData ',cekData)
+				var ff = cekData[0]==cekData[1] || cekData[5]==cekData[6] || cekData[5]>12 || cekData[1]==0; //acak ketika ada dua maksimum
+				
+			}while(ff)
+			
+		}
+		function Reset(){
+			AcakData();
+		}
+		Reset()
+	</script>
+	<script>
+		diagram1.style.display = '';
+		diagram2.style.display = 'none';
+		diagram3.style.display = 'none';
+		btn.addEventListener('click',()=>{
+			Reset();
+		});
+		btnA.addEventListener('click',()=>{
+			diagram1.style.display = '';
+			diagram2.style.display = 'none';
+			diagram3.style.display = 'none';
+		});
+		btnB.addEventListener('click',()=>{
+			diagram1.style.display = 'none';
+			diagram2.style.display = '';
+			diagram3.style.display = 'none';
+		});
+		btnC.addEventListener('click',()=>{
+			diagram1.style.display = 'none';
+			diagram2.style.display = 'none';
+			diagram3.style.display = '';
+		});
+	
+	</script>
+	<script>
+	
+		var fixscale = 1;
+		var fixzoom
+		document.body.style.backgroundColor = "black";
+		window.addEventListener('resize', () => {
+			ZoomAll();
+		});
+		function XYbenda(){
+			lebarJendela = window.innerWidth;
+			tinggiJendela = window.innerHeight;
+			myBG.x = window.scrollX+(lebarJendela-840*scl)/2;
+			myBG.y = window.scrollY+(tinggiJendela-472*scl)/2;
+			myBG.style.left = ''+(myBG.x)+'px';
+			myBG.style.top = ''+(myBG.y)+'px';
+		}
+		function ZoomAll(){
+			let lebarJendela = window.innerWidth;
+			let tinggiJendela = window.innerHeight;
+			var xscale = lebarJendela/840;
+			var yscale = tinggiJendela/472;
+			scl = 0.95*Math.min(xscale,yscale);
+			fixscale = scl;
+			fixzoom = scl*100;
+			document.body.style.zoom = ""+fixzoom+"%";
+			XYbenda();
+		}
+		
+		ZoomAll();
+		function handleClick(event) {
+			console.log("handleClick");
+		}
+		myBG.addEventListener('click', handleClick);
+		setTimeout(() => {
+			console.log("handleClick")
+			ZoomAll();
+			myBG.removeEventListener('click', handleClick);
+		}, 100);
+		
+	</script>
+	<script>
+	</script>
+</body>
+</html>
